@@ -1,0 +1,84 @@
+import Link from "next/link";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { cn } from "@/lib/utils";
+
+type PillVariant = "filled" | "ghost";
+type PillSize = "sm" | "md";
+
+interface BaseProps {
+  variant?: PillVariant;
+  size?: PillSize;
+  className?: string;
+  children: ReactNode;
+}
+
+type AnchorProps = BaseProps & {
+  href: string;
+  external?: boolean;
+  onClick?: never;
+  type?: never;
+  disabled?: never;
+};
+
+type ButtonProps = BaseProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & {
+    href?: undefined;
+    external?: never;
+  };
+
+type PillButtonProps = AnchorProps | ButtonProps;
+
+const baseClasses =
+  "inline-flex items-center justify-center rounded-full font-sans font-medium border transition-transform duration-200 ease-out hover:-translate-y-px focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-obsidian disabled:opacity-50 disabled:pointer-events-none";
+
+const variantClasses: Record<PillVariant, string> = {
+  filled:
+    "bg-obsidian text-eggshell border-chalk shadow-[rgba(0,0,0,0.06)_0_0_0_1px,_rgba(0,0,0,0.04)_0_1px_2px,_rgba(0,0,0,0.04)_0_2px_4px] hover:bg-obsidian/90",
+  ghost:
+    "bg-white text-obsidian border-chalk shadow-[rgba(0,0,0,0.06)_0_0_0_1px,_rgba(0,0,0,0.04)_0_1px_2px] hover:bg-powder",
+};
+
+const sizeClasses: Record<PillSize, string> = {
+  sm: "h-8 px-3 text-[14px]",
+  md: "h-10 px-4 text-[14px]",
+};
+
+export function PillButton(props: PillButtonProps) {
+  const { variant = "filled", size = "md", className, children } = props;
+  const classes = cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
+
+  if ("href" in props && props.href !== undefined) {
+    const { href, external } = props;
+    if (external || /^(https?:|mailto:|tel:)/.test(href)) {
+      return (
+        <a
+          href={href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
+          className={classes}
+        >
+          {children}
+        </a>
+      );
+    }
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
+
+  const { href: _href, variant: _v, size: _s, className: _c, children: _ch, ...buttonRest } =
+    props as ButtonProps;
+  void _href;
+  void _v;
+  void _s;
+  void _c;
+  void _ch;
+
+  return (
+    <button {...buttonRest} className={classes}>
+      {children}
+    </button>
+  );
+}
