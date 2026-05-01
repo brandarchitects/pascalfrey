@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { JsonLd, personSchema, websiteSchema } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -26,9 +28,39 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pascal Frey · Markenberater & Creative Director · Schweiz",
-  description:
-    "Pascal Frey entwickelt seit über 20 Jahren Marken für Schweizer Unternehmen. Creative Director bei Swisscom, Gründer von Brand Architects.",
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} · Markenberater & Creative Director · Schweiz`,
+    template: `%s · ${SITE.name}`,
+  },
+  description: SITE.description,
+  authors: [{ name: SITE.name, url: SITE.url }],
+  creator: SITE.name,
+  alternates: {
+    canonical: "/",
+    languages: {
+      "de-CH": "/",
+      en: "/en",
+      "x-default": "/",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "de_CH",
+    url: SITE.url,
+    title: `${SITE.name} · Markenberater & Creative Director · Schweiz`,
+    description: SITE.description,
+    siteName: SITE.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} · Markenberater & Creative Director`,
+    description: SITE.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -42,6 +74,8 @@ export default function RootLayout({
       className={`${cormorant.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body className="min-h-screen bg-eggshell text-obsidian antialiased">
+        <JsonLd data={personSchema()} />
+        <JsonLd data={websiteSchema()} />
         <Header />
         {children}
         <Footer />

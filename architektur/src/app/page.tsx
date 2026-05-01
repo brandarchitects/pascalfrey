@@ -8,9 +8,18 @@ import { LogoWall } from "@/components/blocks/LogoWall";
 import { ProjectCard } from "@/components/blocks/ProjectCard";
 import { PostListItem } from "@/components/blocks/PostListItem";
 import { ClosingStatement } from "@/components/blocks/ClosingStatement";
-import { AWARDS, CLIENT_LOGOS, PROJECTS, POSTS } from "@/lib/data";
+import { AWARDS, CLIENT_LOGOS } from "@/lib/data";
+import {
+  getAllPosts,
+  getAllWork,
+  formatPostDate,
+  readingTimeLabel,
+} from "@/lib/content";
 
 export default function Home() {
+  const works = getAllWork("de").slice(0, 3);
+  const posts = getAllPosts("de").slice(0, 3);
+
   return (
     <main>
       <Hero
@@ -39,15 +48,15 @@ export default function Home() {
             </Heading>
           </div>
           <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.slice(0, 3).map((p) => (
-              <li key={p.slug}>
+            {works.map((w) => (
+              <li key={w.slug}>
                 <ProjectCard
-                  href={`/arbeiten/${p.slug}`}
-                  cover={p.cover}
-                  client={p.client}
-                  year={p.year}
-                  title={p.title}
-                  role={p.role}
+                  href={`/arbeiten/${w.slug}`}
+                  cover={w.cover}
+                  client={w.client}
+                  year={w.year}
+                  title={w.title}
+                  role={w.role}
                 />
               </li>
             ))}
@@ -76,12 +85,12 @@ export default function Home() {
             </Heading>
           </div>
           <ol className="divide-y divide-chalk border-t border-chalk">
-            {POSTS.slice(0, 3).map((p) => (
+            {posts.map((p) => (
               <li key={p.slug}>
                 <PostListItem
                   href={`/denken/${p.slug}`}
-                  date={p.date}
-                  readingTime={p.readingTime}
+                  date={formatPostDate(p.date, "de")}
+                  readingTime={readingTimeLabel(p, "de")}
                   tag={p.tag}
                   title={p.title}
                   excerpt={p.excerpt}

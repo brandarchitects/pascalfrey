@@ -3,7 +3,7 @@ import { Container } from "@/components/layout/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { ProjectCard } from "@/components/blocks/ProjectCard";
-import { PROJECTS } from "@/lib/data";
+import { getAllWork } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Arbeiten · Pascal Frey · Markenberater & Creative Director",
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function ArbeitenPage() {
+  const works = getAllWork("de");
+
   return (
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
@@ -30,15 +32,16 @@ export default function ArbeitenPage() {
       <section className="pb-24">
         <Container>
           <ul className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2">
-            {PROJECTS.map((p) => (
-              <li key={p.slug}>
+            {works.map((w) => (
+              <li key={w.slug}>
                 <ProjectCard
-                  href={`/arbeiten/${p.slug}`}
-                  cover={p.cover}
-                  client={p.client}
-                  year={p.year}
-                  title={p.title}
-                  role={p.role}
+                  href={`/arbeiten/${w.slug}`}
+                  cover={w.cover}
+                  client={w.client}
+                  year={w.year}
+                  title={w.title}
+                  role={w.role}
+                  tags={w.tags}
                 />
               </li>
             ))}

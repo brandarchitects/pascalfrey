@@ -3,7 +3,11 @@ import { Container } from "@/components/layout/Container";
 import { Heading } from "@/components/ui/Heading";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PostListItem } from "@/components/blocks/PostListItem";
-import { POSTS } from "@/lib/data";
+import {
+  getAllPosts,
+  formatPostDate,
+  readingTimeLabel,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Denken · Pascal Frey · Notizen, Essays, Beobachtungen",
@@ -12,6 +16,8 @@ export const metadata: Metadata = {
 };
 
 export default function DenkenPage() {
+  const posts = getAllPosts("de");
+
   return (
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
@@ -21,8 +27,8 @@ export default function DenkenPage() {
             Notizen, Essays, Beobachtungen.
           </Heading>
           <p className="mt-6 max-w-[50ch] text-[18px] leading-[1.5] text-gravel">
-            Was mich beschäftigt — über Markenarbeit, Design und die
-            Schweizer Wirtschaft. Manchmal kurz, manchmal lang. Immer ehrlich.
+            Was mich beschäftigt — über Markenarbeit, Design und die Schweizer
+            Wirtschaft. Manchmal kurz, manchmal lang. Immer ehrlich.
           </p>
         </Container>
       </section>
@@ -30,12 +36,12 @@ export default function DenkenPage() {
       <section className="pb-24">
         <Container>
           <ol className="divide-y divide-chalk border-t border-chalk">
-            {POSTS.map((p) => (
+            {posts.map((p) => (
               <li key={p.slug}>
                 <PostListItem
                   href={`/denken/${p.slug}`}
-                  date={p.date}
-                  readingTime={p.readingTime}
+                  date={formatPostDate(p.date, "de")}
+                  readingTime={readingTimeLabel(p, "de")}
                   tag={p.tag}
                   title={p.title}
                   excerpt={p.excerpt}

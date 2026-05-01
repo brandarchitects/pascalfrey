@@ -2,8 +2,8 @@ import type { ClientLogo } from "@/components/blocks/LogoWall";
 import type { Award } from "@/components/blocks/AwardsStrip";
 
 /**
- * Static content data — pre-CMS placeholders.
- * Sprint 3 will replace this with TinaCMS-managed content.
+ * Static reference data — not editable via CMS.
+ * Posts and work cases live in content/ as MDX (see src/lib/content.ts).
  */
 
 export const AWARDS: Award[] = [
@@ -41,86 +41,4 @@ export const CLIENT_LOGOS: ClientLogo[] = [
   { name: "SOCAR", src: "/logos/clients/socar.png" },
   { name: "Expert Suisse", src: "/logos/clients/xpsuisse.png" },
   { name: "Dolder Waldhaus", src: "/logos/clients/dolder-waldhaus.png" },
-];
-
-export interface Project {
-  slug: string;
-  cover: string;
-  client: string;
-  year: number | string;
-  title: string;
-  role: string;
-  tags?: string[];
-}
-
-export const PROJECTS: Project[] = [
-  {
-    slug: "swisscom-neo",
-    cover: "/images/blog/placeholder-1.jpg",
-    client: "Swisscom",
-    year: "2024–25",
-    title: "Swisscom NEO Brand Refresh",
-    role: "Creative Director · Visual System & Brand Guide",
-    tags: ["Markenarchitektur", "Designsystem"],
-  },
-  {
-    slug: "brand-architects",
-    cover: "/images/blog/placeholder-2.jpg",
-    client: "Brand Architects",
-    year: 2018,
-    title: "Brand Architects Foundation",
-    role: "Founder · Positioning",
-    tags: ["Positionierung"],
-  },
-  {
-    slug: "geberit-architecture",
-    cover: "/images/blog/placeholder-1.jpg",
-    client: "Geberit",
-    year: 2019,
-    title: "Geberit Markenarchitektur",
-    role: "Lead Designer · Templating",
-    tags: ["Markenarchitektur"],
-  },
-];
-
-export interface Post {
-  slug: string;
-  date: string;
-  readingTime: string;
-  tag?: string;
-  title: string;
-  excerpt: string;
-  cover?: string;
-}
-
-export const POSTS: Post[] = [
-  {
-    slug: "markenstrategie-fuer-tech-startups",
-    date: "April 2026",
-    readingTime: "8 min lesen",
-    tag: "Markenstrategie",
-    title: "Markenstrategie für Tech-Start-ups",
-    excerpt:
-      "Was sich ändert, wenn KI zum Co-Autor der Marke wird, und warum das nicht so neu ist, wie es scheint.",
-    cover: "/images/blog/placeholder-1.jpg",
-  },
-  {
-    slug: "ai-in-der-markenarbeit",
-    date: "März 2026",
-    readingTime: "6 min lesen",
-    tag: "KI",
-    title: "AI in der Markenarbeit — Werkzeug, nicht Ersatz",
-    excerpt:
-      "Wo KI in der Markenarbeit wirklich hilft — und wo sie das Strategische auf eine Weise verdünnt, die später teuer wird.",
-    cover: "/images/blog/placeholder-2.jpg",
-  },
-  {
-    slug: "good-design-good-business",
-    date: "Februar 2026",
-    readingTime: "5 min lesen",
-    tag: "Haltung",
-    title: "Good design is good business — was Dieter Rams heute bedeutet",
-    excerpt:
-      "Eine Notiz darüber, warum sich der vermeintlich abgegriffene Satz für Markenarbeit weiterhin lohnt.",
-  },
 ];
