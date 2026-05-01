@@ -91,7 +91,7 @@ export default async function EnWorkPage({ params }: PageProps) {
 
       <section className="pt-16 pb-12 sm:pt-24">
         <Container size="prose">
-          <Eyebrow variant="fh">{t("work.detail.eyebrow", "en")}</Eyebrow>
+          <Eyebrow>{t("work.detail.eyebrow", "en")}</Eyebrow>
           <Heading as="h1" size="display" className="mt-4">
             {work.title}
           </Heading>
@@ -126,7 +126,7 @@ export default async function EnWorkPage({ params }: PageProps) {
         <section className="pb-16">
           <Container size="prose">
             <div className="rounded-2xl border border-chalk p-6">
-              <Eyebrow variant="fh">{t("work.detail.award", "en")}</Eyebrow>
+              <Eyebrow>{t("work.detail.award", "en")}</Eyebrow>
               <p className="mt-3 text-[16px] text-cinder">{work.award}</p>
             </div>
           </Container>
@@ -146,7 +146,7 @@ export default async function EnWorkPage({ params }: PageProps) {
       {related.length > 0 && (
         <section className="border-t border-chalk py-24">
           <Container>
-            <Eyebrow variant="fh">{t("common.related", "en")}</Eyebrow>
+            <Eyebrow>{t("common.related", "en")}</Eyebrow>
             <ul className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((w) => (
                 <li key={w.slug}>

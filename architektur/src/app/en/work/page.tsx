@@ -24,7 +24,7 @@ export default function EnWorkPage() {
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
         <Container size="prose">
-          <Eyebrow variant="fh">{t("work.eyebrow", "en")}</Eyebrow>
+          <Eyebrow>{t("work.eyebrow", "en")}</Eyebrow>
           <Heading as="h1" size="display" className="mt-6">
             {t("work.heading", "en")}
           </Heading>

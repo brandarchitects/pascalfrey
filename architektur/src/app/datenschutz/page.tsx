@@ -13,7 +13,7 @@ export default function DatenschutzPage() {
   return (
     <main className="py-24">
       <Container size="prose">
-        <Eyebrow variant="fh">Datenschutz</Eyebrow>
+        <Eyebrow>Datenschutz</Eyebrow>
         <Heading as="h1" size="lg" className="mt-6">
           Datenschutz
         </Heading>

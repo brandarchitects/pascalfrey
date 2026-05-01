@@ -9,7 +9,7 @@ export default function NotFound() {
     <main className="flex min-h-[70vh] items-center">
       <Container size="prose">
         <Stack gap={24}>
-          <Eyebrow variant="fh">404</Eyebrow>
+          <Eyebrow>404</Eyebrow>
           <Heading as="h1" size="display">
             Diese Seite existiert nicht.
           </Heading>

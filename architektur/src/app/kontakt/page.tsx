@@ -16,7 +16,7 @@ export default function KontaktPage() {
       <Container size="prose">
         <Stack gap={32}>
           <Stack gap={16}>
-            <Eyebrow variant="fh">Kontakt</Eyebrow>
+            <Eyebrow>Kontakt</Eyebrow>
             <Heading as="h1" size="display">
               Schreib mir.
             </Heading>

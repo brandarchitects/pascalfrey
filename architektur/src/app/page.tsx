@@ -37,7 +37,7 @@ export default function Home() {
       <section className="py-24" aria-labelledby="work-teaser-heading">
         <Container>
           <div className="mb-12 max-w-[60ch]">
-            <Eyebrow variant="fh">Arbeiten</Eyebrow>
+            <Eyebrow>Arbeiten</Eyebrow>
             <Heading
               as="h2"
               size="lg"
@@ -74,7 +74,7 @@ export default function Home() {
       <section className="py-24" aria-labelledby="thinking-teaser-heading">
         <Container>
           <div className="mb-8 max-w-[60ch]">
-            <Eyebrow variant="fh">Denken</Eyebrow>
+            <Eyebrow>Denken</Eyebrow>
             <Heading
               as="h2"
               size="lg"

@@ -21,7 +21,7 @@ export default function EnContactPage() {
       <Container size="prose">
         <Stack gap={32}>
           <Stack gap={16}>
-            <Eyebrow variant="fh">{t("contact.eyebrow", "en")}</Eyebrow>
+            <Eyebrow>{t("contact.eyebrow", "en")}</Eyebrow>
             <Heading as="h1" size="display">
               {t("contact.heading", "en")}
             </Heading>

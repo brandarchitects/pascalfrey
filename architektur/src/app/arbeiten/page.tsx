@@ -18,7 +18,7 @@ export default function ArbeitenPage() {
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
         <Container size="prose">
-          <Eyebrow variant="fh">Arbeiten</Eyebrow>
+          <Eyebrow>Arbeiten</Eyebrow>
           <Heading as="h1" size="display" className="mt-6">
             Eine Auswahl aus 20 Jahren.
           </Heading>

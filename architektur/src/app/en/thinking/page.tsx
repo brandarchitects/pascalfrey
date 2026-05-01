@@ -26,7 +26,7 @@ export default function EnThinkingPage() {
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
         <Container size="prose">
-          <Eyebrow variant="fh">{t("thinking.eyebrow", "en")}</Eyebrow>
+          <Eyebrow>{t("thinking.eyebrow", "en")}</Eyebrow>
           <Heading as="h1" size="display" className="mt-6">
             {t("thinking.heading", "en")}
           </Heading>

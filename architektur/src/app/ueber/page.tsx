@@ -83,7 +83,7 @@ export default function UeberPage() {
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
         <Container size="prose">
-          <Eyebrow variant="fh">Über</Eyebrow>
+          <Eyebrow>Über</Eyebrow>
           <Heading as="h1" size="display" className="mt-6">
             Pascal Frey.
           </Heading>
@@ -120,7 +120,7 @@ export default function UeberPage() {
       <section className="border-t border-chalk py-24">
         <Container>
           <div className="mb-12 max-w-[60ch]">
-            <Eyebrow variant="fh">Werdegang</Eyebrow>
+            <Eyebrow>Werdegang</Eyebrow>
           </div>
           <ol className="divide-y divide-chalk border-t border-chalk">
             {CAREER.map((step) => (
@@ -145,14 +145,14 @@ export default function UeberPage() {
       <section className="py-24" aria-labelledby="skills-heading">
         <Container>
           <div className="mb-12">
-            <Eyebrow variant="fh" id="skills-heading">
+            <Eyebrow id="skills-heading">
               Skills · Expertise
             </Eyebrow>
           </div>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {SKILLS.map((s) => (
               <div key={s.category}>
-                <Eyebrow variant="fh">{s.category}</Eyebrow>
+                <Eyebrow>{s.category}</Eyebrow>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {s.tags.map((t) => (
                     <li
@@ -171,7 +171,7 @@ export default function UeberPage() {
 
       <section className="bg-powder py-30">
         <Container size="prose">
-          <Eyebrow variant="fh">Haltung</Eyebrow>
+          <Eyebrow>Haltung</Eyebrow>
           <Heading as="h2" size="lg" className="mt-6 max-w-[30ch]">
             Marke ist eine Geschäfts­entscheidung, keine Geschmacks­frage.
           </Heading>

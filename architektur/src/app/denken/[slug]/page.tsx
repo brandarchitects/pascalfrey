@@ -127,7 +127,7 @@ export default async function PostPage({ params }: PageProps) {
       {related.length > 0 && (
         <section className="border-t border-chalk py-24">
           <Container>
-            <Eyebrow variant="fh">Weiterlesen</Eyebrow>
+            <Eyebrow>Weiterlesen</Eyebrow>
             <ol className="mt-8 divide-y divide-chalk border-t border-chalk">
               {related.map((p) => (
                 <li key={p.slug}>

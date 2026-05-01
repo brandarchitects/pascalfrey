@@ -50,7 +50,7 @@ function StyleguideBlock({
   return (
     <div className="border-t border-chalk pt-12">
       <div className="mb-8">
-        <Eyebrow variant="fh">{title}</Eyebrow>
+        <Eyebrow>{title}</Eyebrow>
         {description && (
           <p className="mt-2 max-w-[65ch] text-[16px] leading-[1.5] text-gravel">
             {description}
@@ -68,7 +68,7 @@ export default function StyleguidePage() {
       <Section spacing="loose">
         <Container>
           <Stack gap={16}>
-            <Eyebrow variant="fh">Styleguide · v0.1 · Phase 1</Eyebrow>
+            <Eyebrow>Styleguide · v0.1 · Phase 1</Eyebrow>
             <Heading as="h1" size="display">
               Foundation.
             </Heading>
@@ -206,8 +206,8 @@ export default function StyleguidePage() {
             >
               <Stack gap={16}>
                 <Eyebrow variant="default">Über · About</Eyebrow>
-                <Eyebrow variant="fh">Arbeiten · Work</Eyebrow>
-                <Eyebrow variant="fh">Vertrauen seit 20 Jahren</Eyebrow>
+                <Eyebrow>Arbeiten · Work</Eyebrow>
+                <Eyebrow>Vertrauen seit 20 Jahren</Eyebrow>
               </Stack>
             </StyleguideBlock>
 

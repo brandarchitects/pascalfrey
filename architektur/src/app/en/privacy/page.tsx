@@ -21,7 +21,7 @@ export default function EnPrivacyPage() {
   return (
     <main className="py-24">
       <Container size="prose">
-        <Eyebrow variant="fh">{t("privacy.eyebrow", "en")}</Eyebrow>
+        <Eyebrow>{t("privacy.eyebrow", "en")}</Eyebrow>
         <Heading as="h1" size="lg" className="mt-6">
           {t("privacy.heading", "en")}
         </Heading>

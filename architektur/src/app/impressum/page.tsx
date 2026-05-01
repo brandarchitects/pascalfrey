@@ -12,7 +12,7 @@ export default function ImpressumPage() {
   return (
     <main className="py-24">
       <Container size="prose">
-        <Eyebrow variant="fh">Impressum</Eyebrow>
+        <Eyebrow>Impressum</Eyebrow>
         <Heading as="h1" size="lg" className="mt-6">
           Impressum
         </Heading>

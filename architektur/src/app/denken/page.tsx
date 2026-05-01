@@ -29,7 +29,7 @@ export default function DenkenPage() {
     <main>
       <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
         <Container size="prose">
-          <Eyebrow variant="fh">Denken</Eyebrow>
+          <Eyebrow>Denken</Eyebrow>
           <Heading as="h1" size="display" className="mt-6">
             Notizen, Essays, Beobachtungen.
           </Heading>

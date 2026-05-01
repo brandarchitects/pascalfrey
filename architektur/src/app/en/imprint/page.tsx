@@ -21,7 +21,7 @@ export default function EnImprintPage() {
   return (
     <main className="py-24">
       <Container size="prose">
-        <Eyebrow variant="fh">{t("imprint.eyebrow", "en")}</Eyebrow>
+        <Eyebrow>{t("imprint.eyebrow", "en")}</Eyebrow>
         <Heading as="h1" size="lg" className="mt-6">
           {t("imprint.heading", "en")}
         </Heading>

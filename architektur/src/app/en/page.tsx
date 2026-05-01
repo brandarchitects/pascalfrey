@@ -51,7 +51,7 @@ export default function EnHome() {
       <section className="py-24" aria-labelledby="work-teaser-heading">
         <Container>
           <div className="mb-12 max-w-[60ch]">
-            <Eyebrow variant="fh">{t("home.work.eyebrow", "en")}</Eyebrow>
+            <Eyebrow>{t("home.work.eyebrow", "en")}</Eyebrow>
             <Heading
               as="h2"
               size="lg"
@@ -88,7 +88,7 @@ export default function EnHome() {
       <section className="py-24" aria-labelledby="thinking-teaser-heading">
         <Container>
           <div className="mb-8 max-w-[60ch]">
-            <Eyebrow variant="fh">{t("home.thinking.eyebrow", "en")}</Eyebrow>
+            <Eyebrow>{t("home.thinking.eyebrow", "en")}</Eyebrow>
             <Heading
               as="h2"
               size="lg"

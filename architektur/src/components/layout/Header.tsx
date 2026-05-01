@@ -54,9 +54,6 @@ export function Header() {
   const isEN = isEnglishPath(pathname);
   const nav = isEN ? NAV_EN : NAV_DE;
   const homeHref = isEN ? "/en" : "/";
-  const tagline = isEN
-    ? "Brand · Creative Direction · Zürich"
-    : "Markenberater · Creative Director · Zürich";
 
   return (
     <header
@@ -67,37 +64,32 @@ export function Header() {
           : "border-b border-transparent bg-eggshell",
       )}
     >
-      <div className="mx-auto flex h-20 w-full max-w-[1280px] items-center justify-between gap-6 px-6 sm:h-24 sm:px-10 lg:px-16">
-        {/* Brand cluster: Wappen + Wordmark + Tagline */}
+      <div className="mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-6 px-6 sm:h-[72px] sm:px-8 lg:px-12">
+        {/* Brand: Wappen + Wordmark — ElevenLabs-style compact cluster */}
         <Link
           href={homeHref}
-          aria-label={`Pascal Frey — ${isEN ? "Home" : "Startseite"}`}
-          className="group flex flex-shrink-0 items-center gap-4"
+          aria-label="Pascal Frey"
+          className="flex flex-shrink-0 items-center gap-2.5"
         >
           <span
             aria-hidden
-            className="relative block h-11 w-11 flex-shrink-0 sm:h-12 sm:w-12"
+            className="relative block h-9 w-9 flex-shrink-0"
           >
             <Image
               src="/brand/unicorn-stamp.png"
               alt=""
               fill
               priority
-              sizes="48px"
+              sizes="36px"
               className="object-contain"
             />
           </span>
-          <span className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-[20px] font-light tracking-[-0.4px] text-obsidian">
-              Pascal Frey
-            </span>
-            <span className="mt-0.5 font-mono text-[10px] uppercase leading-[1.3] tracking-[0.7px] text-gravel">
-              {tagline}
-            </span>
+          <span className="font-display text-[18px] font-light leading-none tracking-[-0.36px] text-obsidian">
+            Pascal Frey
           </span>
         </Link>
 
-        {/* Navigation — desktop only */}
+        {/* Navigation */}
         <nav
           aria-label={isEN ? "Primary" : "Hauptnavigation"}
           className="hidden md:block"
@@ -113,18 +105,18 @@ export function Header() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "group relative inline-block py-1 text-[14px] tracking-[0.01em] transition-colors duration-150",
+                      "relative inline-block py-2 text-[14px] tracking-[0.01em] transition-colors duration-150",
                       active
                         ? "text-obsidian"
-                        : "text-cinder hover:text-obsidian",
+                        : "text-gravel hover:text-obsidian",
                     )}
                   >
                     {item.label}
                     <span
                       aria-hidden
                       className={cn(
-                        "absolute -bottom-0.5 left-0 h-px bg-obsidian transition-[width] duration-200",
-                        active ? "w-full" : "w-0 group-hover:w-full",
+                        "absolute -bottom-px left-0 h-px bg-obsidian transition-[width] duration-200",
+                        active ? "w-full" : "w-0",
                       )}
                     />
                   </Link>
@@ -135,7 +127,7 @@ export function Header() {
         </nav>
 
         {/* Right side: Language switcher + Mobile toggle */}
-        <div className="flex flex-shrink-0 items-center gap-4 lg:gap-6">
+        <div className="flex flex-shrink-0 items-center gap-4">
           <div className="hidden md:block">
             <LanguageSwitcher />
           </div>
@@ -154,7 +146,7 @@ export function Header() {
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
             onClick={() => setMobileOpen((v) => !v)}
-            className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-chalk bg-white text-obsidian shadow-[rgba(0,0,0,0.06)_0_0_0_1px,_rgba(0,0,0,0.04)_0_1px_2px] md:hidden"
+            className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-chalk bg-white text-obsidian shadow-[rgba(0,0,0,0.06)_0_0_0_1px,_rgba(0,0,0,0.04)_0_1px_2px] md:hidden"
           >
             <span aria-hidden className="relative block h-3 w-4">
               <span
@@ -184,7 +176,7 @@ export function Header() {
       {mobileOpen && (
         <div
           id="mobile-nav"
-          className="fixed inset-0 top-20 z-30 bg-eggshell sm:top-24 md:hidden"
+          className="fixed inset-0 top-16 z-30 bg-eggshell sm:top-[72px] md:hidden"
         >
           <nav
             aria-label={isEN ? "Mobile primary" : "Mobile Hauptnavigation"}
