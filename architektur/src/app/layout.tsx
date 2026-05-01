@@ -3,8 +3,10 @@ import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { JsonLd, personSchema, websiteSchema } from "@/lib/seo";
+import { JsonLd, personSchema, websiteSchema, ogImageUrl } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -51,11 +53,29 @@ export const metadata: Metadata = {
     title: `${SITE.name} · Markenberater & Creative Director · Schweiz`,
     description: SITE.description,
     siteName: SITE.name,
+    images: [
+      {
+        url: ogImageUrl({
+          title: "Pascal Frey",
+          eyebrow: "Markenberater · Creative Director",
+          subtitle: "Marken, die bleiben.",
+        }),
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} · Markenberater & Creative Director`,
     description: SITE.description,
+    images: [
+      ogImageUrl({
+        title: "Pascal Frey",
+        eyebrow: "Markenberater · Creative Director",
+        subtitle: "Marken, die bleiben.",
+      }),
+    ],
   },
   robots: {
     index: true,
@@ -79,6 +99,8 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

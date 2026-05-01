@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/en/thinking",
     languages: { "de-CH": "/denken", en: "/en/thinking", "x-default": "/denken" },
+    types: {
+      "application/rss+xml": "/en/thinking/feed.xml",
+    },
   },
 };
 

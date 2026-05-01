@@ -1,5 +1,17 @@
 import { SITE, absoluteUrl } from "./site";
 
+export function ogImageUrl(opts: {
+  title: string;
+  eyebrow?: string;
+  subtitle?: string;
+}): string {
+  const params = new URLSearchParams();
+  params.set("title", opts.title);
+  if (opts.eyebrow) params.set("eyebrow", opts.eyebrow);
+  if (opts.subtitle) params.set("subtitle", opts.subtitle);
+  return `${SITE.url}/api/og?${params.toString()}`;
+}
+
 export function personSchema() {
   return {
     "@context": "https://schema.org",

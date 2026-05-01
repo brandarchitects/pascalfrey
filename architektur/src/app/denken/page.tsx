@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   title: "Denken · Pascal Frey · Notizen, Essays, Beobachtungen",
   description:
     "Pascal Frey über Markenstrategie, Design, KI und die Schweizer Wirtschaft. Notizen, Essays, Beobachtungen aus 20 Jahren Markenarbeit.",
+  alternates: {
+    canonical: "/denken",
+    languages: { "de-CH": "/denken", en: "/en/thinking", "x-default": "/denken" },
+    types: {
+      "application/rss+xml": "/denken/feed.xml",
+    },
+  },
 };
 
 export default function DenkenPage() {

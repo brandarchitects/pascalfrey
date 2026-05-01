@@ -9,6 +9,7 @@ import { MetaBlock } from "@/components/blocks/MetaBlock";
 import { ProjectCard } from "@/components/blocks/ProjectCard";
 import { PrevNext } from "@/components/blocks/PrevNext";
 import { mdxComponents } from "@/components/mdx";
+import { ogImageUrl } from "@/lib/seo";
 import { getAllWork, getWorkBySlug } from "@/lib/content";
 import { t } from "@/lib/i18n";
 
@@ -39,7 +40,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: work.title,
       description: work.summary,
-      images: work.cover ? [work.cover] : undefined,
+      images: [
+        {
+          url: ogImageUrl({
+            title: work.title,
+            eyebrow: `${work.client} · ${work.year}`,
+            subtitle: work.summary,
+          }),
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
   };
 }

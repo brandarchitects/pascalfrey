@@ -9,7 +9,7 @@ import { AuthorBox } from "@/components/blocks/AuthorBox";
 import { PrevNext } from "@/components/blocks/PrevNext";
 import { PostListItem } from "@/components/blocks/PostListItem";
 import { mdxComponents } from "@/components/mdx";
-import { JsonLd, articleSchema } from "@/lib/seo";
+import { JsonLd, articleSchema, ogImageUrl } from "@/lib/seo";
 import {
   getAllPosts,
   getPostBySlug,
@@ -50,6 +50,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "article",
       publishedTime: post.date,
       authors: ["Pascal Frey"],
+      images: [
+        {
+          url: ogImageUrl({
+            title: post.title,
+            eyebrow: post.tag ?? "Denken",
+            subtitle: post.excerpt,
+          }),
+          width: 1200,
+          height: 630,
+        },
+      ],
     },
   };
 }
