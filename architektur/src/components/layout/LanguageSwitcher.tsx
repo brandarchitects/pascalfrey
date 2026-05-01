@@ -3,34 +3,21 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import {
+  LOCALES,
+  detectLocaleFromPath,
+  alternatePath,
+  type Locale,
+} from "@/lib/i18n";
 
-const LOCALES = [
-  { code: "de", label: "DE" },
-  { code: "en", label: "EN" },
-] as const;
-
-type LocaleCode = (typeof LOCALES)[number]["code"];
-
-function detectLocale(pathname: string): LocaleCode {
-  return pathname === "/en" || pathname.startsWith("/en/") ? "en" : "de";
-}
-
-function localizedHref(target: LocaleCode, pathname: string): string {
-  const current = detectLocale(pathname);
-  if (current === target) return pathname;
-
-  if (target === "en") {
-    if (pathname === "/") return "/en";
-    return `/en${pathname}`;
-  }
-  if (pathname === "/en") return "/";
-  if (pathname.startsWith("/en/")) return pathname.replace(/^\/en/, "");
-  return pathname;
-}
+const LABELS: Record<Locale, string> = {
+  de: "DE",
+  en: "EN",
+};
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const pathname = usePathname() ?? "/";
-  const active = detectLocale(pathname);
+  const active = detectLocaleFromPath(pathname);
 
   return (
     <div
@@ -40,16 +27,16 @@ export function LanguageSwitcher({ className }: { className?: string }) {
       )}
     >
       {LOCALES.map((loc, idx) => {
-        const isActive = active === loc.code;
+        const isActive = active === loc;
         return (
-          <span key={loc.code} className="inline-flex items-center gap-2">
+          <span key={loc} className="inline-flex items-center gap-2">
             {idx > 0 && (
               <span aria-hidden className="text-fog">
                 ·
               </span>
             )}
             <Link
-              href={localizedHref(loc.code, pathname)}
+              href={alternatePath(pathname, loc)}
               aria-current={isActive ? "page" : undefined}
               className={cn(
                 "transition-colors duration-150",
@@ -58,7 +45,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
                   : "text-gravel hover:text-obsidian",
               )}
             >
-              {loc.label}
+              {LABELS[loc]}
             </Link>
           </span>
         );

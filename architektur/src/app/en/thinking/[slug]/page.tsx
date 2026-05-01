@@ -16,33 +16,31 @@ import {
   formatPostDate,
   readingTimeLabel,
 } from "@/lib/content";
+import { t } from "@/lib/i18n";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const posts = getAllPosts("de");
+  const posts = getAllPosts("en");
   return posts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug, "de");
+  const post = getPostBySlug(slug, "en");
   if (!post) return {};
-  const enExists = getPostBySlug(slug, "en");
   return {
     title: `${post.title} · Pascal Frey`,
     description: post.excerpt,
     alternates: {
-      canonical: `/denken/${slug}`,
-      languages: enExists
-        ? {
-            "de-CH": `/denken/${slug}`,
-            en: `/en/thinking/${slug}`,
-            "x-default": `/denken/${slug}`,
-          }
-        : { "de-CH": `/denken/${slug}`, "x-default": `/denken/${slug}` },
+      canonical: `/en/thinking/${slug}`,
+      languages: {
+        "de-CH": `/denken/${slug}`,
+        en: `/en/thinking/${slug}`,
+        "x-default": `/denken/${slug}`,
+      },
     },
     openGraph: {
       title: post.title,
@@ -54,12 +52,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function PostPage({ params }: PageProps) {
+export default async function EnPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug, "de");
+  const post = getPostBySlug(slug, "en");
   if (!post) notFound();
 
-  const all = getAllPosts("de");
+  const all = getAllPosts("en");
   const idx = all.findIndex((p) => p.slug === slug);
   const prev = idx >= 0 && idx + 1 < all.length ? all[idx + 1] : null;
   const next = idx > 0 ? all[idx - 1] : null;
@@ -90,7 +88,7 @@ export default async function PostPage({ params }: PageProps) {
       <section className="pt-16 pb-8 sm:pt-24">
         <Container size="prose">
           <div className="text-[14px] text-gravel">
-            {formatPostDate(post.date, "de")} · {readingTimeLabel(post, "de")}
+            {formatPostDate(post.date, "en")} · {readingTimeLabel(post, "en")}
             {post.tag ? <> · {post.tag}</> : null}
           </div>
           <Heading as="h1" size="display" className="mt-4">
@@ -109,21 +107,21 @@ export default async function PostPage({ params }: PageProps) {
 
       <section className="pb-16">
         <Container size="prose">
-          <AuthorBox locale="de" />
+          <AuthorBox locale="en" />
         </Container>
       </section>
 
       {related.length > 0 && (
         <section className="border-t border-chalk py-24">
           <Container>
-            <Eyebrow variant="fh">Weiterlesen</Eyebrow>
+            <Eyebrow variant="fh">{t("common.continueReading", "en")}</Eyebrow>
             <ol className="mt-8 divide-y divide-chalk border-t border-chalk">
               {related.map((p) => (
                 <li key={p.slug}>
                   <PostListItem
-                    href={`/denken/${p.slug}`}
-                    date={formatPostDate(p.date, "de")}
-                    readingTime={readingTimeLabel(p, "de")}
+                    href={`/en/thinking/${p.slug}`}
+                    date={formatPostDate(p.date, "en")}
+                    readingTime={readingTimeLabel(p, "en")}
                     tag={p.tag}
                     title={p.title}
                     excerpt={p.excerpt}
@@ -138,9 +136,9 @@ export default async function PostPage({ params }: PageProps) {
       <section className="pb-24">
         <Container size="prose">
           <PrevNext
-            prev={prev ? { href: `/denken/${prev.slug}`, title: prev.title } : null}
-            next={next ? { href: `/denken/${next.slug}`, title: next.title } : null}
-            locale="de"
+            prev={prev ? { href: `/en/thinking/${prev.slug}`, title: prev.title } : null}
+            next={next ? { href: `/en/thinking/${next.slug}`, title: next.title } : null}
+            locale="en"
           />
         </Container>
       </section>

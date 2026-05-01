@@ -10,33 +10,31 @@ import { ProjectCard } from "@/components/blocks/ProjectCard";
 import { PrevNext } from "@/components/blocks/PrevNext";
 import { mdxComponents } from "@/components/mdx";
 import { getAllWork, getWorkBySlug } from "@/lib/content";
+import { t } from "@/lib/i18n";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  const works = getAllWork("de");
+  const works = getAllWork("en");
   return works.map((w) => ({ slug: w.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const work = getWorkBySlug(slug, "de");
+  const work = getWorkBySlug(slug, "en");
   if (!work) return {};
-  const enExists = getWorkBySlug(slug, "en");
   return {
     title: `${work.title} · ${work.client} · Pascal Frey`,
     description: work.summary,
     alternates: {
-      canonical: `/arbeiten/${slug}`,
-      languages: enExists
-        ? {
-            "de-CH": `/arbeiten/${slug}`,
-            en: `/en/work/${slug}`,
-            "x-default": `/arbeiten/${slug}`,
-          }
-        : { "de-CH": `/arbeiten/${slug}`, "x-default": `/arbeiten/${slug}` },
+      canonical: `/en/work/${slug}`,
+      languages: {
+        "de-CH": `/arbeiten/${slug}`,
+        en: `/en/work/${slug}`,
+        "x-default": `/arbeiten/${slug}`,
+      },
     },
     openGraph: {
       title: work.title,
@@ -46,12 +44,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function WorkPage({ params }: PageProps) {
+export default async function EnWorkPage({ params }: PageProps) {
   const { slug } = await params;
-  const work = getWorkBySlug(slug, "de");
+  const work = getWorkBySlug(slug, "en");
   if (!work) notFound();
 
-  const all = getAllWork("de");
+  const all = getAllWork("en");
   const idx = all.findIndex((w) => w.slug === slug);
   const prev = idx > 0 ? all[idx - 1] : null;
   const next = idx >= 0 && idx + 1 < all.length ? all[idx + 1] : null;
@@ -78,7 +76,7 @@ export default async function WorkPage({ params }: PageProps) {
 
       <section className="pt-16 pb-12 sm:pt-24">
         <Container size="prose">
-          <Eyebrow variant="fh">Arbeit</Eyebrow>
+          <Eyebrow variant="fh">{t("work.detail.eyebrow", "en")}</Eyebrow>
           <Heading as="h1" size="display" className="mt-4">
             {work.title}
           </Heading>
@@ -92,10 +90,10 @@ export default async function WorkPage({ params }: PageProps) {
         <Container>
           <MetaBlock
             items={[
-              { label: "Kunde", value: work.client },
-              { label: "Jahr", value: String(work.year) },
-              { label: "Rolle", value: work.role },
-              { label: "Disziplinen", value: work.tags ?? [] },
+              { label: t("work.detail.client", "en"), value: work.client },
+              { label: t("work.detail.year", "en"), value: String(work.year) },
+              { label: t("work.detail.role", "en"), value: work.role },
+              { label: t("work.detail.tags", "en"), value: work.tags ?? [] },
             ]}
           />
         </Container>
@@ -113,7 +111,7 @@ export default async function WorkPage({ params }: PageProps) {
         <section className="pb-16">
           <Container size="prose">
             <div className="rounded-2xl border border-chalk p-6">
-              <Eyebrow variant="fh">Ausgezeichnet</Eyebrow>
+              <Eyebrow variant="fh">{t("work.detail.award", "en")}</Eyebrow>
               <p className="mt-3 text-[16px] text-cinder">{work.award}</p>
             </div>
           </Container>
@@ -123,17 +121,9 @@ export default async function WorkPage({ params }: PageProps) {
       <section className="pb-12">
         <Container size="prose">
           <PrevNext
-            prev={
-              prev
-                ? { href: `/arbeiten/${prev.slug}`, title: prev.title }
-                : null
-            }
-            next={
-              next
-                ? { href: `/arbeiten/${next.slug}`, title: next.title }
-                : null
-            }
-            locale="de"
+            prev={prev ? { href: `/en/work/${prev.slug}`, title: prev.title } : null}
+            next={next ? { href: `/en/work/${next.slug}`, title: next.title } : null}
+            locale="en"
           />
         </Container>
       </section>
@@ -141,12 +131,12 @@ export default async function WorkPage({ params }: PageProps) {
       {related.length > 0 && (
         <section className="border-t border-chalk py-24">
           <Container>
-            <Eyebrow variant="fh">Weitere Arbeiten</Eyebrow>
+            <Eyebrow variant="fh">{t("common.related", "en")}</Eyebrow>
             <ul className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((w) => (
                 <li key={w.slug}>
                   <ProjectCard
-                    href={`/arbeiten/${w.slug}`}
+                    href={`/en/work/${w.slug}`}
                     cover={w.cover}
                     client={w.client}
                     year={w.year}
