@@ -1,54 +1,107 @@
-import Link from "next/link";
 import { Container } from "@/components/layout/Container";
-import { Section } from "@/components/layout/Section";
-import { Stack } from "@/components/layout/Stack";
 import { Heading } from "@/components/ui/Heading";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PillButton } from "@/components/ui/PillButton";
+import { Hero } from "@/components/blocks/Hero";
+import { AwardsStrip } from "@/components/blocks/AwardsStrip";
+import { LogoWall } from "@/components/blocks/LogoWall";
+import { ProjectCard } from "@/components/blocks/ProjectCard";
+import { PostListItem } from "@/components/blocks/PostListItem";
+import { ClosingStatement } from "@/components/blocks/ClosingStatement";
+import { AWARDS, CLIENT_LOGOS, PROJECTS, POSTS } from "@/lib/data";
 
 export default function Home() {
   return (
     <main>
-      <Section spacing="loose">
+      <Hero
+        variant="split"
+        headline="Marken, die bleiben."
+        bio="Pascal Frey entwickelt seit über 20 Jahren Marken für Schweizer Unternehmen. Aktuell als Creative Director bei Swisscom. Gründer von Brand Architects. Arbeitete für Migros, SBB, Geberit, Raiffeisen, Helsana und andere."
+      />
+
+      <AwardsStrip
+        eyebrow="Ausgezeichnet"
+        bridgeText="Awards sind kein Ziel. Aber sie sind ein Hinweis darauf, dass Strategie und Gestaltung wirken."
+        awards={AWARDS}
+      />
+
+      <section className="py-24" aria-labelledby="work-teaser-heading">
         <Container>
-          <Stack gap={24} className="max-w-[65ch]">
-            <Eyebrow variant="fh">Sprint 1 · Foundation</Eyebrow>
-            <Heading as="h1" size="display">
-              Marken, die bleiben.
+          <div className="mb-12 max-w-[60ch]">
+            <Eyebrow variant="fh">Arbeiten</Eyebrow>
+            <Heading
+              as="h2"
+              size="lg"
+              id="work-teaser-heading"
+              className="mt-4"
+            >
+              Eine Auswahl.
             </Heading>
-            <p className="text-[18px] leading-[1.5] text-gravel">
-              Pascal Frey entwickelt seit über 20 Jahren Marken für Schweizer
-              Unternehmen. Diese Seite befindet sich im Aufbau.
-            </p>
-            <Stack direction="horizontal" gap={12} className="pt-2">
-              <PillButton href="/styleguide" variant="filled">
-                Styleguide ansehen
-              </PillButton>
-              <PillButton href="https://pascalfrey.ch" variant="ghost" external>
-                Aktuelle Site
-              </PillButton>
-            </Stack>
-          </Stack>
+          </div>
+          <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {PROJECTS.slice(0, 3).map((p) => (
+              <li key={p.slug}>
+                <ProjectCard
+                  href={`/arbeiten/${p.slug}`}
+                  cover={p.cover}
+                  client={p.client}
+                  year={p.year}
+                  title={p.title}
+                  role={p.role}
+                />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-12">
+            <PillButton href="/arbeiten" variant="ghost">
+              Alle Arbeiten
+            </PillButton>
+          </div>
         </Container>
-      </Section>
-      <Section spacing="normal" surface="powder">
+      </section>
+
+      <LogoWall eyebrow="Vertrauen seit 20 Jahren" logos={CLIENT_LOGOS} />
+
+      <section className="py-24" aria-labelledby="thinking-teaser-heading">
         <Container>
-          <Stack gap={16} className="max-w-[65ch]">
-            <Eyebrow variant="default">Hinweis</Eyebrow>
-            <p className="text-[16px] leading-[1.5] text-cinder">
-              Foundation-Komponenten gebaut. Layout, Header/Footer, Page-Templates
-              und CMS folgen in den nächsten Sprints. Siehe{" "}
-              <Link
-                href="/styleguide"
-                className="underline underline-offset-4 hover:text-obsidian"
-              >
-                /styleguide
-              </Link>{" "}
-              für den aktuellen Komponenten-Stand.
-            </p>
-          </Stack>
+          <div className="mb-8 max-w-[60ch]">
+            <Eyebrow variant="fh">Denken</Eyebrow>
+            <Heading
+              as="h2"
+              size="lg"
+              id="thinking-teaser-heading"
+              className="mt-4"
+            >
+              Notizen, Essays, Beobachtungen.
+            </Heading>
+          </div>
+          <ol className="divide-y divide-chalk border-t border-chalk">
+            {POSTS.slice(0, 3).map((p) => (
+              <li key={p.slug}>
+                <PostListItem
+                  href={`/denken/${p.slug}`}
+                  date={p.date}
+                  readingTime={p.readingTime}
+                  tag={p.tag}
+                  title={p.title}
+                  excerpt={p.excerpt}
+                />
+              </li>
+            ))}
+          </ol>
+          <div className="mt-12">
+            <PillButton href="/denken" variant="ghost">
+              Alle Beiträge
+            </PillButton>
+          </div>
         </Container>
-      </Section>
+      </section>
+
+      <ClosingStatement
+        statement="Good design, is good business."
+        bridgeText="Wenn du an einem Projekt arbeitest, das Substanz haben soll, schreib mir."
+        cta={{ label: "Kontakt", href: "/kontakt" }}
+      />
     </main>
   );
 }
