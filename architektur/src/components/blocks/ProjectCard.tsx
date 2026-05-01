@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export interface ProjectCardProps {
   href: string;
-  cover: string;
+  cover?: string;
   client: string;
   year: number | string;
   title: string;
@@ -23,6 +23,9 @@ export function ProjectCard({
   tags,
   className,
 }: ProjectCardProps) {
+  // Treat blog placeholder paths as "no real cover" — show typographic block.
+  const hasRealCover = cover && !cover.includes("/blog/placeholder");
+
   return (
     <Link
       href={href}
@@ -32,13 +35,24 @@ export function ProjectCard({
       )}
     >
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-powder">
-        <Image
-          src={cover}
-          alt=""
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px"
-          className="object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-        />
+        {hasRealCover ? (
+          <Image
+            src={cover}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 380px"
+            className="object-cover transition-transform duration-200 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col justify-between p-6">
+            <div className="font-mono text-[11px] uppercase tracking-[0.7px] text-gravel">
+              {String(year)}
+            </div>
+            <div className="font-display text-[28px] font-light leading-[1.1] tracking-[-0.56px] text-cinder">
+              {client}
+            </div>
+          </div>
+        )}
       </div>
       <div className="px-6 py-6">
         <div className="text-[13px] text-gravel">

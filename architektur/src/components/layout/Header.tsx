@@ -69,12 +69,12 @@ export function Header() {
           className="inline-flex items-center"
         >
           <Image
-            src="/brand/wappen.png"
+            src="/brand/unicorn-stamp.png"
             alt=""
-            width={28}
-            height={28}
+            width={32}
+            height={32}
             priority
-            className="h-7 w-auto"
+            className="h-8 w-8"
           />
         </Link>
 

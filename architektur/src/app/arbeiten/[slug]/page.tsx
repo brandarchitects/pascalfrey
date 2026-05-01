@@ -68,24 +68,28 @@ export default async function WorkPage({ params }: PageProps) {
   const next = idx >= 0 && idx + 1 < all.length ? all[idx + 1] : null;
   const related = all.filter((w) => w.slug !== slug).slice(0, 3);
 
+  const hasRealCover = work.cover && !work.cover.includes("/blog/placeholder");
+
   return (
     <main>
-      <section className="pt-12 sm:pt-16">
-        <Container>
-          <div className="overflow-hidden rounded-2xl bg-powder shadow-[rgba(0,0,0,0.4)_0_0_1.143px_0,_rgba(0,0,0,0.04)_0_2px_4px_0]">
-            <Image
-              src={work.cover}
-              alt=""
-              width={1600}
-              height={900}
-              priority
-              sizes="(max-width: 1200px) 100vw, 1200px"
-              className="h-auto w-full"
-              style={{ aspectRatio: "16/9", objectFit: "cover" }}
-            />
-          </div>
-        </Container>
-      </section>
+      {hasRealCover && (
+        <section className="pt-12 sm:pt-16">
+          <Container>
+            <div className="overflow-hidden rounded-2xl bg-powder shadow-[rgba(0,0,0,0.4)_0_0_1.143px_0,_rgba(0,0,0,0.04)_0_2px_4px_0]">
+              <Image
+                src={work.cover}
+                alt=""
+                width={1600}
+                height={900}
+                priority
+                sizes="(max-width: 1200px) 100vw, 1200px"
+                className="h-auto w-full"
+                style={{ aspectRatio: "16/9", objectFit: "cover" }}
+              />
+            </div>
+          </Container>
+        </section>
+      )}
 
       <section className="pt-16 pb-12 sm:pt-24">
         <Container size="prose">

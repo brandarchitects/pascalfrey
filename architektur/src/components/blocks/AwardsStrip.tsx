@@ -18,7 +18,7 @@ export function AwardsStrip({ eyebrow, bridgeText, awards }: AwardsStripProps) {
   return (
     <section className="py-24" aria-labelledby="awards-heading">
       <Container>
-        <div className="mb-10 max-w-[60ch]">
+        <div className="mb-12 max-w-[60ch]">
           <Eyebrow variant="fh">{eyebrow}</Eyebrow>
           <p
             id="awards-heading"
@@ -27,24 +27,33 @@ export function AwardsStrip({ eyebrow, bridgeText, awards }: AwardsStripProps) {
             {bridgeText}
           </p>
         </div>
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+        <ul className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {awards.map((a) => (
             <li
               key={a.name}
-              className="flex h-20 items-center justify-center rounded-2xl border border-chalk bg-white px-6"
+              className="flex flex-col items-start gap-3 rounded-2xl border border-chalk bg-white p-6"
             >
-              <div className="relative h-10 w-full">
+              <div className="relative h-12 w-full max-w-[180px]">
                 <Image
                   src={a.logo}
-                  alt={a.name}
+                  alt=""
                   fill
-                  sizes="(max-width: 640px) 40vw, 200px"
+                  sizes="200px"
                   style={{
                     objectFit: "contain",
-                    filter: "brightness(0) saturate(100%)",
-                    opacity: 0.45,
+                    objectPosition: "left center",
+                    filter: "brightness(0)",
+                    opacity: 0.31,
                   }}
                 />
+              </div>
+              <div>
+                <div className="text-[14px] font-medium text-obsidian">
+                  {a.name}
+                </div>
+                {a.year && (
+                  <div className="mt-1 text-[13px] text-gravel">{a.year}</div>
+                )}
               </div>
             </li>
           ))}
