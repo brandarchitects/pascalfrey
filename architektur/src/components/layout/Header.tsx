@@ -73,14 +73,14 @@ export function Header() {
         >
           <span
             aria-hidden
-            className="relative block h-9 w-9 flex-shrink-0"
+            className="relative block h-9 w-9 flex-shrink-0 sm:h-10 sm:w-10"
           >
             <Image
-              src="/brand/unicorn-stamp.png"
+              src="/brand/wappen-shield.png"
               alt=""
               fill
               priority
-              sizes="36px"
+              sizes="40px"
               className="object-contain"
             />
           </span>

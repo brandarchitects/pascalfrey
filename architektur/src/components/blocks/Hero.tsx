@@ -22,16 +22,18 @@ export function Hero(props: HeroProps) {
   if (props.variant === "split") {
     const { eyebrow, headline, bio } = props;
     return (
-      <section className="pt-30 pb-24 sm:pt-40 sm:pb-30">
+      // ElevenLabs-spec: 120px top padding on hero, 60/40 asymmetric split,
+      // body sits in the upper half of the right column to align with headline mass.
+      <section className="pt-24 pb-24 sm:pt-32 sm:pb-32">
         <Container>
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-5 md:gap-16">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-5 md:gap-16">
             <div className="md:col-span-3">
               {eyebrow && (
                 <div className="mb-6">
-                  <Eyebrow variant="fh">{eyebrow}</Eyebrow>
+                  <Eyebrow>{eyebrow}</Eyebrow>
                 </div>
               )}
-              <Heading as="h1" size="display">
+              <Heading as="h1" size="display" className="max-w-[12ch]">
                 {headline}
               </Heading>
             </div>
@@ -48,12 +50,12 @@ export function Hero(props: HeroProps) {
 
   const { eyebrow, headline, subhead } = props;
   return (
-    <section className="pt-24 pb-16 sm:pt-30 sm:pb-24">
+    <section className="pt-24 pb-16 sm:pt-32 sm:pb-24">
       <Container>
         <div className="max-w-[65ch]">
           {eyebrow && (
             <div className="mb-6">
-              <Eyebrow variant="fh">{eyebrow}</Eyebrow>
+              <Eyebrow>{eyebrow}</Eyebrow>
             </div>
           )}
           <Heading as="h1" size="display">
