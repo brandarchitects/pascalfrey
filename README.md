@@ -1,0 +1,50 @@
+# pascalfrey.ch
+
+Personal-Brand-Website von Pascal Frey — Creative Director & Markenstratege, Zürich.
+
+## Konzept: «Galerie-Ultramarin»
+
+- **Galerie** `#F1F1EE` — leicht kühles Off-White als Grundton, wie die Wände Schweizer Kunsthallen
+- **Ultramarin** `#2B2BE0` — der Akzent, sparsam eingesetzt, mit Gewicht
+- **Tinte** `#141415` — leicht bläulich gebrochenes Fast-Schwarz für Text und dunkle Flächen
+
+Typografie: **Instrument Serif** (Display) + **Inter** (Body/UI), beide lokal gehostet (kein Google-Fonts-CDN, DSGVO/DSG-konform).
+
+Projekt-Visuals sind **konstruktivistische Stand-ins** — handgeschriebene SVG-Abstraktionen aus Kreis, Quadrat, Dreieck und Linie (Tradition: Bauhaus / Zürcher Konkrete). Markenkonform, rechtefrei, NDA-sicher. Im Code auffindbar über `data-pv="p1"` … `p6`.
+
+## Stack
+
+Bewusst ohne Framework: statisches HTML + CSS + Vanilla JS.
+
+- **Animationen:** GSAP 3 + ScrollTrigger (lokal vendored unter `assets/js/vendor/`), respektiert `prefers-reduced-motion`, degradiert ohne JS zu einer voll sichtbaren Seite
+- **SEO:** JSON-LD (`Person`, `BreadcrumbList`), Open Graph, Sitemap, robots.txt, Canonicals
+- **Hosting:** Vercel (statisch, `cleanUrls` via `vercel.json`)
+
+## Struktur
+
+```
+index.html          Landing Page (Hero, Profil, Expertise, Arbeiten, Wirkung, Kontakt)
+arbeiten.html       Case-Übersicht mit sechs Projekten
+impressum.html      Impressum
+datenschutz.html    Datenschutz (CH DSG)
+404.html            Fehlerseite
+assets/
+  css/style.css     Design-System & Layout
+  js/main.js        Motion-Layer (GSAP)
+  js/vendor/        gsap.min.js, ScrollTrigger.min.js
+  fonts/            Instrument Serif + Inter (woff2, self-hosted)
+public/
+  brand/            Wappen, Einhorn-Stempel, Favicons
+  logos/clients/    Kundenlogos (weiss, für dunkle Flächen)
+  portraits/        Porträts
+  og.png            Open-Graph-Bild (1200×630)
+```
+
+## Lokal entwickeln
+
+Kein Build-Schritt nötig:
+
+```bash
+python3 -m http.server 8000
+# → http://localhost:8000
+```
