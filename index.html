@@ -26,8 +26,8 @@
   <link rel="icon" href="/public/brand/favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="/public/brand/apple-touch-icon.png">
 
-  <link rel="preload" href="/assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <script type="application/ld+json">
@@ -70,59 +70,101 @@
   <header class="site-header">
     <div class="wrap site-header__bar">
       <a class="wordmark" href="/" aria-label="Pascal Frey — Startseite">
-        Pascal Frey<span class="dot" aria-hidden="true"></span>
+        <img class="wordmark__crest" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+        <span>Pascal Frey</span>
       </a>
       <nav class="site-nav" aria-label="Hauptnavigation">
-        <a href="#profil">Profil</a>
-        <a href="#expertise">Expertise</a>
-        <a class="nav-keep" href="/arbeiten">Arbeiten</a>
-        <a class="nav-cta" href="#kontakt">Kontakt</a>
+        <a href="/#profil">Profil</a>
+        <a href="/#expertise">Expertise</a>
+        <a href="/arbeiten">Arbeiten</a>
+        <span class="nav-clock" id="navClock" aria-hidden="true">Zürich —:—</span>
+        <a class="nav-cta" href="/#kontakt">Kontakt</a>
       </nav>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <span class="mono">Navigation</span>
+    <a href="/#profil"><span>Profil</span><span class="mono">01</span></a>
+    <a href="/#expertise"><span>Expertise</span><span class="mono">02</span></a>
+    <a href="/arbeiten"><span>Arbeiten</span><span class="mono">03</span></a>
+    <a href="/#kontakt"><span>Kontakt</span><span class="mono">05</span></a>
+    <div class="mobile-menu__foot mono">
+      <span>Zürich, Schweiz</span>
+      <span id="menuClock">—:—</span>
+    </div>
+  </div>
 
   <main id="main">
 
     <!-- ============ Hero ============ -->
-    <section class="hero wrap">
-      <p class="eyebrow hero__eyebrow" data-hero-fade>Creative Director &amp; Markenstratege · Zürich</p>
-      <div class="hero__grid">
-        <h1 class="display reveal-lines" data-hero-title>
-          <span class="line"><span>Marken,</span></span>
-          <span class="line"><span>die <em>bleiben.</em></span></span>
-        </h1>
-        <figure class="hero__crest" data-crest>
-          <img src="/public/brand/unicorn-stamp-ink.png" alt="Einhorn aus dem Familienwappen Frey, als Stempel gezeichnet" width="1024" height="1024" fetchpriority="high">
-          <figcaption>Das Einhorn aus dem Familienwappen Frey — seit Generationen im Schild, heute persönliche Marke.</figcaption>
-        </figure>
+    <section class="hero wrap" id="top">
+      <div class="hero__top">
+        <div class="col mono" data-hero-fade>
+          Creative Direction<br>
+          Brand Strategy<br>
+          AI in der Markenarbeit
+        </div>
+        <div class="col right mono" data-hero-fade>
+          Zürich, Schweiz<br>
+          Creative Director, Swisscom
+        </div>
       </div>
-      <div class="hero__lead">
-        <p class="lead" data-hero-fade>
-          Pascal Frey entwickelt seit über zwanzig Jahren prägnante Marken für
-          Schweizer Unternehmen mit ambitionierten Zielen — heute als Creative
-          Director Brand&nbsp;&amp;&nbsp;Strategy bei Swisscom, einer der wertvollsten
-          Marken der Schweiz.
+
+      <p class="hero__eyebrow" data-hero-fade>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Creative Director &amp; Markenstratege</span>
+      </p>
+
+      <h1 class="kinetic" id="kinetic" aria-label="Pascal Frey">
+        <span class="row"><span class="row-inner" data-kinetic>Pascal</span></span>
+        <span class="row row--outline"><span class="row-inner" data-kinetic>Frey</span></span>
+      </h1>
+
+      <div class="hero__foot">
+        <p class="hero__lede" data-hero-fade>
+          Marken, die bleiben: Pascal Frey führt Marken von der Strategie bis
+          zum letzten Pixel — seit über zwanzig Jahren, heute auch mit
+          <em>AI&#8209;getriebenen Bildwelten</em> als neuem Werkzeug.
         </p>
-        <span class="hero__scrollhint" data-hero-fade aria-hidden="true">Scroll</span>
+        <p class="hero__clients mono" data-hero-fade>
+          Swisscom · SBB · Geberit · Migros<br>
+          iF Design Award 2026 · German Brand Award
+        </p>
+      </div>
+
+      <div class="scroll-cue mono" aria-hidden="true">
+        <span>Scroll</span><span class="tick"></span>
       </div>
     </section>
 
     <!-- ============ 01 Profil ============ -->
     <section class="section wrap" id="profil">
-      <p class="eyebrow" data-reveal>01 · Profil</p>
+      <div class="register" data-reveal>
+        <span class="mono">01 — Profil</span>
+        <span class="line"></span>
+        <span class="mono idx">Substanz statt Show</span>
+      </div>
       <div class="profile">
         <div class="profile__body">
-          <h2 class="title" data-reveal>Substanz statt Show.</h2>
+          <p class="profile__statement" data-reveal>
+            Gute Gestaltung beginnt nicht mit Farbe oder Form — sie beginnt mit
+            einer <span class="accent">Entscheidung</span>. Pascal trifft sie:
+            durchdacht in der Strategie, präzise in der Umsetzung,
+            wirtschaftlich in der Wirkung.
+          </p>
           <div class="copy">
             <p data-reveal>
               Pascal Frey ist Markenberater, Designer und Creative Director.
-              Er entwickelt Designlösungen, mit denen sich Unternehmen prägnant
-              und differenzierend positionieren — durchdacht in der Strategie,
-              präzise in der Umsetzung, wirtschaftlich in der Wirkung.
+              Derzeit verantwortet er als Creative Director Brand&nbsp;&amp;&nbsp;Strategy
+              die kreative Markenführung von Swisscom — einer der wertvollsten
+              Marken der Schweiz.
             </p>
             <p data-reveal>
-              Derzeit verantwortet er als Creative Director Brand&nbsp;&amp;&nbsp;Strategy
-              die kreative Markenführung von Swisscom. Daneben ist er Gründer von
+              Daneben ist er Gründer von
               <a class="tlink" href="https://www.brandarchitects.ch" rel="noopener">Brand&nbsp;Architects</a>,
               einem Netzwerk von Expert:innen für Markenberatung und Markendesign.
               Zu seinen Kunden zählten SBB, Geberit, Raiffeisen, Migros, Helsana
@@ -131,14 +173,14 @@
             <p data-reveal>
               Er liebt Präzision bis ins kleinste Detail — und verliert dabei nie
               den Blick für die grosse Vision. Denn am Ende gilt:
-              <em>Good design is good business.</em>
+              <strong>Good design is good business.</strong>
             </p>
           </div>
         </div>
         <aside class="profile__aside">
           <figure class="portrait" data-reveal>
             <img src="/public/portraits/pascal-frey-03.jpg" alt="Porträt von Pascal Frey" width="1856" height="2304" loading="lazy">
-            <figcaption>Pascal Frey, Zürich</figcaption>
+            <figcaption>Pascal Frey — Zürich</figcaption>
           </figure>
           <ul class="factlist" data-reveal>
             <li><span class="k">Erfahrung</span><span class="v">20+ Jahre Markenarbeit</span></li>
@@ -152,7 +194,11 @@
 
     <!-- ============ 02 Expertise ============ -->
     <section class="section wrap" id="expertise">
-      <p class="eyebrow" data-reveal>02 · Expertise</p>
+      <div class="register" data-reveal>
+        <span class="mono">02 — Expertise</span>
+        <span class="line"></span>
+        <span class="mono idx">Fünf Disziplinen, eine Haltung</span>
+      </div>
       <div class="expertise__intro">
         <h2 class="title" data-reveal>Von der Strategie bis zum letzten Pixel.</h2>
         <p class="muted" data-reveal>
@@ -161,27 +207,27 @@
         </p>
       </div>
       <ul class="exp-list">
-        <li class="exp-row">
+        <li class="exp-row" data-reveal>
           <h3>Markenstrategie &amp; Positionierung</h3>
           <p>Klarheit vor Kreativität: Positionierungen, die im Markt bestehen und im Unternehmen gelebt werden.</p>
           <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="3.5" fill="currentColor"/></svg>
         </li>
-        <li class="exp-row">
+        <li class="exp-row" data-reveal>
           <h3>Brand Design &amp; Identitätssysteme</h3>
           <p>Identitäten und Designsysteme, die Konsistenz schaffen, ohne Teams einzuengen — vom Token bis zum Touchpoint.</p>
           <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="7" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="20" y1="7" x2="20" y2="33" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="20" x2="33" y2="20" stroke="currentColor" stroke-width="1.5"/></svg>
         </li>
-        <li class="exp-row">
+        <li class="exp-row" data-reveal>
           <h3>Creative Direction</h3>
           <p>Führung über Disziplinen hinweg: Kampagnen, Content und Markenerlebnisse mit einer erkennbaren Handschrift.</p>
           <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><polygon points="20,8 34,32 6,32" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
         </li>
-        <li class="exp-row">
+        <li class="exp-row" data-reveal>
           <h3>AI in der Markenarbeit</h3>
           <p>Generative Werkzeuge, eingebettet in Markenführung: schneller produzieren, ohne die Marke zu verwässern.</p>
           <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><circle cx="14" cy="14" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="28" cy="24" r="4" fill="currentColor"/><circle cx="12" cy="30" r="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="19" y1="19" x2="25" y2="22" stroke="currentColor" stroke-width="1.5"/></svg>
         </li>
-        <li class="exp-row">
+        <li class="exp-row" data-reveal>
           <h3>Marketing &amp; Kommunikation</h3>
           <p>Kommunikation, die aus der Marke heraus argumentiert — von der Kampagne bis zum Vertriebsmittel.</p>
           <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><line x1="7" y1="13" x2="33" y2="13" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="20" x2="27" y2="20" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="27" x2="33" y2="27" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -191,71 +237,136 @@
 
     <!-- ============ 03 Arbeiten ============ -->
     <section class="section wrap" id="arbeiten">
-      <p class="eyebrow" data-reveal>03 · Ausgewählte Arbeiten</p>
-      <div class="work-head">
-        <h2 class="title" data-reveal>Arbeit, die wirkt.</h2>
-        <a class="btn btn--ghost" href="/arbeiten" data-reveal>Alle Arbeiten <span class="arrow" aria-hidden="true">→</span></a>
+      <div class="register" data-reveal>
+        <span class="mono">03 — Ausgewählte Arbeiten</span>
+        <span class="line"></span>
+        <span class="mono idx">2018 — 2026</span>
       </div>
-      <div class="work-grid">
 
-        <a class="work-card" href="/arbeiten#genai" data-reveal>
-          <div class="standin" data-pv="p1" role="img" aria-label="Abstrakte Kreis-Konstellation als Platzhalter für das Projekt Generative AI in der Markenführung">
-            <svg viewBox="0 0 400 300" aria-hidden="true">
-              <circle data-shape cx="170" cy="150" r="78" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="170" cy="150" r="10" fill="currentColor"/>
-              <g class="u"><circle data-shape cx="288" cy="92" r="22" fill="currentColor"/></g>
-              <circle data-shape cx="300" cy="208" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="86" cy="64" r="6" fill="currentColor"/>
-              <line data-shape x1="180" y1="146" x2="288" y2="92" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="178" y1="156" x2="300" y2="208" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="163" y1="142" x2="86" y2="64" stroke="currentColor" stroke-width="1"/>
-            </svg>
-          </div>
-          <div class="work-card__meta"><span>Swisscom</span><span>2024 —</span></div>
-          <h3>Generative AI in der Markenführung</h3>
-          <p class="role">Creative Direction · Brand &amp; Strategy</p>
+      <div class="work-list" id="workList">
+        <a class="work-item" href="/arbeiten#genai" data-reveal data-preview="p1">
+          <span class="mono w-idx">SWC</span>
+          <h3 class="w-title">Generative AI in der Markenführung</h3>
+          <p class="w-tags">Creative Direction · Brand &amp; Strategy</p>
+          <span class="mono w-year">2024 —</span>
         </a>
-
-        <a class="work-card" href="/arbeiten#interior" data-reveal data-reveal-delay="0.1">
-          <div class="standin" data-pv="p2" role="img" aria-label="Abstrakte Dreiecks-Architektur als Platzhalter für das Projekt Interior Branding">
-            <svg viewBox="0 0 400 300" aria-hidden="true">
-              <polygon data-shape points="120,236 200,96 280,236" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <g class="u"><polygon data-shape points="200,236 256,138 312,236" fill="currentColor"/></g>
-              <polygon data-shape points="64,236 110,156 156,236" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="40" y1="236" x2="360" y2="236" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="200" cy="64" r="7" fill="currentColor"/>
-            </svg>
-          </div>
-          <div class="work-card__meta"><span>Swisscom</span><span>2025</span></div>
-          <h3>Interior Branding — Marke wird Raum</h3>
-          <p class="role">Creative Direction · iF Design Award 2026</p>
+        <a class="work-item" href="/arbeiten#interior" data-reveal data-preview="p2">
+          <span class="mono w-idx">SWC</span>
+          <h3 class="w-title">Interior Branding</h3>
+          <p class="w-tags">Marke wird Raum · iF Design Award 2026</p>
+          <span class="mono w-year">2025</span>
         </a>
-
-        <a class="work-card" href="/arbeiten#geberit" data-reveal data-reveal-delay="0.2">
-          <div class="standin" data-pv="p3" role="img" aria-label="Abstrakte Wireframe-Skizze als Platzhalter für das Projekt Geberit Markenarchitektur">
-            <svg viewBox="0 0 400 300" aria-hidden="true">
-              <rect data-shape x="70" y="56" width="260" height="188" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="70" y1="100" x2="330" y2="100" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="156" y1="100" x2="156" y2="244" stroke="currentColor" stroke-width="1"/>
-              <rect data-shape x="86" y="116" width="54" height="40" fill="currentColor"/>
-              <g class="u"><rect data-shape x="172" y="116" width="92" height="12" fill="currentColor"/></g>
-              <line data-shape x1="172" y1="148" x2="314" y2="148" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="172" y1="168" x2="290" y2="168" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="172" y1="188" x2="314" y2="188" stroke="currentColor" stroke-width="1"/>
-            </svg>
-          </div>
-          <div class="work-card__meta"><span>Geberit</span><span>2019</span></div>
-          <h3>Markenarchitektur &amp; Template-System</h3>
-          <p class="role">Lead Design · Markenarchitektur</p>
+        <a class="work-item" href="/arbeiten#sonic" data-reveal data-preview="p3">
+          <span class="mono w-idx">SWC</span>
+          <h3 class="w-title">Sonic Branding</h3>
+          <p class="w-tags">Markenklang · Creative Direction</p>
+          <span class="mono w-year">2025</span>
         </a>
-
+        <a class="work-item" href="/arbeiten#neo" data-reveal data-preview="p4">
+          <span class="mono w-idx">SWC</span>
+          <h3 class="w-title">NEO Visual System</h3>
+          <p class="w-tags">Visual System &amp; Brand Guide</p>
+          <span class="mono w-year">2024</span>
+        </a>
+        <a class="work-item" href="/arbeiten#geberit" data-reveal data-preview="p5">
+          <span class="mono w-idx">GEB</span>
+          <h3 class="w-title">Geberit Markenarchitektur</h3>
+          <p class="w-tags">Lead Design · Template-System</p>
+          <span class="mono w-year">2019</span>
+        </a>
+        <a class="work-item" href="/arbeiten#brand-architects" data-reveal data-preview="p6">
+          <span class="mono w-idx">BA</span>
+          <h3 class="w-title">Brand Architects</h3>
+          <p class="w-tags">Founder · Positionierung &amp; Identität</p>
+          <span class="mono w-year">2018 —</span>
+        </a>
+      </div>
+      <div class="work-foot" data-reveal>
+        <a class="btn btn--ghost" href="/arbeiten">Alle Arbeiten <span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
+
+    <!-- Floating preview (desktop) -->
+    <div class="work-preview" id="workPreview" aria-hidden="true">
+      <div class="pv" data-pv="p1">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="168" cy="150" r="10" fill="currentColor"/>
+          <g class="u"><circle cx="294" cy="90" r="22" fill="currentColor"/></g>
+          <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="82" cy="62" r="6" fill="currentColor"/>
+          <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1"/>
+          <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1"/>
+          <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        <span class="mono">SWC / GenAI — 01</span>
+      </div>
+      <div class="pv" data-pv="p2">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <polygon points="112,238 198,92 284,238" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <g class="u"><polygon points="198,238 256,138 314,238" fill="currentColor"/></g>
+          <polygon points="56,238 104,154 152,238" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="32" y1="238" x2="368" y2="238" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="198" cy="58" r="7" fill="currentColor"/>
+        </svg>
+        <span class="mono">SWC / Interior — 02</span>
+      </div>
+      <div class="pv" data-pv="p3">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <line x1="76" y1="184" x2="76" y2="116" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="112" y1="212" x2="112" y2="88" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="148" y1="192" x2="148" y2="108" stroke="currentColor" stroke-width="1.5"/>
+          <g class="u"><rect x="180" y="66" width="8" height="168" fill="currentColor"/></g>
+          <line x1="220" y1="202" x2="220" y2="98" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="256" y1="174" x2="256" y2="126" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="292" y1="222" x2="292" y2="78" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="328" y1="184" x2="328" y2="116" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span class="mono">SWC / Sonic — 03</span>
+      </div>
+      <div class="pv" data-pv="p4">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(15 200 150)"/>
+          <g class="u"><rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(30 200 150)"/></g>
+          <rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1" transform="rotate(45 200 150)"/>
+          <circle cx="200" cy="150" r="6" fill="currentColor"/>
+        </svg>
+        <span class="mono">SWC / NEO — 04</span>
+      </div>
+      <div class="pv" data-pv="p5">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect x="64" y="52" width="272" height="196" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="64" y1="98" x2="336" y2="98" stroke="currentColor" stroke-width="1"/>
+          <line x1="154" y1="98" x2="154" y2="248" stroke="currentColor" stroke-width="1"/>
+          <rect x="80" y="114" width="58" height="42" fill="currentColor"/>
+          <g class="u"><rect x="170" y="114" width="100" height="13" fill="currentColor"/></g>
+          <line x1="170" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="1"/>
+          <line x1="170" y1="172" x2="296" y2="172" stroke="currentColor" stroke-width="1"/>
+          <line x1="170" y1="194" x2="320" y2="194" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        <span class="mono">GEB / Architektur — 05</span>
+      </div>
+      <div class="pv" data-pv="p6">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <line x1="48" y1="216" x2="352" y2="216" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="124" cy="174" r="42" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <g class="u"><rect x="180" y="132" width="84" height="84" fill="currentColor"/></g>
+          <polygon points="284,216 322,142 360,216" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="124" cy="174" r="5" fill="currentColor"/>
+        </svg>
+        <span class="mono">BA / Founder — 06</span>
+      </div>
+    </div>
 
     <!-- ============ 04 Wirkung (dark band) ============ -->
     <section class="band" id="wirkung">
       <div class="wrap">
-        <p class="eyebrow" data-reveal>04 · Wirkung</p>
+        <div class="register" data-reveal>
+          <span class="mono">04 — Wirkung</span>
+          <span class="line"></span>
+          <span class="mono idx">Auszeichnungen &amp; Marken</span>
+        </div>
         <div class="band__intro">
           <h2 class="title" data-reveal>Gute Gestaltung schafft messbaren Wert.</h2>
           <p data-reveal>
@@ -305,24 +416,20 @@
 
     <!-- ============ 05 Kontakt ============ -->
     <section class="contact wrap" id="kontakt">
-      <p class="eyebrow" data-reveal>05 · Kontakt</p>
-      <h2 class="title display" data-reveal>Reden wir über <em>Ihre Marke.</em></h2>
-      <div class="contact__grid">
-        <div>
-          <p class="lead" data-reveal>
-            Für Projekte, Mandate, Sparring oder einen Austausch über
-            Markenführung und AI — am einfachsten per E-Mail.
-            Antwort meist innert 48 Stunden.
-          </p>
-          <p style="margin-top: 2rem" data-reveal>
-            <a class="contact__mail" href="mailto:pascal@pascalfrey.ch">pascal@pascalfrey.ch</a>
-          </p>
+      <span class="mono contact-kicker" data-reveal>05 — Kontakt · Neues Projekt, neue Marke, neue Frage</span>
+      <a class="giant-link" data-reveal href="mailto:pascal@pascalfrey.ch">Sag Hallo<span class="blue">.</span></a>
+      <div class="contact-row">
+        <p class="c-note" data-reveal>
+          Für Projekte, Mandate, Sparring oder einen Austausch über Markenführung
+          und AI — am einfachsten per E-Mail an
+          <a href="mailto:pascal@pascalfrey.ch">pascal@pascalfrey.ch</a>.
+          Antwort meist innert 48 Stunden.
+        </p>
+        <div class="contact-links" data-reveal>
+          <a href="mailto:pascal@pascalfrey.ch">E-Mail</a>
+          <a href="https://www.linkedin.com/in/freypascal/" rel="noopener">LinkedIn</a>
+          <a href="https://www.brandarchitects.ch" rel="noopener">Brand Architects</a>
         </div>
-        <ul class="contact__channels" data-reveal>
-          <li><span class="k">LinkedIn</span><a class="tlink" href="https://www.linkedin.com/in/freypascal/" rel="noopener">@freypascal</a></li>
-          <li><span class="k">Markenberatung</span><a class="tlink" href="https://www.brandarchitects.ch" rel="noopener">brandarchitects.ch</a></li>
-          <li><span class="k">Standort</span><span>Zürich, Schweiz</span></li>
-        </ul>
       </div>
     </section>
 
@@ -330,11 +437,13 @@
 
   <!-- ============ Footer ============ -->
   <footer class="site-footer">
-    <img class="site-footer__crest" src="/public/brand/wappen.png" alt="" aria-hidden="true" loading="lazy">
     <div class="wrap site-footer__inner">
       <div class="site-footer__top">
         <div>
-          <a class="wordmark" href="/">Pascal Frey<span class="dot" aria-hidden="true"></span></a>
+          <a class="wordmark" href="/">
+            <img class="wordmark__crest" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+            <span>Pascal Frey</span>
+          </a>
           <p class="site-footer__tag">
             Creative Director &amp; Markenstratege.
             Marken, die bleiben — seit über zwanzig Jahren.
@@ -360,7 +469,8 @@
       </div>
       <div class="site-footer__legal">
         <span>© 2026 Pascal Frey — Zürich</span>
-        <span><a href="/impressum">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz">Datenschutz</a></span>
+        <span><a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></span>
+        <button class="top-link" id="toTop">Nach oben ↑</button>
       </div>
     </div>
   </footer>

@@ -13,14 +13,33 @@
   <header class="site-header">
     <div class="wrap site-header__bar">
       <a class="wordmark" href="/" aria-label="Pascal Frey — Startseite">
-        Pascal Frey<span class="dot" aria-hidden="true"></span>
+        <img class="wordmark__crest" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+        <span>Pascal Frey</span>
       </a>
       <nav class="site-nav" aria-label="Hauptnavigation">
-        <a class="nav-keep" href="/arbeiten">Arbeiten</a>
+        <a href="/#profil">Profil</a>
+        <a href="/#expertise">Expertise</a>
+        <a href="/arbeiten">Arbeiten</a>
+        <span class="nav-clock" id="navClock" aria-hidden="true">Zürich —:—</span>
         <a class="nav-cta" href="/#kontakt">Kontakt</a>
       </nav>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <span class="mono">Navigation</span>
+    <a href="/#profil"><span>Profil</span><span class="mono">01</span></a>
+    <a href="/#expertise"><span>Expertise</span><span class="mono">02</span></a>
+    <a href="/arbeiten"><span>Arbeiten</span><span class="mono">03</span></a>
+    <a href="/#kontakt"><span>Kontakt</span><span class="mono">05</span></a>
+    <div class="mobile-menu__foot mono">
+      <span>Zürich, Schweiz</span>
+      <span id="menuClock">—:—</span>
+    </div>
+  </div>
 
   <main class="error-page wrap">
     <p class="eyebrow">404</p>
@@ -33,5 +52,6 @@
       <a class="btn btn--ghost" href="/arbeiten">Arbeiten ansehen</a>
     </div>
   </main>
+  <script src="/assets/js/main.js" defer></script>
 </body>
 </html>

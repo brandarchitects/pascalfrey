@@ -2,21 +2,23 @@
 
 Personal-Brand-Website von Pascal Frey — Creative Director & Markenstratege, Zürich.
 
-## Konzept: «Galerie-Ultramarin»
+## Konzept: «Studio Ultramarin»
 
 - **Galerie** `#F1F1EE` — leicht kühles Off-White als Grundton, wie die Wände Schweizer Kunsthallen
 - **Ultramarin** `#2B2BE0` — der Akzent, sparsam eingesetzt, mit Gewicht
 - **Tinte** `#141415` — leicht bläulich gebrochenes Fast-Schwarz für Text und dunkle Flächen
 
-Typografie: **Instrument Serif** (Display) + **Inter** (Body/UI), beide lokal gehostet (kein Google-Fonts-CDN, DSGVO/DSG-konform).
+Typografie: **Archivo Variable** (`wght` 100–900, `wdth` 62–125) als einzige Textschrift — von der kinetischen Uppercase-Headline bis zum Fliesstext — plus **JetBrains Mono** für Meta-Labels und Register. Beide lokal gehostet (kein Google-Fonts-CDN, DSGVO/DSG-konform).
 
-Projekt-Visuals sind **konstruktivistische Stand-ins** — handgeschriebene SVG-Abstraktionen aus Kreis, Quadrat, Dreieck und Linie (Tradition: Bauhaus / Zürcher Konkrete). Markenkonform, rechtefrei, NDA-sicher. Im Code auffindbar über `data-pv="p1"` … `p6`.
+Das Einhorn aus dem Familienwappen Frey erscheint bewusst nur klein: als Stempel-Marke neben dem Wortzeichen im Header und Footer.
+
+Projekt-Visuals sind **konstruktivistische Stand-ins** — handgeschriebene SVG-Abstraktionen aus Kreis, Quadrat, Dreieck und Linie (Tradition: Bauhaus / Zürcher Konkrete). Markenkonform, rechtefrei, NDA-sicher. Im Code auffindbar über `data-preview="p1"` … `p6`.
 
 ## Stack
 
 Bewusst ohne Framework: statisches HTML + CSS + Vanilla JS.
 
-- **Animationen:** GSAP 3 + ScrollTrigger (lokal vendored unter `assets/js/vendor/`), respektiert `prefers-reduced-motion`, degradiert ohne JS zu einer voll sichtbaren Seite
+- **Animationen:** GSAP 3 + ScrollTrigger (lokal vendored unter `assets/js/vendor/`) plus Vanilla-JS-Micro-Interactions: Cursor-Proximity-Morph der Variable-Font-Headline, schwebende Work-Previews, Zürich-Uhr in der Navigation. Respektiert `prefers-reduced-motion`, degradiert ohne JS zu einer voll sichtbaren Seite
 - **SEO:** JSON-LD (`Person`, `BreadcrumbList`), Open Graph, Sitemap, robots.txt, Canonicals
 - **Hosting:** Vercel (statisch, `cleanUrls` via `vercel.json`)
 
@@ -32,7 +34,7 @@ assets/
   css/style.css     Design-System & Layout
   js/main.js        Motion-Layer (GSAP)
   js/vendor/        gsap.min.js, ScrollTrigger.min.js
-  fonts/            Instrument Serif + Inter (woff2, self-hosted)
+  fonts/            Archivo Variable + JetBrains Mono (woff2, self-hosted)
 public/
   brand/            Wappen, Einhorn-Stempel, Favicons
   logos/clients/    Kundenlogos (weiss, für dunkle Flächen)

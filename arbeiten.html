@@ -21,8 +21,8 @@
   <link rel="icon" href="/public/brand/favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="/public/brand/apple-touch-icon.png">
 
-  <link rel="preload" href="/assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <script type="application/ld+json">
@@ -42,24 +42,43 @@
   <header class="site-header">
     <div class="wrap site-header__bar">
       <a class="wordmark" href="/" aria-label="Pascal Frey — Startseite">
-        Pascal Frey<span class="dot" aria-hidden="true"></span>
+        <img class="wordmark__crest" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+        <span>Pascal Frey</span>
       </a>
       <nav class="site-nav" aria-label="Hauptnavigation">
         <a href="/#profil">Profil</a>
         <a href="/#expertise">Expertise</a>
-        <a class="nav-keep" href="/arbeiten" aria-current="page">Arbeiten</a>
+        <a href="/arbeiten" aria-current="page">Arbeiten</a>
+        <span class="nav-clock" id="navClock" aria-hidden="true">Zürich —:—</span>
         <a class="nav-cta" href="/#kontakt">Kontakt</a>
       </nav>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <span class="mono">Navigation</span>
+    <a href="/#profil"><span>Profil</span><span class="mono">01</span></a>
+    <a href="/#expertise"><span>Expertise</span><span class="mono">02</span></a>
+    <a href="/arbeiten"><span>Arbeiten</span><span class="mono">03</span></a>
+    <a href="/#kontakt"><span>Kontakt</span><span class="mono">05</span></a>
+    <div class="mobile-menu__foot mono">
+      <span>Zürich, Schweiz</span>
+      <span id="menuClock">—:—</span>
+    </div>
+  </div>
 
   <main id="main">
 
     <section class="page-hero wrap">
-      <p class="eyebrow" data-hero-fade>Arbeiten</p>
-      <h1 class="display reveal-lines" data-hero-title>
-        <span class="line"><span>Ausgewählte</span></span>
-        <span class="line"><span><em>Projekte.</em></span></span>
+      <p class="hero__eyebrow" data-hero-fade>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Ausgewählte Arbeiten · 2018 — 2026</span>
+      </p>
+      <h1 class="display kinetic" aria-label="Arbeiten">
+        <span class="row"><span class="row-inner" data-kinetic>Arbeiten</span></span>
       </h1>
       <p class="lead" data-hero-fade>
         Ein Auszug aus zwei Jahrzehnten Markenarbeit. Vieles entsteht hinter
@@ -73,7 +92,7 @@
       <!-- Case 1: GenAI -->
       <article class="case" id="genai">
         <div class="case__visual" data-reveal>
-          <div class="standin" data-pv="p1" role="img" aria-label="Kreis-Konstellation — Abstraktion für Generative AI in der Markenführung">
+          <div class="standin" role="img" aria-label="Kreis-Konstellation — Abstraktion für Generative AI in der Markenführung">
             <svg viewBox="0 0 400 320" aria-hidden="true">
               <circle data-shape cx="168" cy="164" r="86" fill="none" stroke="currentColor" stroke-width="1.5"/>
               <circle data-shape cx="168" cy="164" r="11" fill="currentColor"/>
@@ -110,7 +129,7 @@
       <!-- Case 2: Interior Branding -->
       <article class="case" id="interior">
         <div class="case__visual" data-reveal>
-          <div class="standin" data-pv="p2" role="img" aria-label="Dreiecks-Architektur — Abstraktion für Interior Branding">
+          <div class="standin" role="img" aria-label="Dreiecks-Architektur — Abstraktion für Interior Branding">
             <svg viewBox="0 0 400 320" aria-hidden="true">
               <polygon data-shape points="116,252 204,98 292,252" fill="none" stroke="currentColor" stroke-width="1.5"/>
               <g class="u"><polygon data-shape points="204,252 264,146 324,252" fill="currentColor"/></g>
@@ -143,7 +162,7 @@
       <!-- Case 3: Sonic Branding -->
       <article class="case" id="sonic">
         <div class="case__visual" data-reveal>
-          <div class="standin" data-pv="p3" role="img" aria-label="Vertikale Linien wie ein Equalizer — Abstraktion für Sonic Branding">
+          <div class="standin" role="img" aria-label="Vertikale Linien wie ein Equalizer — Abstraktion für Sonic Branding">
             <svg viewBox="0 0 400 320" aria-hidden="true">
               <line data-shape x1="76" y1="196" x2="76" y2="124" stroke="currentColor" stroke-width="1.5"/>
               <line data-shape x1="112" y1="226" x2="112" y2="94" stroke="currentColor" stroke-width="1.5"/>
@@ -178,7 +197,7 @@
       <!-- Case 4: NEO Visual System -->
       <article class="case" id="neo">
         <div class="case__visual" data-reveal>
-          <div class="standin" data-pv="p4" role="img" aria-label="Rotierte Quadrate — Abstraktion für das Visual System NEO">
+          <div class="standin" role="img" aria-label="Rotierte Quadrate — Abstraktion für das Visual System NEO">
             <svg viewBox="0 0 400 320" aria-hidden="true">
               <rect data-shape x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1.5"/>
               <rect data-shape x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(15 200 160)"/>
@@ -211,7 +230,7 @@
       <!-- Case 5: Geberit -->
       <article class="case" id="geberit">
         <div class="case__visual" data-reveal>
-          <div class="standin" data-pv="p5" role="img" aria-label="Wireframe-Skizze — Abstraktion für Geberit Markenarchitektur">
+          <div class="standin" role="img" aria-label="Wireframe-Skizze — Abstraktion für Geberit Markenarchitektur">
             <svg viewBox="0 0 400 320" aria-hidden="true">
               <rect data-shape x="64" y="56" width="272" height="208" fill="none" stroke="currentColor" stroke-width="1.5"/>
               <line data-shape x1="64" y1="104" x2="336" y2="104" stroke="currentColor" stroke-width="1"/>
@@ -249,7 +268,7 @@
       <!-- Case 6: Brand Architects -->
       <article class="case" id="brand-architects">
         <div class="case__visual" data-reveal>
-          <div class="standin" data-pv="p6" role="img" aria-label="Kreis, Quadrat und Dreieck im Gleichgewicht — Abstraktion für Brand Architects">
+          <div class="standin" role="img" aria-label="Kreis, Quadrat und Dreieck im Gleichgewicht — Abstraktion für Brand Architects">
             <svg viewBox="0 0 400 320" aria-hidden="true">
               <line data-shape x1="48" y1="230" x2="352" y2="230" stroke="currentColor" stroke-width="1.5"/>
               <circle data-shape cx="124" cy="186" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
@@ -295,11 +314,13 @@
   </main>
 
   <footer class="site-footer">
-    <img class="site-footer__crest" src="/public/brand/wappen.png" alt="" aria-hidden="true" loading="lazy">
     <div class="wrap site-footer__inner">
       <div class="site-footer__top">
         <div>
-          <a class="wordmark" href="/">Pascal Frey<span class="dot" aria-hidden="true"></span></a>
+          <a class="wordmark" href="/">
+            <img class="wordmark__crest" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+            <span>Pascal Frey</span>
+          </a>
           <p class="site-footer__tag">
             Creative Director &amp; Markenstratege.
             Marken, die bleiben — seit über zwanzig Jahren.
@@ -325,7 +346,8 @@
       </div>
       <div class="site-footer__legal">
         <span>© 2026 Pascal Frey — Zürich</span>
-        <span><a href="/impressum">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz">Datenschutz</a></span>
+        <span><a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a></span>
+        <button class="top-link" id="toTop">Nach oben ↑</button>
       </div>
     </div>
   </footer>
