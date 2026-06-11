@@ -214,8 +214,10 @@
       return { el: el, base: 700, w: 700, tw: 700 };
     });
     var field = document.getElementById("heroField");
+    var glow = document.getElementById("heroGlow");
     var mx = -9999, my = -9999;
     var fx = 0, fy = 0, tfx = 0, tfy = 0;
+    var gx = 0, gy = 0, go = 0, gInit = false;
     var raf = null, running = false, idleTimer = null, pointerActive = false;
 
     var render = function () {
@@ -241,6 +243,17 @@
         if (Math.abs(tfx - fx) > 0.3 || Math.abs(tfy - fy) > 0.3) busy = true;
         field.style.transform = "translate3d(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px,0)";
       }
+      if (glow && gInit) {
+        var tgx = mx;
+        var tgy = my + window.scrollY;
+        var tgo = pointerActive && tgy < darkHero.offsetHeight ? 1 : 0;
+        gx += (tgx - gx) * 0.07;
+        gy += (tgy - gy) * 0.07;
+        go += (tgo - go) * 0.05;
+        if (Math.abs(tgx - gx) > 0.5 || Math.abs(tgy - gy) > 0.5 || Math.abs(tgo - go) > 0.01) busy = true;
+        glow.style.transform = "translate3d(" + gx.toFixed(1) + "px," + gy.toFixed(1) + "px,0)";
+        glow.style.opacity = go.toFixed(3);
+      }
       if (busy || pointerActive) {
         raf = requestAnimationFrame(render);
       } else {
@@ -262,6 +275,11 @@
         my = e.clientY;
         tfx = (e.clientX / window.innerWidth - 0.5) * 56;
         tfy = (e.clientY / window.innerHeight - 0.5) * 36;
+        if (!gInit) {
+          gx = e.clientX;
+          gy = e.clientY + window.scrollY;
+          gInit = true;
+        }
         pointerActive = true;
         clearTimeout(idleTimer);
         idleTimer = setTimeout(function () { pointerActive = false; }, 120);

@@ -357,7 +357,7 @@ strong {
 
 .wordmark__crest {
   width: auto;
-  height: 2.375rem;
+  height: 3.5rem;
   flex: none;
   transition: transform 0.5s var(--ease-out);
 }
@@ -562,6 +562,21 @@ body.menu-open {
 }
 @keyframes drift-c {
   to { transform: translate(-11vw, -9vh) scale(1.16); }
+}
+
+/* Cursor glow: soft ultramarine light that trails the pointer */
+.hero-glow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 44vmax;
+  height: 44vmax;
+  margin: -22vmax 0 0 -22vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(93, 93, 255, 0.32), transparent 64%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  will-change: transform, opacity;
 }
 
 /* Swiss column grid, barely there */
