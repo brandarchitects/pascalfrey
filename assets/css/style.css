@@ -348,16 +348,16 @@ strong {
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  font-size: 0.9375rem;
+  gap: 0.8rem;
+  font-size: 1.0625rem;
   font-variation-settings: "wght" 700;
   letter-spacing: 0.01em;
   line-height: 1;
 }
 
 .wordmark__crest {
-  width: 1.625rem;
-  height: auto;
+  width: auto;
+  height: 2.375rem;
   flex: none;
   transition: transform 0.5s var(--ease-out);
 }
@@ -518,6 +518,11 @@ body.menu-open {
   inset: 0;
   pointer-events: none;
 }
+.hero-bg__field {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
 .hero-bg .blob {
   position: absolute;
   border-radius: 50%;
@@ -599,10 +604,13 @@ body.menu-open {
 }
 
 .hero__credo {
-  max-width: 38ch;
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: rgba(241, 241, 238, 0.78);
+  max-width: 42ch;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-variation-settings: "wght" 460;
+  line-height: 1.6;
+  letter-spacing: -0.012em;
+  color: rgba(241, 241, 238, 0.86);
+  text-wrap: pretty;
 }
 .hero__credo strong {
   color: var(--on-ink);
@@ -633,9 +641,10 @@ body.menu-open {
   flex: none;
 }
 
-/* Poster headline */
+/* Poster headline (base weight 700: room for the fluid morph
+   to go both bolder and lighter around it) */
 .kinetic {
-  font-variation-settings: var(--fvs-display);
+  font-variation-settings: "wght" 700;
   font-size: clamp(3.25rem, 13vw, 15.5rem);
   line-height: 0.97;
   letter-spacing: -0.048em;
@@ -678,42 +687,68 @@ html.js .kinetic .row-inner {
   text-align: right;
 }
 
-.scroll-cue {
-  position: absolute;
-  right: var(--gutter);
-  top: 50%;
-  transform: rotate(90deg) translateX(-50%);
-  transform-origin: right top;
+/* Scroll affordance: hairline circle with looping arrow,
+   sits at the right end of the eyebrow row */
+.scroll-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
   color: var(--on-ink-muted);
+  transition: color 0.3s ease;
+}
+.scroll-btn__label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.scroll-btn__circle {
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 1px solid var(--line-on-ink);
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-}
-.scroll-cue .tick {
-  width: 2rem;
-  height: 1px;
-  background: var(--line-on-ink);
-  position: relative;
+  justify-content: center;
   overflow: hidden;
+  transition: background-color 0.35s var(--ease-out), border-color 0.35s var(--ease-out);
 }
-.scroll-cue .tick::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--on-ink);
-  transform: translateX(-100%);
-  animation: cue-sweep 2.4s var(--ease-out) infinite;
+.scroll-btn__arrow {
+  font-size: 1.0625rem;
+  line-height: 1;
+  color: var(--on-ink);
+  animation: arrow-drop 3s var(--ease-out) infinite;
 }
-@keyframes cue-sweep {
-  0% {
-    transform: translateX(-100%);
+@keyframes arrow-drop {
+  0%,
+  22% {
+    transform: translateY(0);
+    opacity: 1;
   }
-  55% {
-    transform: translateX(0);
+  46% {
+    transform: translateY(170%);
+    opacity: 0;
   }
+  47% {
+    transform: translateY(-170%);
+    opacity: 0;
+  }
+  72%,
   100% {
-    transform: translateX(100%);
+    transform: translateY(0);
+    opacity: 1;
   }
+}
+.scroll-btn:hover,
+.scroll-btn:focus-visible {
+  color: var(--on-ink);
+}
+.scroll-btn:hover .scroll-btn__circle,
+.scroll-btn:focus-visible .scroll-btn__circle {
+  background: var(--ultra);
+  border-color: var(--ultra);
 }
 
 /* ---------- Header over dark hero ---------- */
@@ -1685,7 +1720,7 @@ html.js .standin [data-shape] {
   html.js .kinetic .row-inner {
     transform: none;
   }
-  .scroll-cue .tick::after {
+  .scroll-btn__arrow {
     animation: none;
   }
   *,
@@ -1734,8 +1769,12 @@ html.js .standin [data-shape] {
   .hero-grid {
     background-size: calc(100% / 3) 100%;
   }
-  .scroll-cue {
+  .scroll-btn__label {
     display: none;
+  }
+  .scroll-btn__circle {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
 
@@ -1749,8 +1788,7 @@ html.js .standin [data-shape] {
 }
 
 @media (max-height: 35rem) {
-  .hero__top,
-  .scroll-cue {
+  .hero__top {
     display: none;
   }
 }

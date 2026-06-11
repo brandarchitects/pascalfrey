@@ -199,19 +199,23 @@
   }
 
   /* ---------- Headline morph: cursor proximity + scroll wave ----------
-     One shared weight per char: the scroll wave sets the base weight
-     (740 thinning to 310), the cursor adds a fluid proximity boost on
-     top (desktop only), capped at the 900 end of Inter's axis. */
+     One shared weight per char. The scroll wave sets the base weight
+     (700 thinning to 290). The cursor adds a bipolar boost on top
+     (desktop only): bold core under the pointer, a lighter ring around
+     it — so the type breathes in both directions, like the v1 morph.
+     The pointer also drags the background field along, slightly. */
 
   var kinetic = document.querySelector(".kinetic");
   if (kinetic && chars.length) {
     var SPREAD = 0.55;
-    var RADIUS = 260;
+    var RADIUS = 300;
     var last = Math.max(1, chars.length - 1);
     var state = chars.map(function (el) {
-      return { el: el, base: 740, w: 740, tw: 740 };
+      return { el: el, base: 700, w: 700, tw: 700 };
     });
+    var field = document.getElementById("heroField");
     var mx = -9999, my = -9999;
+    var fx = 0, fy = 0, tfx = 0, tfy = 0;
     var raf = null, running = false, idleTimer = null, pointerActive = false;
 
     var render = function () {
@@ -223,13 +227,19 @@
           var r = c.el.getBoundingClientRect();
           var dist = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
           var p = Math.max(0, 1 - dist / RADIUS);
-          p = p * p * (3 - 2 * p); // smoothstep
-          boost = p * 230;
+          /* bold core (p^2.5) minus lighter ring, peaking at p = 1/3 */
+          boost = 200 * Math.pow(p, 2.5) - 1150 * p * (1 - p) * (1 - p);
         }
-        c.tw = Math.min(900, c.base + boost);
-        c.w += (c.tw - c.w) * 0.16;
+        c.tw = Math.max(150, Math.min(900, c.base + boost));
+        c.w += (c.tw - c.w) * 0.14;
         if (Math.abs(c.tw - c.w) > 0.3) busy = true;
         c.el.style.fontVariationSettings = "'wght' " + c.w.toFixed(1);
+      }
+      if (field) {
+        fx += (tfx - fx) * 0.045;
+        fy += (tfy - fy) * 0.045;
+        if (Math.abs(tfx - fx) > 0.3 || Math.abs(tfy - fy) > 0.3) busy = true;
+        field.style.transform = "translate3d(" + fx.toFixed(1) + "px," + fy.toFixed(1) + "px,0)";
       }
       if (busy || pointerActive) {
         raf = requestAnimationFrame(render);
@@ -250,6 +260,8 @@
       window.addEventListener("pointermove", function (e) {
         mx = e.clientX;
         my = e.clientY;
+        tfx = (e.clientX / window.innerWidth - 0.5) * 56;
+        tfy = (e.clientY / window.innerHeight - 0.5) * 36;
         pointerActive = true;
         clearTimeout(idleTimer);
         idleTimer = setTimeout(function () { pointerActive = false; }, 120);
@@ -267,7 +279,7 @@
           var local = p * (1 + SPREAD) - (i / last) * SPREAD;
           local = Math.max(0, Math.min(1, local));
           local = local * local * (3 - 2 * local); // smoothstep
-          state[i].base = 740 - local * 430;
+          state[i].base = 700 - local * 410;
         }
         kinetic.style.letterSpacing = (-0.048 + p * 0.03).toFixed(4) + "em";
         wake();
