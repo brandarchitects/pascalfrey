@@ -8,7 +8,7 @@ Personal-Brand-Website von Pascal Frey — Creative Director & Markenstratege, Z
 - **Ultramarin** `#2B2BE0` — der Akzent, sparsam eingesetzt, mit Gewicht
 - **Tinte** `#141415` — leicht bläulich gebrochenes Fast-Schwarz für Text und dunkle Flächen
 
-Typografie: **Archivo Variable** (`wght` 100–900, `wdth` 62–125) als einzige Textschrift — von der kinetischen Uppercase-Headline bis zum Fliesstext — plus **JetBrains Mono** für Meta-Labels und Register. Beide lokal gehostet (kein Google-Fonts-CDN, DSGVO/DSG-konform).
+Typografie: **Inter Variable** (`wght` 100–900, `opsz` 14–32, offizieller Release von rsms/inter) als einzige Textschrift — von der Plakat-Headline bis zum Fliesstext — plus **JetBrains Mono** für Meta-Labels und Register. Beide lokal gehostet (kein Google-Fonts-CDN, DSGVO/DSG-konform).
 
 Das Einhorn aus dem Familienwappen Frey erscheint bewusst nur klein: als Stempel-Marke neben dem Wortzeichen im Header und Footer.
 
@@ -34,7 +34,7 @@ assets/
   css/style.css     Design-System & Layout
   js/main.js        Motion-Layer (GSAP)
   js/vendor/        gsap.min.js, ScrollTrigger.min.js
-  fonts/            Archivo Variable + JetBrains Mono (woff2, self-hosted)
+  fonts/            Inter Variable + JetBrains Mono (woff2, self-hosted)
 public/
   brand/            Wappen, Einhorn-Stempel, Favicons
   logos/clients/    Kundenlogos (weiss, für dunkle Flächen)

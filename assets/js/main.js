@@ -1,7 +1,8 @@
-/* Pascal Frey — Studio Ultramarin
-   Motion layer: GSAP + ScrollTrigger, kinetic variable-font hero,
-   floating work previews. Degrades to a static page without JS
-   and honours prefers-reduced-motion. */
+/* Pascal Frey — Studio Ultramarin, Runde 2
+   Motion layer: GSAP + ScrollTrigger. Preloader with counting
+   weight morph, dark poster hero, scroll-driven variable-font
+   wave, floating work previews. Degrades to a static page
+   without JS and honours prefers-reduced-motion. */
 
 (function () {
   "use strict";
@@ -34,7 +35,16 @@
   /* ---------- Header: hairline + hide on scroll down ---------- */
 
   var header = document.querySelector(".site-header");
+  var darkHero = document.querySelector(".hero");
   var lastY = 0;
+
+  function headerTheme() {
+    if (!header || !darkHero) return;
+    var invert =
+      !document.body.classList.contains("menu-open") &&
+      window.scrollY < darkHero.offsetHeight - 56;
+    header.classList.toggle("is-inverted", invert);
+  }
 
   function onScroll() {
     var y = window.scrollY;
@@ -45,11 +55,13 @@
       } else if (y < lastY - 4 || y < 520) {
         header.classList.remove("is-hidden");
       }
+      headerTheme();
     }
     lastY = y;
   }
 
   window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", headerTheme, { passive: true });
   onScroll();
 
   /* ---------- Mobile menu ---------- */
@@ -65,6 +77,7 @@
     }
     if (menu) menu.setAttribute("aria-hidden", open ? "false" : "true");
     if (open) header.classList.remove("is-hidden");
+    headerTheme();
   }
 
   if (burger && menu) {
@@ -90,66 +103,30 @@
 
   /* ---------- Kinetic hero: split rows into chars ---------- */
 
-  var BASE_W = 580, BASE_D = 117;
   var chars = [];
 
   document.querySelectorAll("[data-kinetic]").forEach(function (el) {
     var text = el.textContent;
     el.textContent = "";
     for (var i = 0; i < text.length; i++) {
+      if (text[i] === " ") {
+        el.appendChild(document.createTextNode(" "));
+        continue;
+      }
       var s = document.createElement("span");
       s.className = "ch";
       s.textContent = text[i];
       el.appendChild(s);
-      chars.push({ el: s, w: BASE_W, d: BASE_D, tw: BASE_W, td: BASE_D });
+      chars.push(s);
     }
   });
 
-  /* Cursor-proximity variable-font morph (desktop only) */
-  if (canHover && !reduceMotion && chars.length) {
-    var mx = -9999, my = -9999;
-    var raf = null, running = false, idleTimer = null, pointerActive = false;
-    var RADIUS = 260;
-
-    var morph = function () {
-      var busy = false;
-      for (var i = 0; i < chars.length; i++) {
-        var c = chars[i];
-        var r = c.el.getBoundingClientRect();
-        var dist = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
-        var p = Math.max(0, 1 - dist / RADIUS);
-        p = p * p * (3 - 2 * p); // smoothstep
-        c.tw = BASE_W + p * 320;  // wght 580 -> 900
-        c.td = BASE_D - p * 39;   // wdth 117 -> 78
-        c.w += (c.tw - c.w) * 0.16;
-        c.d += (c.td - c.d) * 0.16;
-        if (Math.abs(c.tw - c.w) > 0.3 || Math.abs(c.td - c.d) > 0.1) busy = true;
-        c.el.style.fontVariationSettings = "'wght' " + c.w.toFixed(1) + ",'wdth' " + c.d.toFixed(1);
-      }
-      if (busy || pointerActive) {
-        raf = requestAnimationFrame(morph);
-      } else {
-        running = false;
-        raf = null;
-      }
-    };
-
-    window.addEventListener("pointermove", function (e) {
-      mx = e.clientX;
-      my = e.clientY;
-      pointerActive = true;
-      clearTimeout(idleTimer);
-      idleTimer = setTimeout(function () { pointerActive = false; }, 120);
-      if (!running) {
-        running = true;
-        raf = requestAnimationFrame(morph);
-      }
-    }, { passive: true });
-  }
-
   /* ---------- Static fallback ---------- */
 
+  var preloader = document.getElementById("preloader");
+
   if (reduceMotion || typeof gsap === "undefined") {
+    if (preloader) preloader.remove();
     docEl.classList.remove("js");
     return;
   }
@@ -157,13 +134,13 @@
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: "power3.out" });
 
-  /* ---------- Entrance choreography ---------- */
+  /* ---------- Entrance choreography (released by the preloader) ---------- */
 
-  var intro = gsap.timeline({ delay: 0.15 });
+  var intro = gsap.timeline({ paused: true });
 
   var rows = document.querySelectorAll(".kinetic .row-inner");
   if (rows.length) {
-    intro.fromTo(rows, { y: 0, yPercent: 108 }, {
+    intro.fromTo(rows, { y: 0, yPercent: 112 }, {
       y: 0,
       yPercent: 0,
       duration: 1.2,
@@ -182,17 +159,88 @@
     );
   }
 
-  /* Hero parallax out while scrolling */
+  /* ---------- Preloader: counter with weight morph, curtain lift ---------- */
+
+  var introSeen = false;
+  try { introSeen = sessionStorage.getItem("pf-intro-seen") === "1"; } catch (e) {}
+
+  if (preloader && !introSeen) {
+    try { sessionStorage.setItem("pf-intro-seen", "1"); } catch (e) {}
+    document.body.classList.add("is-loading");
+
+    var countEl = document.getElementById("preCount");
+    var countWrap = countEl ? countEl.parentNode : null;
+    var barEl = document.getElementById("preBar");
+    var count = { v: 0 };
+
+    var boot = gsap.timeline();
+    boot.to(count, {
+      v: 100,
+      duration: 1.5,
+      ease: "power2.inOut",
+      onUpdate: function () {
+        var v = Math.round(count.v);
+        if (countEl) countEl.textContent = (v < 10 ? "00" : v < 100 ? "0" : "") + v;
+        if (countWrap) countWrap.style.fontVariationSettings = "'wght' " + (250 + count.v * 4.9).toFixed(0);
+        if (barEl) barEl.style.transform = "scaleX(" + count.v / 100 + ")";
+      }
+    });
+    boot.to(preloader, {
+      yPercent: -100,
+      duration: 0.85,
+      ease: "expo.inOut",
+      onStart: function () { document.body.classList.remove("is-loading"); },
+      onComplete: function () { preloader.remove(); }
+    }, "+=0.12");
+    boot.add(function () { intro.play(); }, "-=0.5");
+  } else {
+    if (preloader) preloader.remove();
+    gsap.delayedCall(0.15, function () { intro.play(); });
+  }
+
+  /* ---------- First scroll moment: the headline thins out in a wave ---------- */
+
   var kinetic = document.querySelector(".kinetic");
-  if (kinetic) {
-    gsap.to(kinetic, {
-      yPercent: -6,
-      opacity: 0.3,
+  if (kinetic && chars.length) {
+    var SPREAD = 0.55;
+    var last = Math.max(1, chars.length - 1);
+
+    ScrollTrigger.create({
+      trigger: ".hero",
+      start: "top top",
+      end: "+=85%",
+      onUpdate: function (self) {
+        var p = self.progress;
+        for (var i = 0; i < chars.length; i++) {
+          var local = p * (1 + SPREAD) - (i / last) * SPREAD;
+          local = Math.max(0, Math.min(1, local));
+          local = local * local * (3 - 2 * local); // smoothstep
+          chars[i].style.fontVariationSettings = "'wght' " + (740 - local * 430).toFixed(1);
+        }
+        kinetic.style.letterSpacing = (-0.048 + p * 0.03).toFixed(4) + "em";
+      }
+    });
+
+    gsap.utils.toArray(".kinetic .row").forEach(function (row, i) {
+      gsap.to(row, {
+        yPercent: -(8 + i * 9),
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+    gsap.to(".hero-bg", {
+      yPercent: 16,
       ease: "none",
       scrollTrigger: {
         trigger: ".hero",
-        start: "bottom 90%",
-        end: "bottom 35%",
+        start: "top top",
+        end: "bottom top",
         scrub: true
       }
     });

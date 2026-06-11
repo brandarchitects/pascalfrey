@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="de-CH" class="js">
+<html lang="de-CH">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pascal Frey — Creative Director &amp; Markenstratege, Zürich</title>
   <meta name="description" content="Pascal Frey entwickelt seit über 20 Jahren Marken für Schweizer Unternehmen — Creative Director Brand & Strategy bei Swisscom, Gründer von Brand Architects. Markenstrategie, Brand Design, Creative Direction und AI in der Markenarbeit.">
   <link rel="canonical" href="https://pascalfrey.ch/">
-  <meta name="theme-color" content="#F1F1EE">
+  <meta name="theme-color" content="#0B0B12">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_CH">
@@ -26,7 +27,7 @@
   <link rel="icon" href="/public/brand/favicon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="/public/brand/apple-touch-icon.png">
 
-  <link rel="preload" href="/assets/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/style.css">
 
@@ -67,10 +68,20 @@
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <span class="preloader__brand mono">Pascal Frey — Marken, die bleiben</span>
+    <div class="preloader__count">
+      <span id="preCount">000</span>
+      <span class="preloader__unit">%</span>
+    </div>
+    <div class="preloader__bar"><i id="preBar"></i></div>
+  </div>
+
   <header class="site-header">
     <div class="wrap site-header__bar">
       <a class="wordmark" href="/" aria-label="Pascal Frey — Startseite">
-        <img class="wordmark__crest" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+        <img class="wordmark__crest wordmark__crest--dark" src="/public/brand/unicorn-mark.png" alt="" aria-hidden="true" width="192" height="197">
+        <img class="wordmark__crest wordmark__crest--light" src="/public/brand/unicorn-mark-light.png" alt="" aria-hidden="true" width="192" height="197">
         <span>Pascal Frey</span>
       </a>
       <nav class="site-nav" aria-label="Hauptnavigation">
@@ -100,40 +111,44 @@
 
   <main id="main">
 
-    <!-- ============ Hero ============ -->
-    <section class="hero wrap" id="top">
-      <div class="hero__top">
-        <div class="col mono" data-hero-fade>
-          Creative Direction<br>
-          Brand Strategy<br>
-          AI in der Markenarbeit
-        </div>
-        <div class="col right mono" data-hero-fade>
-          Zürich, Schweiz<br>
-          Creative Director, Swisscom
-        </div>
+    <!-- ============ Hero: dark poster ============ -->
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="blob blob--a"></span>
+        <span class="blob blob--b"></span>
+        <span class="blob blob--c"></span>
+        <span class="hero-grid"></span>
+        <span class="hero-grain"></span>
       </div>
 
-      <p class="hero__eyebrow" data-hero-fade>
-        <span class="dot" aria-hidden="true"></span>
-        <span>Creative Director &amp; Markenstratege</span>
-      </p>
+      <div class="wrap hero__inner">
+        <div class="hero__top">
+          <p class="hero__credo" data-hero-fade>
+            <strong>Pascal Frey</strong> entwickelt seit über zwanzig Jahren
+            prägnante Marken für Schweizer Unternehmen mit ambitionierten
+            Zielen — heute als Creative Director Brand &amp; Strategy bei
+            Swisscom, einer der wertvollsten Marken der Schweiz.
+          </p>
+          <div class="col right mono" data-hero-fade>
+            Zürich, Schweiz<br>
+            47.3769° N, 8.5417° O
+          </div>
+        </div>
 
-      <h1 class="kinetic" id="kinetic" aria-label="Pascal Frey">
-        <span class="row"><span class="row-inner" data-kinetic>Pascal</span></span>
-        <span class="row row--outline"><span class="row-inner" data-kinetic>Frey</span></span>
-      </h1>
+        <p class="hero__eyebrow" data-hero-fade>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Creative Director &amp; Markenstratege</span>
+        </p>
 
-      <div class="hero__foot">
-        <p class="hero__lede" data-hero-fade>
-          Marken, die bleiben: Pascal Frey führt Marken von der Strategie bis
-          zum letzten Pixel — seit über zwanzig Jahren, heute auch mit
-          <em>AI&#8209;getriebenen Bildwelten</em> als neuem Werkzeug.
-        </p>
-        <p class="hero__clients mono" data-hero-fade>
-          Swisscom · SBB · Geberit · Migros<br>
-          iF Design Award 2026 · German Brand Award
-        </p>
+        <h1 class="kinetic" id="kinetic" aria-label="Marken, die bleiben.">
+          <span class="row"><span class="row-inner"><span data-kinetic>Marken,</span></span></span>
+          <span class="row"><span class="row-inner"><span data-kinetic>die bleiben</span><span class="punct">.</span></span></span>
+        </h1>
+
+        <div class="hero__foot">
+          <p class="mono" data-hero-fade>Swisscom · SBB · Geberit · Migros</p>
+          <p class="mono right" data-hero-fade>iF Design Award 2026 · German Brand Award</p>
+        </div>
       </div>
 
       <div class="scroll-cue mono" aria-hidden="true">
