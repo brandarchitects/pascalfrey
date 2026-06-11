@@ -341,28 +341,30 @@ strong {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4.25rem;
+  height: 4.875rem;
   max-width: none;
 }
 
 .wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1.05rem;
   font-size: 1.0625rem;
   font-variation-settings: "wght" 700;
   letter-spacing: 0.01em;
   line-height: 1;
 }
 
+/* Heraldic hover: the seal lifts, calm and upright — no tilt */
 .wordmark__crest {
   width: auto;
-  height: 3.5rem;
+  height: 3.15rem;
   flex: none;
-  transition: transform 0.5s var(--ease-out);
+  transition: transform 0.6s var(--ease-out), filter 0.6s var(--ease-out);
 }
 .wordmark:hover .wordmark__crest {
-  transform: rotate(-6deg) scale(1.06);
+  transform: translateY(-2px) scale(1.04);
+  filter: drop-shadow(0 6px 14px rgba(43, 43, 224, 0.28));
 }
 
 .wordmark sup {
@@ -404,15 +406,6 @@ strong {
   transform-origin: left;
 }
 
-.nav-clock {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
 
 .site-nav .nav-cta {
   padding: 0.55rem 1.15rem;
@@ -564,19 +557,33 @@ body.menu-open {
   to { transform: translate(-11vw, -9vh) scale(1.16); }
 }
 
-/* Cursor glow: soft ultramarine light that trails the pointer */
+/* Cursor glow: a faint, organic ultramarine shimmer that trails the
+   pointer — two offset gradients + slow breathing via the standalone
+   scale property (composes with the JS-driven translate) */
 .hero-glow {
   position: absolute;
   left: 0;
   top: 0;
-  width: 44vmax;
-  height: 44vmax;
-  margin: -22vmax 0 0 -22vmax;
+  width: 26vmax;
+  height: 26vmax;
+  margin: -13vmax 0 0 -13vmax;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(93, 93, 255, 0.32), transparent 64%);
+  background:
+    radial-gradient(closest-side, rgba(93, 93, 255, 0.11), transparent 76%),
+    radial-gradient(closest-side at 41% 58%, rgba(43, 43, 224, 0.09), transparent 68%);
   mix-blend-mode: screen;
   opacity: 0;
+  animation: glow-breathe 7s ease-in-out infinite;
   will-change: transform, opacity;
+}
+@keyframes glow-breathe {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.14;
+  }
 }
 
 /* Swiss column grid, barely there */
@@ -766,6 +773,111 @@ html.js .kinetic .row-inner {
   border-color: var(--ultra);
 }
 
+/* Tiny floating arrow, bottom centre of the first screen.
+   Centred via margin (not transform) so the entrance animation and
+   the standalone translate float can play without conflicts. */
+.hero-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.9rem, 2.6vh, 1.75rem);
+  margin-left: -0.5em;
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  line-height: 1;
+  color: var(--on-ink-muted);
+  animation: arrow-float 2.6s ease-in-out infinite;
+  transition: color 0.3s ease;
+}
+.hero-arrow:hover,
+.hero-arrow:focus-visible {
+  color: var(--on-ink);
+}
+@keyframes arrow-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 7px;
+  }
+}
+
+/* ---------- Contact page hero ---------- */
+
+.hero--contact .kinetic {
+  font-size: clamp(2.875rem, 11.5vw, 13.5rem);
+}
+
+.contact-disc {
+  position: absolute;
+  right: clamp(var(--gutter), 12vw, 14rem);
+  bottom: clamp(7rem, 22vh, 13rem);
+  z-index: 5;
+  width: clamp(8.5rem, 12vw, 11rem);
+  height: clamp(8.5rem, 12vw, 11rem);
+  border-radius: 50%;
+  background: var(--ultra);
+  color: var(--on-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-variation-settings: var(--fvs-medium);
+  line-height: 1.35;
+  transition: background-color 0.35s var(--ease-out), transform 0.5s var(--ease-out);
+}
+.contact-disc:hover,
+.contact-disc:focus-visible {
+  background: var(--ultra-glow);
+  transform: scale(1.06);
+}
+
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.95rem 1.5rem;
+  border: 1px solid var(--line-on-ink);
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-variation-settings: var(--fvs-medium);
+  color: var(--on-ink);
+  transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+.pill:hover,
+.pill:focus-visible {
+  border-color: var(--ultra-glow);
+  background: rgba(43, 43, 224, 0.18);
+}
+
+.hero__foot--contact {
+  border-top: 1px solid var(--line-on-ink);
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+@media (max-width: 56rem) {
+  .contact-disc {
+    position: static;
+    margin: 0.5rem 0 1.75rem var(--gutter);
+    width: 7.5rem;
+    height: 7.5rem;
+    font-size: 0.875rem;
+  }
+  .hero__foot--contact {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* ---------- Header over dark hero ---------- */
 
 .site-header.is-inverted {
@@ -780,9 +892,6 @@ html.js .kinetic .row-inner {
 }
 .site-header.is-inverted .site-nav a:not(.nav-cta)::after {
   background: var(--ultra-glow);
-}
-.site-header.is-inverted .nav-clock {
-  color: var(--on-ink-muted);
 }
 .site-header.is-inverted .nav-cta {
   border-color: rgba(241, 241, 238, 0.38);
@@ -1453,6 +1562,11 @@ body.is-loading {
   opacity: 0.95;
 }
 
+.logo-grid > .logo--wide img {
+  max-height: 1.9rem;
+  max-width: 86%;
+}
+
 @media (max-width: 64rem) {
   .logo-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1759,9 +1873,6 @@ html.js .standin [data-shape] {
 
 @media (max-width: 56rem) {
   .site-nav a:not(.nav-cta) {
-    display: none;
-  }
-  .nav-clock {
     display: none;
   }
   .burger {

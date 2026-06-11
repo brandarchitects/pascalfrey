@@ -24,10 +24,11 @@
     } catch (e) {
       label = "";
     }
-    var nav = document.getElementById("navClock");
     var menu = document.getElementById("menuClock");
-    if (nav) nav.textContent = label ? "Zürich " + label : "Zürich";
     if (menu) menu.textContent = label || "—:—";
+    document.querySelectorAll("[data-clock]").forEach(function (el) {
+      el.textContent = label || "—:—";
+    });
   }
   tick();
   setInterval(tick, 30000);

@@ -41,7 +41,7 @@
     "image": "https://pascalfrey.ch/public/portraits/pascal-frey-03.jpg",
     "jobTitle": "Creative Director & Markenstratege",
     "description": "Pascal Frey entwickelt seit über 20 Jahren Marken für Schweizer Unternehmen. Creative Director Brand & Strategy bei Swisscom, Gründer von Brand Architects.",
-    "email": "mailto:pascal@pascalfrey.ch",
+    "email": "mailto:pfrey@brandarchitects.ch",
     "address": { "@type": "PostalAddress", "addressLocality": "Zürich", "addressCountry": "CH" },
     "worksFor": { "@type": "Organization", "name": "Swisscom", "url": "https://www.swisscom.ch" },
     "brand": { "@type": "Organization", "name": "Brand Architects", "url": "https://www.brandarchitects.ch", "founder": { "@id": "https://pascalfrey.ch/#person" } },
@@ -88,8 +88,7 @@
         <a href="/#profil">Profil</a>
         <a href="/#expertise">Expertise</a>
         <a href="/arbeiten">Arbeiten</a>
-        <span class="nav-clock" id="navClock" aria-hidden="true">Zürich —:—</span>
-        <a class="nav-cta" href="/#kontakt">Kontakt</a>
+        <a class="nav-cta" href="/kontakt">Kontakt</a>
       </nav>
       <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span>
@@ -102,7 +101,7 @@
     <a href="/#profil"><span>Profil</span><span class="mono">01</span></a>
     <a href="/#expertise"><span>Expertise</span><span class="mono">02</span></a>
     <a href="/arbeiten"><span>Arbeiten</span><span class="mono">03</span></a>
-    <a href="/#kontakt"><span>Kontakt</span><span class="mono">04</span></a>
+    <a href="/kontakt"><span>Kontakt</span><span class="mono">04</span></a>
     <div class="mobile-menu__foot mono">
       <span>Zürich, Schweiz</span>
       <span id="menuClock">—:—</span>
@@ -134,7 +133,7 @@
           </p>
           <div class="col right mono" data-hero-fade>
             Zürich, Schweiz<br>
-            47.3769° N, 8.5417° O
+            Local Time <span data-clock>—:—</span>
           </div>
         </div>
 
@@ -153,10 +152,12 @@
         </h1>
 
         <div class="hero__foot">
-          <p class="mono" data-hero-fade>Swisscom · SBB · Geberit · Migros</p>
-          <p class="mono right" data-hero-fade>iF Design Award 2026 · German Brand Award</p>
+          <p class="mono" data-hero-fade>See · Think · Act</p>
+          <p class="mono right" data-hero-fade>Creative Direction · Brand Strategy · Design</p>
         </div>
       </div>
+
+      <a class="hero-arrow" href="#profil" aria-label="Nach unten scrollen" data-hero-fade>↓</a>
     </section>
 
     <!-- ============ 01 Profil ============ -->
@@ -169,10 +170,9 @@
       <div class="profile">
         <div class="profile__body">
           <p class="profile__statement" data-reveal>
-            Gute Gestaltung beginnt nicht mit Farbe oder Form — sie beginnt mit
-            einer <span class="accent">Entscheidung</span>. Pascal trifft sie:
-            durchdacht in der Strategie, präzise in der Umsetzung,
-            wirtschaftlich in der Wirkung.
+            Gestaltung ist <span class="accent">Haltung</span>: durchdacht
+            in der Strategie, präzise in der Umsetzung, wirtschaftlich
+            in der Wirkung.
           </p>
           <div class="copy">
             <p data-reveal>
@@ -218,7 +218,7 @@
         <span class="mono idx">Fünf Disziplinen, eine Haltung</span>
       </div>
       <div class="expertise__intro">
-        <h2 class="title" data-reveal>Von der Strategie bis zum letzten Pixel.</h2>
+        <h2 class="title" data-reveal>Von der Strategie bis zum fertigen Erlebnis.</h2>
         <p class="muted" data-reveal>
           Marke entsteht nicht in Silos. Pascal arbeitet an der Schnittstelle von
           Strategie, Design und Technologie — dort, wo Positionierung Form annimmt.
@@ -256,7 +256,7 @@
     <!-- ============ 03 Arbeiten ============ -->
     <section class="section wrap" id="arbeiten">
       <div class="register" data-reveal>
-        <span class="mono">03 — Ausgewählte Arbeiten</span>
+        <span class="mono">03 — Arbeiten &amp; Insights</span>
         <span class="line"></span>
         <span class="mono idx">2018 — 2026</span>
       </div>
@@ -410,20 +410,20 @@
 
         <p class="clients__label" data-reveal>Marken, für die Pascal gearbeitet hat</p>
         <div class="logo-grid">
-          <div><img src="/public/logos/clients/swisscom.png" alt="Swisscom" loading="lazy"></div>
+          <div class="logo--wide"><img src="/public/logos/clients/swisscom.png" alt="Swisscom" loading="lazy"></div>
           <div><img src="/public/logos/clients/sbb.png" alt="SBB" loading="lazy"></div>
           <div><img src="/public/logos/clients/migros.png" alt="Migros" loading="lazy"></div>
           <div><img src="/public/logos/clients/geberit.png" alt="Geberit" loading="lazy"></div>
           <div><img src="/public/logos/clients/raiffeisen.png" alt="Raiffeisen" loading="lazy"></div>
           <div><img src="/public/logos/clients/helsana.png" alt="Helsana" loading="lazy"></div>
-          <div><img src="/public/logos/clients/swiss-life.png" alt="Swiss Life" loading="lazy"></div>
+          <div class="logo--wide"><img src="/public/logos/clients/swiss-life.png" alt="Swiss Life" loading="lazy"></div>
           <div><img src="/public/logos/clients/sanitas.png" alt="Sanitas" loading="lazy"></div>
           <div><img src="/public/logos/clients/microsoft.png" alt="Microsoft" loading="lazy"></div>
           <div><img src="/public/logos/clients/deloitte.png" alt="Deloitte" loading="lazy"></div>
           <div><img src="/public/logos/clients/manor.png" alt="Manor" loading="lazy"></div>
           <div><img src="/public/logos/clients/socar.png" alt="SOCAR" loading="lazy"></div>
           <div><img src="/public/logos/clients/oerlikon.png" alt="OC Oerlikon" loading="lazy"></div>
-          <div><img src="/public/logos/clients/pro-senectute.png" alt="Pro Senectute" loading="lazy"></div>
+          <div class="logo--wide"><img src="/public/logos/clients/pro-senectute.png" alt="Pro Senectute" loading="lazy"></div>
           <div><img src="/public/logos/clients/lungenliga.png" alt="Lungenliga" loading="lazy"></div>
           <div><img src="/public/logos/clients/xpsuisse.png" alt="Expert Suisse" loading="lazy"></div>
           <div><img src="/public/logos/clients/jvm.png" alt="Jung von Matt" loading="lazy"></div>
@@ -435,16 +435,16 @@
     <!-- ============ 05 Kontakt ============ -->
     <section class="contact wrap" id="kontakt">
       <span class="mono contact-kicker" data-reveal>05 — Kontakt · Neues Projekt, neue Marke, neue Frage</span>
-      <a class="giant-link" data-reveal href="mailto:pascal@pascalfrey.ch">Sag Hallo<span class="blue">.</span></a>
+      <a class="giant-link" data-reveal href="/kontakt">Sag Hallo<span class="blue">.</span></a>
       <div class="contact-row">
         <p class="c-note" data-reveal>
           Für Projekte, Mandate, Sparring oder einen Austausch über Markenführung
           und AI — am einfachsten per E-Mail an
-          <a href="mailto:pascal@pascalfrey.ch">pascal@pascalfrey.ch</a>.
+          <a href="mailto:pfrey@brandarchitects.ch">pfrey@brandarchitects.ch</a>.
           Antwort meist innert 48 Stunden.
         </p>
         <div class="contact-links" data-reveal>
-          <a href="mailto:pascal@pascalfrey.ch">E-Mail</a>
+          <a href="mailto:pfrey@brandarchitects.ch">E-Mail</a>
           <a href="https://www.linkedin.com/in/freypascal/" rel="noopener">LinkedIn</a>
           <a href="https://www.brandarchitects.ch" rel="noopener">Brand Architects</a>
         </div>
@@ -473,7 +473,7 @@
             <li><a href="/#profil">Profil</a></li>
             <li><a href="/#expertise">Expertise</a></li>
             <li><a href="/arbeiten">Arbeiten</a></li>
-            <li><a href="/#kontakt">Kontakt</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
           </ul>
         </nav>
         <nav aria-label="Externe Kanäle">
@@ -481,7 +481,7 @@
           <ul>
             <li><a href="https://www.linkedin.com/in/freypascal/" rel="noopener">LinkedIn</a></li>
             <li><a href="https://www.brandarchitects.ch" rel="noopener">Brand Architects</a></li>
-            <li><a href="mailto:pascal@pascalfrey.ch">E-Mail</a></li>
+            <li><a href="mailto:pfrey@brandarchitects.ch">E-Mail</a></li>
           </ul>
         </nav>
       </div>
