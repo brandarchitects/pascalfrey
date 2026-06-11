@@ -198,12 +198,64 @@
     gsap.delayedCall(0.15, function () { intro.play(); });
   }
 
-  /* ---------- First scroll moment: the headline thins out in a wave ---------- */
+  /* ---------- Headline morph: cursor proximity + scroll wave ----------
+     One shared weight per char: the scroll wave sets the base weight
+     (740 thinning to 310), the cursor adds a fluid proximity boost on
+     top (desktop only), capped at the 900 end of Inter's axis. */
 
   var kinetic = document.querySelector(".kinetic");
   if (kinetic && chars.length) {
     var SPREAD = 0.55;
+    var RADIUS = 260;
     var last = Math.max(1, chars.length - 1);
+    var state = chars.map(function (el) {
+      return { el: el, base: 740, w: 740, tw: 740 };
+    });
+    var mx = -9999, my = -9999;
+    var raf = null, running = false, idleTimer = null, pointerActive = false;
+
+    var render = function () {
+      var busy = false;
+      for (var i = 0; i < state.length; i++) {
+        var c = state[i];
+        var boost = 0;
+        if (canHover) {
+          var r = c.el.getBoundingClientRect();
+          var dist = Math.hypot(mx - (r.left + r.width / 2), my - (r.top + r.height / 2));
+          var p = Math.max(0, 1 - dist / RADIUS);
+          p = p * p * (3 - 2 * p); // smoothstep
+          boost = p * 230;
+        }
+        c.tw = Math.min(900, c.base + boost);
+        c.w += (c.tw - c.w) * 0.16;
+        if (Math.abs(c.tw - c.w) > 0.3) busy = true;
+        c.el.style.fontVariationSettings = "'wght' " + c.w.toFixed(1);
+      }
+      if (busy || pointerActive) {
+        raf = requestAnimationFrame(render);
+      } else {
+        running = false;
+        raf = null;
+      }
+    };
+
+    var wake = function () {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(render);
+      }
+    };
+
+    if (canHover) {
+      window.addEventListener("pointermove", function (e) {
+        mx = e.clientX;
+        my = e.clientY;
+        pointerActive = true;
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(function () { pointerActive = false; }, 120);
+        wake();
+      }, { passive: true });
+    }
 
     ScrollTrigger.create({
       trigger: ".hero",
@@ -211,13 +263,14 @@
       end: "+=85%",
       onUpdate: function (self) {
         var p = self.progress;
-        for (var i = 0; i < chars.length; i++) {
+        for (var i = 0; i < state.length; i++) {
           var local = p * (1 + SPREAD) - (i / last) * SPREAD;
           local = Math.max(0, Math.min(1, local));
           local = local * local * (3 - 2 * local); // smoothstep
-          chars[i].style.fontVariationSettings = "'wght' " + (740 - local * 430).toFixed(1);
+          state[i].base = 740 - local * 430;
         }
         kinetic.style.letterSpacing = (-0.048 + p * 0.03).toFixed(4) + "em";
+        wake();
       }
     });
 
