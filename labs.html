@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
-    /* ---- Lab round 2: colour latitude + fine motion + optional grain ---- */
+    /* ================= Lab round 3 ================= */
 
     .lab-grid {
       display: grid;
@@ -40,6 +40,8 @@
       width: 100%;
       height: 100%;
     }
+    .lab-tile::after { content: none; } /* no inherited default grain here */
+
     .tile-label {
       position: absolute;
       left: 1.1rem;
@@ -47,37 +49,48 @@
       color: rgba(241, 241, 238, 0.72);
       z-index: 3;
     }
+    .tile--paper .tile-label { color: var(--muted); }
 
-    /* tile grounds: the new colour latitude */
+    /* grounds */
+    .tile--paper { background: var(--paper-raised); color: var(--ink); }
     .tile--ultra { background: #2b2be0; }
     .tile--navy  { background: #12123e; }
     .tile--black { background: #141415; }
-    .tile--slate { background: #1d1d23; }
 
-    /* analog grain, like the hero background (variant 2 only) */
-    .tile-grain {
+    /* ---------- analog layers ---------- */
+
+    /* coarse, clearly visible grain (dark grounds) */
+    .grain--strong {
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-      opacity: 0.34;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      opacity: 0.6;
+      filter: contrast(190%);
       mix-blend-mode: overlay;
       pointer-events: none;
       z-index: 2;
     }
+    /* coarse paper grain (light grounds) */
+    .grain--paper {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+      opacity: 0.4;
+      filter: contrast(180%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 2;
+    }
 
-    /* ---- fine, slow element motion ---- */
-    .lab-tile [class^="mov-"],
-    .lab-tile [class*=" mov-"] {
+    /* ---------- fine idle motion (colour tiles) ---------- */
+    .lab-tile [class*="mov-"],
+    .lab-tile .eq,
+    .lab-tile .sq,
+    .lab-tile .build {
       transform-box: fill-box;
       transform-origin: center;
-    }
-    .mov-bar    { animation: bar-breathe 3.8s ease-in-out infinite alternate; }
-    .mov-bar.d1 { animation-duration: 3.1s; animation-delay: -1.2s; }
-    .mov-bar.d2 { animation-duration: 4.4s; animation-delay: -2.1s; }
-    .mov-bar.d3 { animation-duration: 3.5s; animation-delay: -0.6s; }
-    @keyframes bar-breathe {
-      from { transform: scaleY(0.94); }
-      to   { transform: scaleY(1.07); }
     }
 
     .mov-rot-a { animation: rot-a 18s ease-in-out infinite alternate; }
@@ -85,21 +98,40 @@
     @keyframes rot-a { from { transform: rotate(-1.6deg); } to { transform: rotate(2.2deg); } }
     @keyframes rot-b { from { transform: rotate(1.8deg); }  to { transform: rotate(-1.4deg); } }
 
-    .mov-grow {
-      transform-origin: left center;
-      animation: grow-x 5.5s ease-in-out infinite alternate;
-    }
-    @keyframes grow-x { from { transform: scaleX(1); } to { transform: scaleX(1.16); } }
+    /* ---------- hover: content-driven motion ---------- */
 
-    .mov-drift-a { animation: drift-1 9s ease-in-out infinite alternate; }
-    .mov-drift-b { animation: drift-2 12s ease-in-out infinite alternate; }
-    .mov-scale   { animation: scale-soft 13s ease-in-out infinite alternate; }
-    @keyframes drift-1 { from { transform: translate(0, 0); } to { transform: translate(5px, -4px); } }
-    @keyframes drift-2 { from { transform: translate(0, 0); } to { transform: translate(-4px, 3px); } }
-    @keyframes scale-soft { from { transform: scale(1); } to { transform: scale(1.02); } }
+    /* Sonic: the equalizer plays */
+    .eq { animation-fill-mode: both; }
+    .lab-tile:hover .eq { animation: eq 0.75s ease-in-out infinite alternate; }
+    .eq.d1 { animation-duration: 0.55s; animation-delay: -0.2s; }
+    .eq.d2 { animation-duration: 0.9s;  animation-delay: -0.45s; }
+    .eq.d3 { animation-duration: 0.65s; animation-delay: -0.1s; }
+    @keyframes eq {
+      from { transform: scaleY(0.45); }
+      to   { transform: scaleY(1.35); }
+    }
+
+    /* NEO: the system fans out */
+    .sq { transform: rotate(var(--r)); transition: transform 1s var(--ease-out); }
+    .lab-tile:hover .sq { transform: rotate(calc(var(--r) * 2.2)); }
+
+    /* GenAI: the network starts orbiting */
+    .orbit {
+      transform-box: view-box;
+      transform-origin: 42% 50%;
+    }
+    .lab-tile:hover .orbit { animation: orbit 16s linear infinite; }
+    @keyframes orbit { to { transform: rotate(360deg); } }
+
+    /* Geberit: the template fills itself */
+    .build { transform-origin: left center; }
+    .lab-tile:hover .build { animation: build 0.7s var(--ease-out) backwards; }
+    .lab-tile:hover .build.b2 { animation-delay: 0.18s; }
+    .lab-tile:hover .build.b3 { animation-delay: 0.36s; }
+    @keyframes build { from { transform: scaleX(0); } }
 
     @media (prefers-reduced-motion: reduce) {
-      .lab-tile * { animation: none !important; }
+      .lab-tile *, .lab-tile:hover * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
@@ -140,124 +172,115 @@
   <main id="main">
 
     <section class="page-hero wrap">
-      <p class="eyebrow">Visual Lab — Runde 2</p>
-      <h1 class="display">Farbe &amp; Korn<em>.</em></h1>
+      <p class="eyebrow">Visual Lab — Runde 3</p>
+      <h1 class="display">Vier Wege<em>.</em></h1>
       <p class="lead muted">
-        Der bewährte konstruktivistische Stil, neu mit mehr farblichem
-        und grafischem Spielraum pro Kachel — Ultramarin-Fläche,
-        Nachtblau und Schwarz als Bildgrund, weisse und transluzente
-        Formen. Alle Elemente bewegen sich ganz leicht. Variante 1 ohne,
-        Variante 2 mit analogem Korn wie im Header.
+        Hell, farbig, gemischt — und drei analoge Veredelungen.
+        <strong>Maus über die Kacheln bewegen:</strong> Jedes Motiv hat
+        eine inhaltliche Hover-Animation — der Equalizer spielt, das
+        System fächert auf, das Netzwerk kreist, das Template füllt sich.
       </p>
     </section>
 
-    <!-- ============ V1 — Farbe + feine Animation ============ -->
+    <!-- ============ V1 — Hell (Original) ============ -->
     <section class="section wrap">
       <div class="register" data-reveal>
-        <span class="mono">V1 — Farbraum + feine Animation</span>
+        <span class="mono">V1 — Hell, wie bisher</span>
         <span class="line"></span>
-        <span class="mono idx">Ohne Korn</span>
+        <span class="mono idx">Mit Hover-Animation</span>
       </div>
       <div class="lab-grid">
 
-        <!-- Sonic: white bars on ultramarine -->
-        <div class="lab-tile tile--ultra" data-reveal>
-          <svg viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#f1f1ee" stroke-width="2.5" stroke-linecap="round">
-            <line class="mov-bar"    x1="52"  y1="106" x2="52"  y2="194"/>
-            <line class="mov-bar d1" x1="90"  y1="122" x2="90"  y2="178"/>
-            <line class="mov-bar d2" x1="128" y1="78"  x2="128" y2="222"/>
-            <line class="mov-bar d3" x1="166" y1="132" x2="166" y2="168"/>
-            <line class="mov-bar d1" x1="204" y1="56"  x2="204" y2="244"/>
-            <line class="mov-bar"    x1="242" y1="112" x2="242" y2="188"/>
-            <line class="mov-bar d2" x1="280" y1="140" x2="280" y2="160"/>
-            <line class="mov-bar d3" x1="318" y1="92"  x2="318" y2="208"/>
-            <line class="mov-bar d1" x1="356" y1="136" x2="356" y2="164"/>
+        <div class="lab-tile tile--paper" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true" stroke-linecap="round">
+            <line class="eq"    x1="70"  y1="118" x2="70"  y2="182" stroke="currentColor" stroke-width="2"/>
+            <line class="eq d1" x1="106" y1="96"  x2="106" y2="204" stroke="currentColor" stroke-width="2"/>
+            <line class="eq d2" x1="142" y1="126" x2="142" y2="174" stroke="currentColor" stroke-width="2"/>
+            <rect class="eq d3" x="172"  y="66"   width="9" height="168" fill="#2b2be0"/>
+            <line class="eq d1" x1="212" y1="108" x2="212" y2="192" stroke="currentColor" stroke-width="2"/>
+            <line class="eq d2" x1="248" y1="132" x2="248" y2="168" stroke="currentColor" stroke-width="2"/>
+            <line class="eq"    x1="284" y1="88"  x2="284" y2="212" stroke="currentColor" stroke-width="2"/>
+            <line class="eq d3" x1="320" y1="122" x2="320" y2="178" stroke="currentColor" stroke-width="2"/>
           </svg>
-          <span class="tile-label mono">SWC / Sonic — 02</span>
+          <span class="tile-label mono">SWC / Sonic — Equalizer spielt</span>
         </div>
 
-        <!-- Blue Space: two squares on navy -->
-        <div class="lab-tile tile--navy" data-reveal>
+        <div class="lab-tile tile--paper" data-reveal>
           <svg viewBox="0 0 400 300" aria-hidden="true">
-            <g class="mov-rot-a">
-              <rect x="124" y="74" width="152" height="152" fill="#3434ec" transform="rotate(9 200 150)"/>
-            </g>
-            <g class="mov-rot-b">
-              <rect x="118" y="68" width="164" height="164" fill="none" stroke="#f1f1ee" stroke-width="2" transform="rotate(-5 200 150)"/>
-            </g>
+            <rect class="sq" style="--r:0deg"  x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <rect class="sq" style="--r:15deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1"/>
+            <rect class="sq" style="--r:30deg" x="134" y="84" width="132" height="132" fill="none" stroke="#2b2be0" stroke-width="2"/>
+            <rect class="sq" style="--r:45deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="200" cy="150" r="6" fill="currentColor"/>
           </svg>
-          <span class="tile-label mono">Blue Space — 05</span>
+          <span class="tile-label mono">SWC / NEO — System fächert auf</span>
         </div>
 
-        <!-- Tooling: blueprint browser frame on black -->
-        <div class="lab-tile tile--black" data-reveal>
+        <div class="lab-tile tile--paper" data-reveal>
           <svg viewBox="0 0 400 300" aria-hidden="true">
-            <rect x="84" y="64" width="232" height="172" fill="none" stroke="#f1f1ee" stroke-width="1.5"/>
-            <line x1="84" y1="106" x2="316" y2="106" stroke="#f1f1ee" stroke-width="1"/>
-            <line x1="168" y1="106" x2="168" y2="236" stroke="#f1f1ee" stroke-width="1"/>
-            <rect class="mov-grow" x="186" y="126" width="78" height="13" fill="#3b3bf0"/>
-            <rect x="186" y="152" width="112" height="8" fill="rgba(241,241,238,0.4)"/>
-            <rect x="186" y="168" width="88" height="8" fill="rgba(241,241,238,0.28)"/>
+            <rect x="84" y="64" width="232" height="172" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="84" y1="106" x2="316" y2="106" stroke="currentColor" stroke-width="1"/>
+            <line x1="168" y1="106" x2="168" y2="236" stroke="currentColor" stroke-width="1"/>
+            <rect x="100" y="122" width="52" height="40" fill="currentColor"/>
+            <rect class="build"    x="186" y="124" width="84" height="13" fill="#2b2be0"/>
+            <line class="build b2" x1="186" y1="158" x2="300" y2="158" stroke="currentColor" stroke-width="1.5"/>
+            <line class="build b3" x1="186" y1="178" x2="276" y2="178" stroke="currentColor" stroke-width="1.5"/>
           </svg>
-          <span class="tile-label mono">Geberit / Tooling — 04</span>
+          <span class="tile-label mono">GEB / Architektur — Template füllt sich</span>
         </div>
 
-        <!-- GenAI: translucent shapes on slate -->
-        <div class="lab-tile tile--slate" data-reveal>
+        <div class="lab-tile tile--paper" data-reveal>
           <svg viewBox="0 0 400 300" aria-hidden="true">
-            <polygon points="200,96 296,252 104,252" fill="rgba(241,241,238,0.07)"/>
-            <g class="mov-scale">
-              <circle cx="172" cy="152" r="80" fill="#3434ec" fill-opacity="0.94"/>
-            </g>
-            <g class="mov-drift-a">
-              <circle cx="258" cy="104" r="44" fill="#f1f1ee"/>
-            </g>
-            <g class="mov-drift-b">
-              <rect x="228" y="186" width="94" height="54" fill="#3b3bf0"/>
+            <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="168" cy="150" r="10" fill="currentColor"/>
+            <g class="orbit">
+              <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1"/>
+              <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1"/>
+              <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1"/>
+              <circle cx="294" cy="90" r="22" fill="#2b2be0"/>
+              <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="82" cy="62" r="6" fill="currentColor"/>
             </g>
           </svg>
-          <span class="tile-label mono">SWC / GenAI — 01</span>
+          <span class="tile-label mono">SWC / GenAI — Netzwerk kreist</span>
         </div>
 
       </div>
     </section>
 
-    <!-- ============ V2 — dazu analoges Korn ============ -->
-    <section class="section wrap" style="padding-bottom: var(--section-gap)">
+    <!-- ============ V2 — Farbig ============ -->
+    <section class="section wrap">
       <div class="register" data-reveal>
-        <span class="mono">V2 — Farbraum + Animation + Korn</span>
+        <span class="mono">V2 — Farbig</span>
         <span class="line"></span>
-        <span class="mono idx">Analoges Korn wie im Header</span>
+        <span class="mono idx">Mit Hover-Animation</span>
       </div>
       <div class="lab-grid">
 
         <div class="lab-tile tile--ultra" data-reveal>
           <svg viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#f1f1ee" stroke-width="2.5" stroke-linecap="round">
-            <line class="mov-bar"    x1="52"  y1="106" x2="52"  y2="194"/>
-            <line class="mov-bar d1" x1="90"  y1="122" x2="90"  y2="178"/>
-            <line class="mov-bar d2" x1="128" y1="78"  x2="128" y2="222"/>
-            <line class="mov-bar d3" x1="166" y1="132" x2="166" y2="168"/>
-            <line class="mov-bar d1" x1="204" y1="56"  x2="204" y2="244"/>
-            <line class="mov-bar"    x1="242" y1="112" x2="242" y2="188"/>
-            <line class="mov-bar d2" x1="280" y1="140" x2="280" y2="160"/>
-            <line class="mov-bar d3" x1="318" y1="92"  x2="318" y2="208"/>
-            <line class="mov-bar d1" x1="356" y1="136" x2="356" y2="164"/>
+            <line class="eq"    x1="70"  y1="118" x2="70"  y2="182"/>
+            <line class="eq d1" x1="106" y1="96"  x2="106" y2="204"/>
+            <line class="eq d2" x1="142" y1="126" x2="142" y2="174"/>
+            <line class="eq d3" x1="178" y1="66"  x2="178" y2="234"/>
+            <line class="eq d1" x1="214" y1="108" x2="214" y2="192"/>
+            <line class="eq d2" x1="250" y1="132" x2="250" y2="168"/>
+            <line class="eq"    x1="286" y1="88"  x2="286" y2="212"/>
+            <line class="eq d3" x1="322" y1="122" x2="322" y2="178"/>
           </svg>
-          <span class="tile-grain" aria-hidden="true"></span>
-          <span class="tile-label mono">SWC / Sonic — 02</span>
+          <span class="tile-label mono">SWC / Sonic</span>
         </div>
 
         <div class="lab-tile tile--navy" data-reveal>
           <svg viewBox="0 0 400 300" aria-hidden="true">
             <g class="mov-rot-a">
-              <rect x="124" y="74" width="152" height="152" fill="#3434ec" transform="rotate(9 200 150)"/>
+              <rect class="sq" style="--r:9deg"  x="124" y="74" width="152" height="152" fill="#3434ec"/>
             </g>
             <g class="mov-rot-b">
-              <rect x="118" y="68" width="164" height="164" fill="none" stroke="#f1f1ee" stroke-width="2" transform="rotate(-5 200 150)"/>
+              <rect class="sq" style="--r:-5deg" x="118" y="68" width="164" height="164" fill="none" stroke="#f1f1ee" stroke-width="2"/>
             </g>
           </svg>
-          <span class="tile-grain" aria-hidden="true"></span>
-          <span class="tile-label mono">Blue Space — 05</span>
+          <span class="tile-label mono">Blue Space</span>
         </div>
 
         <div class="lab-tile tile--black" data-reveal>
@@ -265,29 +288,150 @@
             <rect x="84" y="64" width="232" height="172" fill="none" stroke="#f1f1ee" stroke-width="1.5"/>
             <line x1="84" y1="106" x2="316" y2="106" stroke="#f1f1ee" stroke-width="1"/>
             <line x1="168" y1="106" x2="168" y2="236" stroke="#f1f1ee" stroke-width="1"/>
-            <rect class="mov-grow" x="186" y="126" width="78" height="13" fill="#3b3bf0"/>
-            <rect x="186" y="152" width="112" height="8" fill="rgba(241,241,238,0.4)"/>
-            <rect x="186" y="168" width="88" height="8" fill="rgba(241,241,238,0.28)"/>
+            <rect class="build"    x="186" y="126" width="78" height="13" fill="#3b3bf0"/>
+            <rect class="build b2" x="186" y="152" width="112" height="8" fill="rgba(241,241,238,0.4)"/>
+            <rect class="build b3" x="186" y="168" width="88" height="8" fill="rgba(241,241,238,0.28)"/>
           </svg>
-          <span class="tile-grain" aria-hidden="true"></span>
-          <span class="tile-label mono">Geberit / Tooling — 04</span>
+          <span class="tile-label mono">GEB / Tooling</span>
         </div>
 
-        <div class="lab-tile tile--slate" data-reveal>
+        <div class="lab-tile tile--paper" data-reveal>
           <svg viewBox="0 0 400 300" aria-hidden="true">
-            <polygon points="200,96 296,252 104,252" fill="rgba(241,241,238,0.07)"/>
-            <g class="mov-scale">
-              <circle cx="172" cy="152" r="80" fill="#3434ec" fill-opacity="0.94"/>
-            </g>
-            <g class="mov-drift-a">
-              <circle cx="258" cy="104" r="44" fill="#f1f1ee"/>
-            </g>
-            <g class="mov-drift-b">
-              <rect x="228" y="186" width="94" height="54" fill="#3b3bf0"/>
+            <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="168" cy="150" r="10" fill="currentColor"/>
+            <g class="orbit">
+              <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1"/>
+              <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1"/>
+              <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1"/>
+              <circle cx="294" cy="90" r="22" fill="#2b2be0"/>
+              <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="82" cy="62" r="6" fill="currentColor"/>
             </g>
           </svg>
-          <span class="tile-grain" aria-hidden="true"></span>
-          <span class="tile-label mono">SWC / GenAI — 01</span>
+          <span class="tile-label mono">SWC / GenAI</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ V3 — Mischform ============ -->
+    <section class="section wrap">
+      <div class="register" data-reveal>
+        <span class="mono">V3 — Mischform</span>
+        <span class="line"></span>
+        <span class="mono idx">Hell und farbig im Wechsel</span>
+      </div>
+      <div class="lab-grid">
+
+        <div class="lab-tile tile--ultra" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true" fill="none" stroke="#f1f1ee" stroke-width="2.5" stroke-linecap="round">
+            <line class="eq"    x1="70"  y1="118" x2="70"  y2="182"/>
+            <line class="eq d1" x1="106" y1="96"  x2="106" y2="204"/>
+            <line class="eq d2" x1="142" y1="126" x2="142" y2="174"/>
+            <line class="eq d3" x1="178" y1="66"  x2="178" y2="234"/>
+            <line class="eq d1" x1="214" y1="108" x2="214" y2="192"/>
+            <line class="eq d2" x1="250" y1="132" x2="250" y2="168"/>
+            <line class="eq"    x1="286" y1="88"  x2="286" y2="212"/>
+            <line class="eq d3" x1="322" y1="122" x2="322" y2="178"/>
+          </svg>
+          <span class="tile-label mono">SWC / Sonic — farbig</span>
+        </div>
+
+        <div class="lab-tile tile--paper" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <rect class="sq" style="--r:0deg"  x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <rect class="sq" style="--r:15deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1"/>
+            <rect class="sq" style="--r:30deg" x="134" y="84" width="132" height="132" fill="none" stroke="#2b2be0" stroke-width="2"/>
+            <rect class="sq" style="--r:45deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="200" cy="150" r="6" fill="currentColor"/>
+          </svg>
+          <span class="tile-label mono">SWC / NEO — hell</span>
+        </div>
+
+        <div class="lab-tile tile--black" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <rect x="84" y="64" width="232" height="172" fill="none" stroke="#f1f1ee" stroke-width="1.5"/>
+            <line x1="84" y1="106" x2="316" y2="106" stroke="#f1f1ee" stroke-width="1"/>
+            <line x1="168" y1="106" x2="168" y2="236" stroke="#f1f1ee" stroke-width="1"/>
+            <rect class="build"    x="186" y="126" width="78" height="13" fill="#3b3bf0"/>
+            <rect class="build b2" x="186" y="152" width="112" height="8" fill="rgba(241,241,238,0.4)"/>
+            <rect class="build b3" x="186" y="168" width="88" height="8" fill="rgba(241,241,238,0.28)"/>
+          </svg>
+          <span class="tile-label mono">GEB / Tooling — farbig</span>
+        </div>
+
+        <div class="lab-tile tile--paper" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="168" cy="150" r="10" fill="currentColor"/>
+            <g class="orbit">
+              <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1"/>
+              <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1"/>
+              <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1"/>
+              <circle cx="294" cy="90" r="22" fill="#2b2be0"/>
+              <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="82" cy="62" r="6" fill="currentColor"/>
+            </g>
+          </svg>
+          <span class="tile-label mono">SWC / GenAI — hell</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ V4 — Analoge Schicht ============ -->
+    <section class="section wrap" style="padding-bottom: var(--section-gap)">
+      <div class="register" data-reveal>
+        <span class="mono">V4 — Analoge Schicht</span>
+        <span class="line"></span>
+        <span class="mono idx">Korn · Druckversatz · Halbton</span>
+      </div>
+      <div class="lab-grid">
+
+        <!-- a: strong grain, light -->
+        <div class="lab-tile tile--paper" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <rect class="sq" style="--r:9deg"  x="124" y="74" width="152" height="152" fill="#2b2be0"/>
+            <rect class="sq" style="--r:-5deg" x="118" y="68" width="164" height="164" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span class="grain--paper" aria-hidden="true"></span>
+          <span class="tile-label mono">a — Korn stark, hell</span>
+        </div>
+
+        <!-- b: strong grain, dark -->
+        <div class="lab-tile tile--navy" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <rect class="sq" style="--r:9deg"  x="124" y="74" width="152" height="152" fill="#3434ec"/>
+            <rect class="sq" style="--r:-5deg" x="118" y="68" width="164" height="164" fill="none" stroke="#f1f1ee" stroke-width="2"/>
+          </svg>
+          <span class="grain--strong" aria-hidden="true"></span>
+          <span class="tile-label mono">b — Korn stark, farbig</span>
+        </div>
+
+        <!-- c: riso misregistration -->
+        <div class="lab-tile tile--paper" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <rect x="129" y="70" width="152" height="152" fill="#2b2be0" fill-opacity="0.38" transform="rotate(9 200 150)"/>
+            <rect class="sq" style="--r:9deg" x="122" y="77" width="152" height="152" fill="#2b2be0"/>
+            <rect x="120" y="70" width="164" height="164" fill="none" stroke="currentColor" stroke-opacity="0.25" stroke-width="1.5" transform="rotate(-5 200 150)"/>
+            <rect class="sq" style="--r:-5deg" x="117" y="66" width="164" height="164" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span class="grain--paper" aria-hidden="true" style="opacity:0.16"></span>
+          <span class="tile-label mono">c — Druckversatz (Riso)</span>
+        </div>
+
+        <!-- d: halftone -->
+        <div class="lab-tile tile--paper" data-reveal>
+          <svg viewBox="0 0 400 300" aria-hidden="true">
+            <defs>
+              <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse">
+                <circle cx="2.5" cy="2.5" r="1.7" fill="#2b2be0"/>
+              </pattern>
+            </defs>
+            <rect class="sq" style="--r:9deg"  x="124" y="74" width="152" height="152" fill="url(#dots)" stroke="#2b2be0" stroke-width="1"/>
+            <rect class="sq" style="--r:-5deg" x="118" y="68" width="164" height="164" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <span class="tile-label mono">d — Halbton-Raster</span>
         </div>
 
       </div>
