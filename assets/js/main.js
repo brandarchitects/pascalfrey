@@ -122,6 +122,21 @@
     }
   });
 
+  /* ---------- Awards: collapsed to the current block, expandable ---------- */
+
+  var awardsToggle = document.getElementById("awardsToggle");
+  var awardsList = document.querySelector(".awards");
+  if (awardsToggle && awardsList) {
+    awardsList.classList.add("is-collapsed");
+    awardsToggle.addEventListener("click", function () {
+      var open = !awardsList.classList.toggle("is-collapsed");
+      awardsToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      awardsToggle.textContent = open
+        ? "Weniger anzeigen ↑"
+        : awardsToggle.getAttribute("data-label");
+    });
+  }
+
   /* ---------- Static fallback ---------- */
 
   if (reduceMotion || typeof gsap === "undefined") {
