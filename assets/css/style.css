@@ -1416,6 +1416,19 @@ body.is-loading {
   color: var(--ink);
 }
 
+/* light film grain on every illustration */
+.standin::after,
+.work-preview::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  opacity: 0.14;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 2;
+}
+
 .standin svg {
   position: absolute;
   inset: 0;
@@ -1827,6 +1840,64 @@ body.is-loading {
 
 .prose a:hover {
   color: var(--ultra);
+}
+
+/* ---------- Visual Lab (blueprint, line-draw, generative) ---------- */
+
+.standin .svg-mono {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--muted);
+}
+
+html.js .standin--draw [data-draw] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+html.js .standin--draw [data-fill] {
+  opacity: 0;
+}
+
+.standin canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.lab-note {
+  list-style: none;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.lab-note li {
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--line-soft);
+  display: flex;
+  gap: 1rem;
+}
+.lab-note .k {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  flex: none;
+  width: 7rem;
+  padding-top: 0.2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .standin--draw [data-draw] {
+    stroke-dashoffset: 0;
+  }
+  html.js .standin--draw [data-fill] {
+    opacity: 1;
+  }
 }
 
 /* ---------- Reveal / motion ---------- */

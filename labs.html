@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js");</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Lab — Pascal Frey</title>
+  <meta name="description" content="Internes Visual Lab: Stilvarianten der Case-Illustrationen im Vergleich.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F1F1EE">
+
+  <link rel="icon" href="/public/brand/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/public/brand/favicon-192.png" sizes="192x192" type="image/png">
+
+  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/jetbrains-mono-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="wrap site-header__bar">
+      <a class="wordmark" href="/" aria-label="Pascal Frey — Startseite">
+        <img class="wordmark__crest wordmark__crest--dark" src="/public/brand/wappen-ink.png" alt="" aria-hidden="true" width="474" height="585">
+        <img class="wordmark__crest wordmark__crest--light" src="/public/brand/wappen-light.png" alt="" aria-hidden="true" width="474" height="585">
+        <span>Pascal Frey</span>
+      </a>
+      <nav class="site-nav" aria-label="Hauptnavigation">
+        <a href="/#profil">Profil</a>
+        <a href="/#expertise">Expertise</a>
+        <a href="/arbeiten">Arbeiten</a>
+        <a class="nav-cta" href="/kontakt">Kontakt</a>
+      </nav>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <span class="mono">Navigation</span>
+    <a href="/#profil"><span>Profil</span><span class="mono">01</span></a>
+    <a href="/#expertise"><span>Expertise</span><span class="mono">02</span></a>
+    <a href="/arbeiten"><span>Arbeiten</span><span class="mono">03</span></a>
+    <a href="/kontakt"><span>Kontakt</span><span class="mono">04</span></a>
+    <div class="mobile-menu__foot mono">
+      <span>Zürich, Schweiz</span>
+      <span id="menuClock">—:—</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="page-hero wrap">
+      <p class="eyebrow">Visual Lab — intern</p>
+      <h1 class="display">Drei Ebenen<em>.</em></h1>
+      <p class="lead muted">
+        Dasselbe Motiv — das GenAI-System — in drei Ausbaustufen:
+        konstruiert mit Blueprint-Anmerkungen, animiert als Line-Draw,
+        generativ als lebendes Partikelfeld. Alle Visuals sind zu
+        100&nbsp;Prozent Code, mit leichtem Grain.
+      </p>
+    </section>
+
+    <!-- ============ A — Konstruiert ============ -->
+    <section class="section wrap">
+      <div class="register" data-reveal>
+        <span class="mono">A — Konstruiert</span>
+        <span class="line"></span>
+        <span class="mono idx">Blueprint &amp; Vermassung</span>
+      </div>
+      <div class="case">
+        <div class="case__visual" data-reveal>
+          <div class="standin">
+            <svg viewBox="0 0 400 300" aria-hidden="true">
+              <!-- crop marks -->
+              <g stroke="currentColor" stroke-width="1" opacity="0.45" data-shape>
+                <path d="M24 14 v10 M14 24 h10"/>
+                <path d="M376 14 v10 M376 24 h10"/>
+                <path d="M24 286 v-10 M14 276 h10"/>
+                <path d="M376 286 v-10 M376 276 h10"/>
+              </g>
+              <!-- main orbit -->
+              <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5" data-shape/>
+              <circle cx="168" cy="150" r="10" fill="currentColor" data-shape/>
+              <!-- satellites -->
+              <g class="u" data-shape><circle cx="294" cy="90" r="22" fill="currentColor"/></g>
+              <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5" data-shape/>
+              <circle cx="82" cy="62" r="6" fill="currentColor" data-shape/>
+              <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1" data-shape/>
+              <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1" data-shape/>
+              <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1" data-shape/>
+              <!-- blueprint: diameter measure -->
+              <g opacity="0.6" data-shape>
+                <line x1="88" y1="248" x2="248" y2="248" stroke="currentColor" stroke-width="0.75" stroke-dasharray="3 3"/>
+                <path d="M88 244 v8 M248 244 v8" stroke="currentColor" stroke-width="0.75"/>
+                <text class="svg-mono" x="150" y="241">&#216; 160</text>
+              </g>
+              <!-- blueprint: satellite annotation -->
+              <g opacity="0.6" data-shape>
+                <line x1="294" y1="60" x2="294" y2="42" stroke="currentColor" stroke-width="0.75" stroke-dasharray="3 3"/>
+                <text class="svg-mono" x="276" y="36">R 22 / U</text>
+              </g>
+              <text class="svg-mono" x="24" y="270" data-shape>Fig. A — GenAI / System · 1.5 pt · 1 Akzent</text>
+            </svg>
+            <span class="mono" style="position:absolute;left:1rem;bottom:.75rem;color:var(--muted)">SWC / GenAI — A</span>
+          </div>
+        </div>
+        <div>
+          <div class="case__meta"><span>Variante A</span><span class="sep"></span><span>Statisch</span></div>
+          <h2>Konstruiert, mit Blueprint-Schicht</h2>
+          <div class="copy">
+            <p data-reveal>
+              Die bestehende Formensprache, ergänzt um eine zweite Ebene:
+              Schnittmarken, gestrichelte Masslinien und Mono-Annotationen
+              — die Marke als Bauplan. Die Beschriftung nutzt dieselbe
+              JetBrains Mono wie die Register der Seite.
+            </p>
+          </div>
+          <ul class="lab-note" data-reveal>
+            <li><span class="k">Aufwand</span><span>Minimal — reine SVG-Erweiterung der bestehenden Motive</span></li>
+            <li><span class="k">Wirkung</span><span>Präziser, dokumentarischer; stärkt die Architektur-Metapher</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ B — Animiert ============ -->
+    <section class="section wrap">
+      <div class="register" data-reveal>
+        <span class="mono">B — Animiert</span>
+        <span class="line"></span>
+        <span class="mono idx">Line-Draw beim Einscrollen</span>
+      </div>
+      <div class="case">
+        <div class="case__visual" data-reveal>
+          <div class="standin standin--draw" id="labDraw">
+            <svg viewBox="0 0 400 300" aria-hidden="true">
+              <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5" pathLength="1" data-draw/>
+              <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1" pathLength="1" data-draw/>
+              <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1" pathLength="1" data-draw/>
+              <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1" pathLength="1" data-draw/>
+              <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5" pathLength="1" data-draw/>
+              <circle cx="168" cy="150" r="10" fill="currentColor" data-fill/>
+              <circle cx="82" cy="62" r="6" fill="currentColor" data-fill/>
+              <g class="u" data-fill id="labOrbiter"><circle cx="294" cy="90" r="22" fill="currentColor"/></g>
+            </svg>
+            <span class="mono" style="position:absolute;left:1rem;bottom:.75rem;color:var(--muted)">SWC / GenAI — B</span>
+          </div>
+        </div>
+        <div>
+          <div class="case__meta"><span>Variante B</span><span class="sep"></span><span>Scroll-getrieben</span></div>
+          <h2>Die Zeichnung entsteht vor den Augen</h2>
+          <div class="copy">
+            <p data-reveal>
+              Beim Einscrollen zeichnen sich die Linien selbst — wie ein
+              Entwurf, der gerade entsteht. Danach kreist die
+              Ultramarin-Form langsam weiter um das Zentrum. Erzählt
+              «Marke entsteht aus Präzision», ohne ein Wort zu sagen.
+            </p>
+          </div>
+          <ul class="lab-note" data-reveal>
+            <li><span class="k">Aufwand</span><span>Klein — GSAP ist bereits eingebunden, pro Motiv wenige Zeilen</span></li>
+            <li><span class="k">Wirkung</span><span>Der Premium-Moment beim Scrollen; respektiert Reduced Motion</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ C — Generativ ============ -->
+    <section class="section wrap" style="padding-bottom: var(--section-gap)">
+      <div class="register" data-reveal>
+        <span class="mono">C — Generativ</span>
+        <span class="line"></span>
+        <span class="mono idx">Lebendes Partikelfeld</span>
+      </div>
+      <div class="case">
+        <div class="case__visual" data-reveal>
+          <div class="standin" id="labGen">
+            <canvas id="genCanvas"></canvas>
+            <span class="mono" style="position:absolute;left:1rem;bottom:.75rem;color:var(--muted);z-index:3">SWC / GenAI — C</span>
+          </div>
+        </div>
+        <div>
+          <div class="case__meta"><span>Variante C</span><span class="sep"></span><span>Algorithmisch</span></div>
+          <h2>Das Motiv lebt und reagiert</h2>
+          <div class="copy">
+            <p data-reveal>
+              Ein Partikelfeld, das sich nach denselben Regeln organisiert
+              wie die statischen Motive: Knoten, Verbindungen unter
+              Nachbarn, genau ein Ultramarin-Akzent. Es driftet ruhig,
+              weicht der Maus aus und ist bei jedem Besuch leicht anders
+              — passend zum Thema Generative AI.
+            </p>
+          </div>
+          <ul class="lab-note" data-reveal>
+            <li><span class="k">Aufwand</span><span>Mittel — eigener kleiner Algorithmus pro Motiv, gleiche Systemregeln</span></li>
+            <li><span class="k">Wirkung</span><span>Einzigartig pro Besuch; nur dort einsetzen, wo Bewegung Inhalt ist</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer__inner">
+      <div class="site-footer__legal">
+        <span>© 2026 Pascal Frey — Visual Lab, intern</span>
+        <span><a href="/">Zur Startseite</a></span>
+        <button class="top-link" id="toTop">Nach oben ↑</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/vendor/gsap.min.js" defer></script>
+  <script src="/assets/js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="/assets/js/main.js" defer></script>
+  <script>
+  /* Lab layer: line-draw (B) + generative particle field (C).
+     Runs after the deferred scripts via DOMContentLoaded. */
+  window.addEventListener("DOMContentLoaded", function () {
+    "use strict";
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ----- B: line-draw on scroll, then a slow orbit ----- */
+    if (!reduceMotion && typeof gsap !== "undefined") {
+      gsap.registerPlugin(ScrollTrigger);
+
+      var draw = gsap.timeline({
+        scrollTrigger: { trigger: "#labDraw", start: "top 78%", once: true }
+      });
+      draw.to("#labDraw [data-draw]", {
+        strokeDashoffset: 0,
+        duration: 1.4,
+        ease: "power2.inOut",
+        stagger: 0.18
+      });
+      draw.to("#labDraw [data-fill]", {
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.12
+      }, "-=0.5");
+      draw.add(function () {
+        gsap.to("#labOrbiter", {
+          rotation: 360,
+          duration: 40,
+          repeat: -1,
+          ease: "none",
+          svgOrigin: "168 150"
+        });
+      });
+    }
+
+    /* ----- C: generative particle field ----- */
+    var holder = document.getElementById("labGen");
+    var canvas = document.getElementById("genCanvas");
+    if (!holder || !canvas) return;
+
+    var ctx = canvas.getContext("2d");
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    var W = 0, H = 0, nodes = [], mx = -1e4, my = -1e4;
+    var COUNT = 64, LINK = 78;
+
+    function resize() {
+      W = holder.clientWidth;
+      H = holder.clientHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function seed() {
+      nodes = [];
+      for (var i = 0; i < COUNT; i++) {
+        nodes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: 1.4 + Math.random() * 1.8,
+          ultra: i < 3 /* exactly one accent cluster */
+        });
+      }
+      nodes[0].r = 7;
+      nodes[1].r = 4;
+      nodes[2].r = 3;
+    }
+
+    function step() {
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i];
+        /* gentle drift */
+        n.x += n.vx;
+        n.y += n.vy;
+        /* shy of the pointer */
+        var dx = n.x - mx, dy = n.y - my;
+        var d2 = dx * dx + dy * dy;
+        if (d2 < 8100) {
+          var d = Math.sqrt(d2) || 1;
+          n.x += (dx / d) * 0.6;
+          n.y += (dy / d) * 0.6;
+        }
+        if (n.x < -10) n.x = W + 10; else if (n.x > W + 10) n.x = -10;
+        if (n.y < -10) n.y = H + 10; else if (n.y > H + 10) n.y = -10;
+      }
+    }
+
+    function paint() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.lineWidth = 0.75;
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = i + 1; j < nodes.length; j++) {
+          var a = nodes[i], b = nodes[j];
+          var dx = a.x - b.x, dy = a.y - b.y;
+          var d = Math.sqrt(dx * dx + dy * dy);
+          if (d < LINK) {
+            ctx.strokeStyle = "rgba(20,20,21," + (0.34 * (1 - d / LINK)).toFixed(3) + ")";
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+      for (var k = 0; k < nodes.length; k++) {
+        var n = nodes[k];
+        ctx.fillStyle = n.ultra ? "#2b2be0" : "rgba(20,20,21,0.78)";
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    var rafGen = null, inView = false;
+    function loop() {
+      step();
+      paint();
+      rafGen = inView ? requestAnimationFrame(loop) : null;
+    }
+
+    resize();
+    seed();
+    paint();
+
+    if (!reduceMotion) {
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        if (inView && !rafGen) rafGen = requestAnimationFrame(loop);
+      }, { threshold: 0.1 }).observe(holder);
+
+      holder.addEventListener("pointermove", function (e) {
+        var r = canvas.getBoundingClientRect();
+        mx = e.clientX - r.left;
+        my = e.clientY - r.top;
+      }, { passive: true });
+      holder.addEventListener("pointerleave", function () {
+        mx = -1e4;
+        my = -1e4;
+      }, { passive: true });
+    }
+
+    window.addEventListener("resize", function () {
+      resize();
+      seed();
+      paint();
+    }, { passive: true });
+  });
+  </script>
+</body>
+</html>
