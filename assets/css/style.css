@@ -1822,6 +1822,14 @@ body.menu-open .site-header .burger span {
 .gallery-nav .g-count {
   font-variant-numeric: tabular-nums;
 }
+.g-open {
+  color: var(--on-ink-muted);
+  transition: color 0.3s ease;
+}
+.g-open:hover,
+.g-open:focus-visible {
+  color: var(--on-ink);
+}
 .g-btn {
   width: 3rem;
   height: 3rem;
@@ -1849,6 +1857,138 @@ body.menu-open .site-header .burger span {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+  }
+}
+
+/* ---------- Depth gallery (/galerie): camera ride through images ---------- */
+
+.depth-track {
+  position: relative;
+  background: var(--deep);
+  color: var(--on-ink);
+}
+
+.depth-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  perspective: 1100px;
+  --ga: #2b2be0;
+  --gb: #14148c;
+  transition: --ga 1.2s ease, --gb 1.2s ease;
+}
+
+.depth-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.depth-world {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.depth-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(64vw, 50rem);
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  opacity: 0;
+  overflow: hidden;
+  border: 1px solid var(--line-on-ink);
+  background: rgba(241, 241, 238, 0.03);
+  will-change: opacity;
+}
+.depth-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.depth-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.depth-top {
+  position: absolute;
+  top: 6.25rem;
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  justify-content: space-between;
+  z-index: 5;
+  color: var(--on-ink-muted);
+}
+
+.depth-hud {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  z-index: 5;
+  color: var(--on-ink-muted);
+}
+
+/* static fallback: reduced motion or no JS */
+html:not(.js) .depth-track,
+.depth-track.depth-static {
+  height: auto !important;
+}
+html:not(.js) .depth-stage,
+.depth-static .depth-stage {
+  position: static;
+  height: auto;
+  perspective: none;
+  padding: 8.5rem var(--gutter) 4rem;
+}
+html:not(.js) .depth-world,
+.depth-static .depth-world {
+  position: static;
+  display: grid;
+  gap: 2.5rem;
+}
+html:not(.js) .depth-item,
+.depth-static .depth-item {
+  position: static;
+  opacity: 1;
+  transform: none !important;
+  width: 100%;
+  max-width: 54rem;
+  margin-inline: auto;
+}
+html:not(.js) .depth-top,
+.depth-static .depth-top,
+html:not(.js) .depth-hud,
+.depth-static .depth-hud {
+  position: static;
+  margin: 1rem auto;
+  max-width: 54rem;
+}
+
+@media (max-width: 56rem) {
+  .depth-item {
+    width: min(86vw, 46rem);
+  }
+  .depth-top {
+    top: 5.75rem;
   }
 }
 

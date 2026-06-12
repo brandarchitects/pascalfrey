@@ -36,7 +36,7 @@
   /* ---------- Header: hairline + hide on scroll down ---------- */
 
   var header = document.querySelector(".site-header");
-  var darkHero = document.querySelector(".hero");
+  var darkHero = document.querySelector(".hero, [data-dark-page]");
   var lastY = 0;
 
   function headerTheme() {
@@ -122,6 +122,83 @@
     }
   });
 
+  /* ---------- Ambient palette: the two dominant, clearly separated hues
+     of an image (saturation-weighted hue histogram) as deep ambient
+     HSL tones. Shared by the landing gallery and the depth gallery. */
+
+  function ambientPaletteFrom(imgEl) {
+    function toAmbient(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var l = (max + min) / 2, h = 0, sat = 0;
+      if (max !== min) {
+        var d = max - min;
+        sat = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+        else if (max === g) h = ((b - r) / d + 2) / 6;
+        else h = ((r - g) / d + 4) / 6;
+      }
+      sat = Math.min(0.82, Math.max(0.3, sat * 1.6));
+      l = Math.min(0.46, Math.max(0.28, l));
+      return "hsl(" + Math.round(h * 360) + ", " + Math.round(sat * 100) + "%, " + Math.round(l * 100) + "%)";
+    }
+    try {
+      var S = 32;
+      var c = document.createElement("canvas");
+      c.width = S; c.height = S;
+      var x = c.getContext("2d", { willReadFrequently: true });
+      x.drawImage(imgEl, 0, 0, S, S);
+      var d = x.getImageData(0, 0, S, S).data;
+
+      var BINS = 12;
+      var bins = [];
+      for (var bi = 0; bi < BINS; bi++) bins.push({ r: 0, g: 0, b: 0, w: 0 });
+      var flat = { r: 0, g: 0, b: 0, n: 0 };
+
+      for (var i = 0; i < S * S; i++) {
+        var r = d[i * 4], g = d[i * 4 + 1], b = d[i * 4 + 2];
+        flat.r += r; flat.g += g; flat.b += b; flat.n++;
+        var max = Math.max(r, g, b), min = Math.min(r, g, b);
+        var sat = max === 0 ? 0 : (max - min) / max;
+        if (sat < 0.12 || max < 30) continue; /* skip grey + near-black */
+        var dlt = max - min, h;
+        if (max === r) h = ((g - b) / dlt + (g < b ? 6 : 0)) / 6;
+        else if (max === g) h = ((b - r) / dlt + 2) / 6;
+        else h = ((r - g) / dlt + 4) / 6;
+        var bin = bins[Math.min(BINS - 1, (h * BINS) | 0)];
+        bin.r += r * sat; bin.g += g * sat; bin.b += b * sat; bin.w += sat;
+      }
+
+      var first = bins[0], fi = 0;
+      for (var k = 1; k < BINS; k++) {
+        if (bins[k].w > first.w) { first = bins[k]; fi = k; }
+      }
+      var second = null;
+      for (var m = 0; m < BINS; m++) {
+        var dist = Math.min(Math.abs(m - fi), BINS - Math.abs(m - fi));
+        if (dist < 2) continue; /* must sit clearly apart on the wheel */
+        if (!second || bins[m].w > second.w) second = bins[m];
+      }
+
+      if (first.w > 6) {
+        var c1 = toAmbient(first.r / first.w, first.g / first.w, first.b / first.w);
+        var c2;
+        if (second && second.w > first.w * 0.12) {
+          c2 = toAmbient(second.r / second.w, second.g / second.w, second.b / second.w);
+        } else {
+          c2 = c1.replace(/(\d+)%\)$/, function (_, l2) {
+            return Math.max(18, Math.round(l2 * 0.6)) + "%)";
+          });
+        }
+        return [c1, c2];
+      }
+      var fc = toAmbient(flat.r / flat.n, flat.g / flat.n, flat.b / flat.n);
+      return [fc, fc];
+    } catch (e) {
+      return null;
+    }
+  }
+
   /* ---------- Gallery: the ambient field takes the image's colours ----------
      Samples two zones of the current image (canvas, 32px), boosts them
      to deep ambient tones and feeds them into the blob gradients via
@@ -149,88 +226,6 @@
 
     function gPad(n) { return (n < 10 ? "0" : "") + n; }
 
-    function rgbToAmbient(r, g, b) {
-      r /= 255; g /= 255; b /= 255;
-      var max = Math.max(r, g, b), min = Math.min(r, g, b);
-      var l = (max + min) / 2, h = 0, s = 0;
-      if (max !== min) {
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
-        else if (max === g) h = ((b - r) / d + 2) / 6;
-        else h = ((r - g) / d + 4) / 6;
-      }
-      /* push towards a deep, saturated ambient tone */
-      s = Math.min(0.82, Math.max(0.3, s * 1.6));
-      l = Math.min(0.46, Math.max(0.28, l));
-      return "hsl(" + Math.round(h * 360) + ", " + Math.round(s * 100) + "%, " + Math.round(l * 100) + "%)";
-    }
-
-    function gSample(imgEl, item) {
-      try {
-        var S = 32;
-        var c = document.createElement("canvas");
-        c.width = S; c.height = S;
-        var x = c.getContext("2d", { willReadFrequently: true });
-        x.drawImage(imgEl, 0, 0, S, S);
-        var d = x.getImageData(0, 0, S, S).data;
-
-        /* Saturation-weighted hue histogram over the whole image: the
-           palette becomes the two strongest hues that sit clearly apart
-           on the colour wheel (e.g. blue + orange) — complementary
-           image colours don't cancel out into grey. */
-        var BINS = 12;
-        var bins = [];
-        for (var bi = 0; bi < BINS; bi++) bins.push({ r: 0, g: 0, b: 0, w: 0 });
-        var flat = { r: 0, g: 0, b: 0, n: 0 };
-
-        for (var i = 0; i < S * S; i++) {
-          var r = d[i * 4], g = d[i * 4 + 1], b = d[i * 4 + 2];
-          flat.r += r; flat.g += g; flat.b += b; flat.n++;
-          var max = Math.max(r, g, b), min = Math.min(r, g, b);
-          var sat = max === 0 ? 0 : (max - min) / max;
-          if (sat < 0.12 || max < 30) continue; /* skip grey + near-black */
-          var dlt = max - min, h;
-          if (max === r) h = ((g - b) / dlt + (g < b ? 6 : 0)) / 6;
-          else if (max === g) h = ((b - r) / dlt + 2) / 6;
-          else h = ((r - g) / dlt + 4) / 6;
-          var bin = bins[Math.min(BINS - 1, (h * BINS) | 0)];
-          bin.r += r * sat; bin.g += g * sat; bin.b += b * sat; bin.w += sat;
-        }
-
-        var first = bins[0], fi = 0;
-        for (var k = 1; k < BINS; k++) {
-          if (bins[k].w > first.w) { first = bins[k]; fi = k; }
-        }
-        var second = null;
-        for (var m = 0; m < BINS; m++) {
-          var dist = Math.min(Math.abs(m - fi), BINS - Math.abs(m - fi));
-          if (dist < 2) continue; /* must sit clearly apart on the wheel */
-          if (!second || bins[m].w > second.w) second = bins[m];
-        }
-
-        if (first.w > 6) {
-          var c1 = rgbToAmbient(first.r / first.w, first.g / first.w, first.b / first.w);
-          var c2;
-          if (second && second.w > first.w * 0.12) {
-            c2 = rgbToAmbient(second.r / second.w, second.g / second.w, second.b / second.w);
-          } else {
-            /* single-hue image: second blob = same hue, deeper */
-            c2 = c1.replace(/(\d+)%\)$/, function (_, l) {
-              return Math.max(18, Math.round(l * 0.6)) + "%)";
-            });
-          }
-          item.pal = [c1, c2];
-        } else {
-          /* mostly grey image: ambient from the average tone */
-          var fc = rgbToAmbient(flat.r / flat.n, flat.g / flat.n, flat.b / flat.n);
-          item.pal = [fc, fc];
-        }
-      } catch (e) {
-        item.pal = null;
-      }
-    }
-
     function gApplyPalette(item) {
       if (!item.pal || !gSection) return;
       gSection.style.setProperty("--ga", item.pal[0]);
@@ -246,7 +241,7 @@
       gBusy = true;
 
       var swap = function () {
-        if (item.pal === null) gSample(next, item);
+        if (item.pal === null) item.pal = ambientPaletteFrom(next);
         gApplyPalette(item);
         next.classList.add("is-active");
         next.removeAttribute("aria-hidden");
@@ -290,11 +285,115 @@
     /* initial palette once the first image is ready */
     var first = gImgs[0];
     var gInit0 = function () {
-      gSample(first, gItems[0]);
+      gItems[0].pal = ambientPaletteFrom(first);
       gApplyPalette(gItems[0]);
     };
     if (first.complete && first.naturalWidth) gInit0();
     else first.addEventListener("load", gInit0);
+  }
+
+  /* ---------- Depth gallery (/galerie) ----------
+     Native scroll drives a camera ride through z-staggered images
+     (CSS 3D, no WebGL). The sticky stage stays fixed while the world
+     is pushed towards the viewer; scroll velocity tilts the world and
+     lifts grain + ambient slightly. Falls back to a static image list
+     for reduced motion / no JS. */
+
+  var depthTrack = document.getElementById("depthTrack");
+  if (depthTrack) {
+    var dStage = document.getElementById("depthStage");
+    var dWorld = document.getElementById("depthWorld");
+    var dAmbient = document.getElementById("depthAmbient");
+    var dGrain = dStage ? dStage.querySelector(".hero-grain") : null;
+    var dCap = document.getElementById("depthCaption");
+    var dCount = document.getElementById("depthCount");
+    var dItems = [];
+    dWorld.querySelectorAll(".depth-item").forEach(function (fig) {
+      dItems.push({
+        el: fig,
+        img: fig.querySelector("img"),
+        cap: fig.getAttribute("data-caption") || "",
+        z: 0,
+        pal: null
+      });
+    });
+
+    if (reduceMotion || dItems.length === 0) {
+      depthTrack.classList.add("depth-static");
+    } else {
+      var GAP = 820;
+      var VIEW = 430; /* comfortable viewing distance in front of the camera */
+      var D_OFFS = [[-9, -4], [10, 5], [-7, 6], [8, -6], [-10, 2], [9, 4]];
+      dItems.forEach(function (it, i) {
+        var o = D_OFFS[i % D_OFFS.length];
+        it.z = -i * GAP - VIEW;
+        it.el.style.transform =
+          "translate(-50%, -50%) translate3d(" + o[0] + "vw," + o[1] + "vh," + it.z + "px)";
+      });
+      depthTrack.style.height = dItems.length * 120 + 40 + "vh";
+
+      var dCam = 0, dCamT = 0, dPrev = 0, dActive = -1;
+
+      var depthScroll = function () {
+        var total = depthTrack.offsetHeight - window.innerHeight;
+        var top = depthTrack.getBoundingClientRect().top;
+        var p = Math.min(1, Math.max(0, -top / Math.max(1, total)));
+        dCamT = p * (dItems.length - 1) * GAP;
+      };
+      window.addEventListener("scroll", depthScroll, { passive: true });
+      window.addEventListener("resize", depthScroll, { passive: true });
+      depthScroll();
+
+      var dSetPal = function (it) {
+        var apply = function () {
+          if (!it.pal) it.pal = ambientPaletteFrom(it.img);
+          if (it.pal && dStage) {
+            dStage.style.setProperty("--ga", it.pal[0]);
+            dStage.style.setProperty("--gb", it.pal[1]);
+          }
+        };
+        if (it.img.complete && it.img.naturalWidth) apply();
+        else it.img.addEventListener("load", apply, { once: true });
+      };
+
+      var dPad = function (n) { return (n < 10 ? "0" : "") + n; };
+
+      var depthFrame = function () {
+        dCam += (dCamT - dCam) * 0.075;
+        var vel = dCam - dPrev;
+        dPrev = dCam;
+        var norm = Math.min(1, Math.abs(vel) / 36);
+
+        var tilt = Math.max(-1.6, Math.min(1.6, vel * 0.018));
+        dWorld.style.transform = "rotateX(" + (-tilt).toFixed(3) + "deg) translateZ(" + dCam.toFixed(1) + "px)";
+        if (dAmbient) dAmbient.style.transform = "scale(" + (1 + norm * 0.07).toFixed(3) + ")";
+        if (dGrain) dGrain.style.opacity = (0.3 + norm * 0.2).toFixed(3);
+
+        for (var i = 0; i < dItems.length; i++) {
+          var it = dItems[i];
+          var ahead = -(it.z + dCam); /* px in front of the camera */
+          var o;
+          if (ahead < -80) o = 0;
+          else if (ahead < 160) o = (ahead + 80) / 240; /* flying past */
+          else if (ahead > GAP * 2.3) o = 0;
+          else if (ahead > GAP * 1.45) o = 1 - (ahead - GAP * 1.45) / (GAP * 0.85);
+          else o = 1;
+          it.el.style.opacity = o.toFixed(3);
+          it.el.style.visibility = o <= 0.01 ? "hidden" : "visible";
+        }
+
+        var idx = Math.max(0, Math.min(dItems.length - 1, Math.round(dCam / GAP)));
+        if (idx !== dActive) {
+          dActive = idx;
+          dSetPal(dItems[idx]);
+          if (dCap) dCap.textContent = dItems[idx].cap;
+          if (dCount) dCount.textContent = dPad(idx + 1) + " / " + dPad(dItems.length);
+        }
+
+        requestAnimationFrame(depthFrame);
+      };
+      requestAnimationFrame(depthFrame);
+    }
   }
 
   /* ---------- Static fallback ---------- */
