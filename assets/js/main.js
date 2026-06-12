@@ -1,8 +1,8 @@
 /* Pascal Frey — Studio Ultramarin, Runde 2
-   Motion layer: GSAP + ScrollTrigger. Preloader with counting
-   weight morph, dark poster hero, scroll-driven variable-font
-   wave, floating work previews. Degrades to a static page
-   without JS and honours prefers-reduced-motion. */
+   Motion layer: GSAP + ScrollTrigger. Dark poster hero,
+   scroll-driven variable-font wave, floating work previews.
+   Degrades to a static page without JS and honours
+   prefers-reduced-motion. */
 
 (function () {
   "use strict";
@@ -124,10 +124,7 @@
 
   /* ---------- Static fallback ---------- */
 
-  var preloader = document.getElementById("preloader");
-
   if (reduceMotion || typeof gsap === "undefined") {
-    if (preloader) preloader.remove();
     docEl.classList.remove("js");
     return;
   }
@@ -135,7 +132,7 @@
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: "power3.out" });
 
-  /* ---------- Entrance choreography (released by the preloader) ---------- */
+  /* ---------- Entrance choreography ---------- */
 
   var intro = gsap.timeline({ paused: true });
 
@@ -160,44 +157,9 @@
     );
   }
 
-  /* ---------- Preloader: counter with weight morph, curtain lift ---------- */
+  /* ---------- Entrance: straight onto the live page, no preloader ---------- */
 
-  var introSeen = false;
-  try { introSeen = sessionStorage.getItem("pf-intro-seen") === "1"; } catch (e) {}
-
-  if (preloader && !introSeen) {
-    try { sessionStorage.setItem("pf-intro-seen", "1"); } catch (e) {}
-    document.body.classList.add("is-loading");
-
-    var countEl = document.getElementById("preCount");
-    var countWrap = countEl ? countEl.parentNode : null;
-    var barEl = document.getElementById("preBar");
-    var count = { v: 0 };
-
-    var boot = gsap.timeline();
-    boot.to(count, {
-      v: 100,
-      duration: 1.5,
-      ease: "power2.inOut",
-      onUpdate: function () {
-        var v = Math.round(count.v);
-        if (countEl) countEl.textContent = (v < 10 ? "00" : v < 100 ? "0" : "") + v;
-        if (countWrap) countWrap.style.fontVariationSettings = "'wght' " + (250 + count.v * 4.9).toFixed(0);
-        if (barEl) barEl.style.transform = "scaleX(" + count.v / 100 + ")";
-      }
-    });
-    boot.to(preloader, {
-      yPercent: -100,
-      duration: 0.85,
-      ease: "expo.inOut",
-      onStart: function () { document.body.classList.remove("is-loading"); },
-      onComplete: function () { preloader.remove(); }
-    }, "+=0.12");
-    boot.add(function () { intro.play(); }, "-=0.5");
-  } else {
-    if (preloader) preloader.remove();
-    gsap.delayedCall(0.15, function () { intro.play(); });
-  }
+  gsap.delayedCall(0.15, function () { intro.play(); });
 
   /* ---------- Headline morph: cursor proximity + scroll wave ----------
      One shared weight per char. The scroll wave sets the base weight
@@ -339,22 +301,6 @@
       duration: 1.0,
       delay: parseFloat(el.getAttribute("data-reveal-delay") || 0),
       scrollTrigger: { trigger: el, start: "top 88%", once: true }
-    });
-  });
-
-  /* ---------- Constructivist stand-ins: staggered shape entry ---------- */
-
-  gsap.utils.toArray(".standin").forEach(function (canvas) {
-    var shapes = canvas.querySelectorAll("[data-shape]");
-    if (!shapes.length) return;
-    gsap.set(shapes, { opacity: 0, scale: 0.85, transformOrigin: "50% 50%" });
-    gsap.to(shapes, {
-      opacity: 1,
-      scale: 1,
-      duration: 0.9,
-      stagger: 0.07,
-      ease: "back.out(1.4)",
-      scrollTrigger: { trigger: canvas, start: "top 84%", once: true }
     });
   });
 

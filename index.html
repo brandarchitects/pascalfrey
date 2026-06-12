@@ -68,15 +68,6 @@
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
-  <div class="preloader" id="preloader" aria-hidden="true">
-    <span class="preloader__brand mono">Pascal Frey — Marken, die bleiben</span>
-    <div class="preloader__count">
-      <span id="preCount">000</span>
-      <span class="preloader__unit">%</span>
-    </div>
-    <div class="preloader__bar"><i id="preBar"></i></div>
-  </div>
-
   <header class="site-header">
     <div class="wrap site-header__bar">
       <a class="wordmark" href="/" aria-label="Pascal Frey — Startseite">
@@ -310,67 +301,69 @@
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <circle cx="168" cy="150" r="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
           <circle cx="168" cy="150" r="10" fill="currentColor"/>
-          <g class="u"><circle cx="294" cy="90" r="22" fill="currentColor"/></g>
-          <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="82" cy="62" r="6" fill="currentColor"/>
-          <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1"/>
-          <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1"/>
-          <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1"/>
+          <g class="orbit" style="transform-origin: 168px 150px">
+            <line x1="178" y1="145" x2="294" y2="90" stroke="currentColor" stroke-width="1"/>
+            <line x1="177" y1="156" x2="308" y2="212" stroke="currentColor" stroke-width="1"/>
+            <line x1="161" y1="142" x2="82" y2="62" stroke="currentColor" stroke-width="1"/>
+            <circle cx="294" cy="90" r="22" style="fill: var(--tile-accent)"/>
+            <circle cx="308" cy="212" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="82" cy="62" r="6" fill="currentColor"/>
+          </g>
         </svg>
         <span class="mono">SWC / GenAI — 01</span>
       </div>
-      <div class="pv" data-pv="p2">
+      <div class="pv t-navy" data-pv="p2">
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <polygon points="112,238 198,92 284,238" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <g class="u"><polygon points="198,238 256,138 314,238" fill="currentColor"/></g>
-          <polygon points="56,238 104,154 152,238" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <polygon class="rise r2" points="112,238 198,92 284,238" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <g class="idle-a"><polygon class="rise" points="198,238 256,138 314,238" style="fill: var(--tile-accent)"/></g>
+          <polygon class="rise r3" points="56,238 104,154 152,238" fill="none" stroke="currentColor" stroke-width="1.5"/>
           <line x1="32" y1="238" x2="368" y2="238" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="198" cy="58" r="7" fill="currentColor"/>
+          <circle class="set s3" cx="198" cy="58" r="7" fill="currentColor"/>
         </svg>
         <span class="mono">SWC / Interior — 02</span>
       </div>
-      <div class="pv" data-pv="p3">
+      <div class="pv t-ultra" data-pv="p3">
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <line x1="76" y1="184" x2="76" y2="116" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="112" y1="212" x2="112" y2="88" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="148" y1="192" x2="148" y2="108" stroke="currentColor" stroke-width="1.5"/>
-          <g class="u"><rect x="180" y="66" width="8" height="168" fill="currentColor"/></g>
-          <line x1="220" y1="202" x2="220" y2="98" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="256" y1="174" x2="256" y2="126" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="292" y1="222" x2="292" y2="78" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="328" y1="184" x2="328" y2="116" stroke="currentColor" stroke-width="1.5"/>
+          <line class="eq d2" x1="76" y1="184" x2="76" y2="116" stroke="currentColor" stroke-width="2"/>
+          <line class="eq" x1="112" y1="212" x2="112" y2="88" stroke="currentColor" stroke-width="2"/>
+          <line class="eq d1" x1="148" y1="192" x2="148" y2="108" stroke="currentColor" stroke-width="2"/>
+          <rect class="eq d3" x="180" y="66" width="8" height="168" fill="currentColor"/>
+          <line class="eq d1" x1="220" y1="202" x2="220" y2="98" stroke="currentColor" stroke-width="2"/>
+          <line class="eq d2" x1="256" y1="174" x2="256" y2="126" stroke="currentColor" stroke-width="2"/>
+          <line class="eq" x1="292" y1="222" x2="292" y2="78" stroke="currentColor" stroke-width="2"/>
+          <line class="eq d3" x1="328" y1="184" x2="328" y2="116" stroke="currentColor" stroke-width="2"/>
         </svg>
         <span class="mono">SWC / Sonic — 03</span>
       </div>
-      <div class="pv" data-pv="p4">
+      <div class="pv t-slate" data-pv="p4">
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(15 200 150)"/>
-          <g class="u"><rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(30 200 150)"/></g>
-          <rect x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1" transform="rotate(45 200 150)"/>
+          <rect class="sq" style="--r: 0deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <rect class="sq" style="--r: 15deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1"/>
+          <rect class="sq" style="--r: 30deg; stroke: var(--tile-accent)" x="134" y="84" width="132" height="132" fill="none" stroke-width="2"/>
+          <rect class="sq" style="--r: 45deg" x="134" y="84" width="132" height="132" fill="none" stroke="currentColor" stroke-width="1"/>
           <circle cx="200" cy="150" r="6" fill="currentColor"/>
         </svg>
         <span class="mono">SWC / NEO — 04</span>
       </div>
-      <div class="pv" data-pv="p5">
+      <div class="pv t-black" data-pv="p5">
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <rect x="64" y="52" width="272" height="196" fill="none" stroke="currentColor" stroke-width="1.5"/>
           <line x1="64" y1="98" x2="336" y2="98" stroke="currentColor" stroke-width="1"/>
           <line x1="154" y1="98" x2="154" y2="248" stroke="currentColor" stroke-width="1"/>
-          <rect x="80" y="114" width="58" height="42" fill="currentColor"/>
-          <g class="u"><rect x="170" y="114" width="100" height="13" fill="currentColor"/></g>
-          <line x1="170" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="1"/>
-          <line x1="170" y1="172" x2="296" y2="172" stroke="currentColor" stroke-width="1"/>
-          <line x1="170" y1="194" x2="320" y2="194" stroke="currentColor" stroke-width="1"/>
+          <rect x="80" y="114" width="58" height="42" fill="currentColor" opacity="0.9"/>
+          <rect class="build" x="170" y="114" width="100" height="13" style="fill: var(--tile-accent)"/>
+          <line class="build b2" x1="170" y1="150" x2="320" y2="150" stroke="currentColor" stroke-width="1.5"/>
+          <line class="build b3" x1="170" y1="172" x2="296" y2="172" stroke="currentColor" stroke-width="1.5"/>
+          <line class="build b4" x1="170" y1="194" x2="320" y2="194" stroke="currentColor" stroke-width="1.5"/>
         </svg>
         <span class="mono">GEB / Architektur — 05</span>
       </div>
-      <div class="pv" data-pv="p6">
+      <div class="pv t-ultra" data-pv="p6">
         <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <line x1="48" y1="216" x2="352" y2="216" stroke="currentColor" stroke-width="1.5"/>
-          <circle cx="124" cy="174" r="42" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <g class="u"><rect x="180" y="132" width="84" height="84" fill="currentColor"/></g>
-          <polygon points="284,216 322,142 360,216" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <circle class="set" cx="124" cy="174" r="42" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          <g class="idle-b"><rect class="set s2" x="180" y="132" width="84" height="84" style="fill: var(--tile-accent)"/></g>
+          <polygon class="set s3" points="284,216 322,142 360,216" fill="none" stroke="currentColor" stroke-width="1.5"/>
           <circle cx="124" cy="174" r="5" fill="currentColor"/>
         </svg>
         <span class="mono">BA / Founder — 06</span>

@@ -22,6 +22,21 @@ Bewusst ohne Framework: statisches HTML + CSS + Vanilla JS.
 - **SEO:** JSON-LD (`Person`, `BreadcrumbList`), Open Graph, Sitemap, robots.txt, Canonicals
 - **Hosting:** Vercel (statisch, `cleanUrls` via `vercel.json`)
 
+
+## Illustrations-System (V2 «Farbig»)
+
+Die Case-Kacheln (Startseiten-Previews + Arbeiten-Seite) laufen im
+farbigen System: Modifier-Klassen `t-ultra` / `t-navy` / `t-black` /
+`t-slate` auf `.standin` bzw. `.pv` setzen Grund, Zeichenfarbe und
+Akzent (`--tile-accent`); analoges Korn liegt als `::after` darüber.
+Hover-Animationen sind inhaltlich: Equalizer spielt (`.eq`), System
+fächert auf (`.sq`), Netzwerk kreist (`.orbit`), Template füllt sich
+(`.build`), Architektur wächst (`.rise`), Elemente setzen sich (`.set`).
+
+**Fallback V1 «Hell»:** Modifier-Klasse entfernen — die Kachel rendert
+hell (Papier, Tinte, Ultramarin-Akzent). Kompletter V1-Stand gesichert
+im Branch `illustrations-v1-hell`; Vergleichsseite unter `/labs`.
+
 ## Struktur
 
 ```

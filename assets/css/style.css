@@ -917,65 +917,6 @@ body.menu-open .site-header .burger span {
   display: block;
 }
 
-/* ---------- Preloader ---------- */
-
-.preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 400;
-  background: var(--deep);
-  color: var(--on-ink);
-  display: none;
-}
-html.js .preloader {
-  display: block;
-}
-body.is-loading {
-  overflow: hidden;
-}
-
-.preloader__brand {
-  position: absolute;
-  top: 1.4rem;
-  left: var(--gutter);
-  color: var(--on-ink-muted);
-}
-.preloader__count {
-  position: absolute;
-  right: var(--gutter);
-  bottom: clamp(1.25rem, 4vh, 2.75rem);
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-  font-size: clamp(4.5rem, 13vw, 11rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  font-variation-settings: "wght" 250;
-  font-variant-numeric: tabular-nums;
-}
-.preloader__unit {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: var(--on-ink-muted);
-}
-.preloader__bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: rgba(241, 241, 238, 0.12);
-}
-.preloader__bar i {
-  display: block;
-  height: 100%;
-  background: var(--ultra-glow);
-  transform: scaleX(0);
-  transform-origin: left;
-}
-
 /* ---------- Profile ---------- */
 
 .profile {
@@ -1285,6 +1226,9 @@ body.is-loading {
   inset: 0;
   opacity: 0;
   transition: opacity 0.3s var(--ease-out);
+  background: var(--paper-raised);
+  color: var(--ink);
+  --tile-accent: var(--ultra);
 }
 .work-preview .pv.show {
   opacity: 1;
@@ -1300,10 +1244,9 @@ body.is-loading {
   inset: 0;
   width: 100%;
   height: 100%;
-  color: var(--ink);
 }
 .work-preview .u {
-  color: var(--ultra);
+  color: var(--tile-accent);
 }
 
 @media (max-width: 56rem) {
@@ -1406,7 +1349,12 @@ body.is-loading {
   }
 }
 
-/* Constructivist stand-in canvas */
+/* Constructivist stand-in canvas.
+   Tile system V2 «Farbig»: modifier classes t-ultra / t-navy / t-black /
+   t-slate set ground, ink and accent. Fallback V1 «Hell»: remove the
+   modifier class — the tile renders on paper with ink lines and an
+   ultramarine accent (snapshot branch: illustrations-v1-hell). */
+
 .standin {
   position: relative;
   aspect-ratio: 4 / 3;
@@ -1414,19 +1362,175 @@ body.is-loading {
   border: 1px solid var(--line-soft);
   overflow: hidden;
   color: var(--ink);
+  --tile-accent: var(--ultra);
 }
 
-/* light film grain on every illustration */
+/* tile grounds */
+.t-ultra,
+.work-preview .pv.t-ultra {
+  background: #2b2be0;
+  color: #f1f1ee;
+  --tile-accent: #f1f1ee;
+  border-color: transparent;
+}
+.t-navy,
+.work-preview .pv.t-navy {
+  background: #12123e;
+  color: #f1f1ee;
+  --tile-accent: #3434ec;
+  border-color: transparent;
+}
+.t-black,
+.work-preview .pv.t-black {
+  background: #141415;
+  color: #f1f1ee;
+  --tile-accent: #3b3bf0;
+  border-color: transparent;
+}
+.t-slate,
+.work-preview .pv.t-slate {
+  background: #1d1d23;
+  color: #f1f1ee;
+  --tile-accent: #3b3bf0;
+  border-color: transparent;
+}
+
+.t-ultra .mono,
+.t-navy .mono,
+.t-black .mono,
+.t-slate .mono,
+.work-preview .pv.t-ultra .mono,
+.work-preview .pv.t-navy .mono,
+.work-preview .pv.t-black .mono,
+.work-preview .pv.t-slate .mono {
+  color: rgba(241, 241, 238, 0.72);
+}
+
+/* analog grain: fine paper grain on light tiles, strong film grain on colour */
 .standin::after,
-.work-preview::after {
+.work-preview .pv::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
-  opacity: 0.14;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.22;
+  filter: contrast(140%);
   mix-blend-mode: multiply;
   pointer-events: none;
   z-index: 2;
+}
+.t-ultra::after,
+.t-navy::after,
+.t-black::after,
+.t-slate::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.6;
+  filter: contrast(190%);
+  mix-blend-mode: overlay;
+}
+
+/* ---------- Tile motion: meaningful, content-driven ----------
+   Triggers: hovering a standin (arbeiten) or a visible floating
+   preview (.pv.show on the landing page). */
+
+.standin .eq,
+.standin .sq,
+.standin .build,
+.standin .rise,
+.standin .set,
+.pv .eq,
+.pv .sq,
+.pv .build,
+.pv .rise,
+.pv .set,
+.idle-a,
+.idle-b {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Sonic: the equalizer plays */
+.standin:hover .eq,
+.pv.show .eq {
+  animation: tile-eq 0.75s ease-in-out infinite alternate;
+}
+.eq.d1 { animation-duration: 0.55s; animation-delay: -0.2s; }
+.eq.d2 { animation-duration: 0.9s;  animation-delay: -0.45s; }
+.eq.d3 { animation-duration: 0.65s; animation-delay: -0.1s; }
+@keyframes tile-eq {
+  from { transform: scaleY(0.45); }
+  to   { transform: scaleY(1.35); }
+}
+
+/* NEO: the system fans out */
+.sq {
+  transform: rotate(var(--r));
+  transition: transform 1s var(--ease-out);
+}
+.standin:hover .sq,
+.pv.show .sq {
+  transform: rotate(calc(var(--r) * 2.2));
+}
+
+/* GenAI: the network starts orbiting (origin set inline per svg) */
+.orbit { transform-box: view-box; }
+.standin:hover .orbit,
+.pv.show .orbit {
+  animation: tile-orbit 16s linear infinite;
+}
+@keyframes tile-orbit {
+  to { transform: rotate(360deg); }
+}
+
+/* Geberit: the template fills itself */
+.build { transform-origin: left center; }
+.standin:hover .build,
+.pv.show .build {
+  animation: tile-build 0.7s var(--ease-out) backwards;
+}
+.standin:hover .build.b2, .pv.show .build.b2 { animation-delay: 0.18s; }
+.standin:hover .build.b3, .pv.show .build.b3 { animation-delay: 0.36s; }
+.standin:hover .build.b4, .pv.show .build.b4 { animation-delay: 0.54s; }
+@keyframes tile-build {
+  from { transform: scaleX(0); }
+}
+
+/* Interior: the architecture rises from the baseline */
+.rise { transform-origin: center bottom; }
+.standin:hover .rise,
+.pv.show .rise {
+  animation: tile-rise 0.8s var(--ease-out) backwards;
+}
+.standin:hover .rise.r2, .pv.show .rise.r2 { animation-delay: 0.15s; }
+.standin:hover .rise.r3, .pv.show .rise.r3 { animation-delay: 0.3s; }
+@keyframes tile-rise {
+  from { transform: scaleY(0); }
+}
+
+/* Brand Architects: the elements settle into place */
+.standin:hover .set,
+.pv.show .set {
+  animation: tile-set 0.6s var(--ease-out) backwards;
+}
+.standin:hover .set.s2, .pv.show .set.s2 { animation-delay: 0.12s; }
+.standin:hover .set.s3, .pv.show .set.s3 { animation-delay: 0.24s; }
+@keyframes tile-set {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+}
+
+/* quiet idle drift on single accent shapes */
+.idle-a { animation: tile-drift-a 9s ease-in-out infinite alternate; }
+.idle-b { animation: tile-drift-b 12s ease-in-out infinite alternate; }
+@keyframes tile-drift-a {
+  to { transform: translate(4px, -3px); }
+}
+@keyframes tile-drift-b {
+  to { transform: translate(-3px, 2px); }
 }
 
 .standin svg {
@@ -1437,7 +1541,7 @@ body.is-loading {
 }
 
 .standin .u {
-  color: var(--ultra);
+  color: var(--tile-accent);
 }
 
 /* ---------- Dark band: awards + clients ---------- */
@@ -1842,73 +1946,11 @@ body.is-loading {
   color: var(--ultra);
 }
 
-/* ---------- Visual Lab (blueprint, line-draw, generative) ---------- */
-
-.standin .svg-mono {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  fill: var(--muted);
-}
-
-html.js .standin--draw [data-draw] {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-}
-html.js .standin--draw [data-fill] {
-  opacity: 0;
-}
-
-.standin canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.lab-note {
-  list-style: none;
-  margin-top: 1.5rem;
-  font-size: 0.875rem;
-  color: var(--muted);
-}
-.lab-note li {
-  padding: 0.55rem 0;
-  border-top: 1px solid var(--line-soft);
-  display: flex;
-  gap: 1rem;
-}
-.lab-note .k {
-  font-family: var(--mono);
-  font-size: 0.625rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  flex: none;
-  width: 7rem;
-  padding-top: 0.2em;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.js .standin--draw [data-draw] {
-    stroke-dashoffset: 0;
-  }
-  html.js .standin--draw [data-fill] {
-    opacity: 1;
-  }
-}
-
 /* ---------- Reveal / motion ---------- */
 
 html.js [data-reveal] {
   opacity: 0;
   transform: translateY(28px);
-}
-
-html.js .standin [data-shape] {
-  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

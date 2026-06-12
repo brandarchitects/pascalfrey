@@ -63,7 +63,7 @@
     <a href="/#profil"><span>Profil</span><span class="mono">01</span></a>
     <a href="/#expertise"><span>Expertise</span><span class="mono">02</span></a>
     <a href="/arbeiten"><span>Arbeiten</span><span class="mono">03</span></a>
-    <a href="/kontakt"><span>Kontakt</span><span class="mono">05</span></a>
+    <a href="/kontakt"><span>Kontakt</span><span class="mono">04</span></a>
     <div class="mobile-menu__foot mono">
       <span>Zürich, Schweiz</span>
       <span id="menuClock">—:—</span>
@@ -94,16 +94,18 @@
         <div class="case__visual" data-reveal>
           <div class="standin" role="img" aria-label="Kreis-Konstellation — Abstraktion für Generative AI in der Markenführung">
             <svg viewBox="0 0 400 320" aria-hidden="true">
-              <circle data-shape cx="168" cy="164" r="86" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="168" cy="164" r="11" fill="currentColor"/>
-              <g class="u"><circle data-shape cx="296" cy="96" r="24" fill="currentColor"/></g>
-              <circle data-shape cx="312" cy="226" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="80" cy="66" r="6" fill="currentColor"/>
-              <circle data-shape cx="116" cy="272" r="4" fill="currentColor"/>
-              <line data-shape x1="178" y1="159" x2="296" y2="96" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="177" y1="170" x2="312" y2="226" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="161" y1="156" x2="80" y2="66" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="163" y1="174" x2="116" y2="272" stroke="currentColor" stroke-width="1"/>
+              <circle cx="168" cy="164" r="86" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="168" cy="164" r="11" fill="currentColor"/>
+              <g class="orbit" style="transform-origin: 168px 164px">
+                <line x1="178" y1="159" x2="296" y2="96" stroke="currentColor" stroke-width="1"/>
+                <line x1="177" y1="170" x2="312" y2="226" stroke="currentColor" stroke-width="1"/>
+                <line x1="161" y1="156" x2="80" y2="66" stroke="currentColor" stroke-width="1"/>
+                <line x1="163" y1="174" x2="116" y2="272" stroke="currentColor" stroke-width="1"/>
+                <circle cx="296" cy="96" r="24" style="fill: var(--tile-accent)"/>
+                <circle cx="312" cy="226" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="80" cy="66" r="6" fill="currentColor"/>
+                <circle cx="116" cy="272" r="4" fill="currentColor"/>
+              </g>
             </svg>
           </div>
         </div>
@@ -129,13 +131,13 @@
       <!-- Case 2: Interior Branding -->
       <article class="case" id="interior">
         <div class="case__visual" data-reveal>
-          <div class="standin" role="img" aria-label="Dreiecks-Architektur — Abstraktion für Interior Branding">
+          <div class="standin t-navy" role="img" aria-label="Dreiecks-Architektur auf Nachtblau — Abstraktion für Interior Branding">
             <svg viewBox="0 0 400 320" aria-hidden="true">
-              <polygon data-shape points="116,252 204,98 292,252" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <g class="u"><polygon data-shape points="204,252 264,146 324,252" fill="currentColor"/></g>
-              <polygon data-shape points="58,252 108,164 158,252" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="32" y1="252" x2="368" y2="252" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="204" cy="62" r="8" fill="currentColor"/>
+              <polygon class="rise r2" points="116,252 204,98 292,252" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <g class="idle-a"><polygon class="rise" points="204,252 264,146 324,252" style="fill: var(--tile-accent)"/></g>
+              <polygon class="rise r3" points="58,252 108,164 158,252" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="32" y1="252" x2="368" y2="252" stroke="currentColor" stroke-width="1.5"/>
+              <circle class="set s3" cx="204" cy="62" r="8" fill="currentColor"/>
             </svg>
           </div>
         </div>
@@ -162,17 +164,16 @@
       <!-- Case 3: Sonic Branding -->
       <article class="case" id="sonic">
         <div class="case__visual" data-reveal>
-          <div class="standin" role="img" aria-label="Vertikale Linien wie ein Equalizer — Abstraktion für Sonic Branding">
+          <div class="standin t-ultra" role="img" aria-label="Weisse Klangbalken auf Ultramarin — Abstraktion für Sonic Branding">
             <svg viewBox="0 0 400 320" aria-hidden="true">
-              <line data-shape x1="76" y1="196" x2="76" y2="124" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="112" y1="226" x2="112" y2="94" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="148" y1="206" x2="148" y2="114" stroke="currentColor" stroke-width="1.5"/>
-              <g class="u"><rect data-shape x="180" y="70" width="8" height="180" fill="currentColor"/></g>
-              <line data-shape x1="220" y1="216" x2="220" y2="104" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="256" y1="186" x2="256" y2="134" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="292" y1="236" x2="292" y2="84" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="328" y1="196" x2="328" y2="124" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="184" cy="282" r="5" fill="currentColor"/>
+              <line class="eq d2" x1="76" y1="196" x2="76" y2="124" stroke="currentColor" stroke-width="2"/>
+              <line class="eq" x1="112" y1="226" x2="112" y2="94" stroke="currentColor" stroke-width="2"/>
+              <line class="eq d1" x1="148" y1="206" x2="148" y2="114" stroke="currentColor" stroke-width="2"/>
+              <rect class="eq d3" x="180" y="70" width="8" height="180" fill="currentColor"/>
+              <line class="eq d1" x1="220" y1="216" x2="220" y2="104" stroke="currentColor" stroke-width="2"/>
+              <line class="eq d2" x1="256" y1="186" x2="256" y2="134" stroke="currentColor" stroke-width="2"/>
+              <line class="eq" x1="292" y1="236" x2="292" y2="84" stroke="currentColor" stroke-width="2"/>
+              <line class="eq d3" x1="328" y1="196" x2="328" y2="124" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
         </div>
@@ -197,13 +198,13 @@
       <!-- Case 4: NEO Visual System -->
       <article class="case" id="neo">
         <div class="case__visual" data-reveal>
-          <div class="standin" role="img" aria-label="Rotierte Quadrate — Abstraktion für das Visual System NEO">
+          <div class="standin t-slate" role="img" aria-label="Rotierte Quadrate auf Schiefer — Abstraktion für das Visual System NEO">
             <svg viewBox="0 0 400 320" aria-hidden="true">
-              <rect data-shape x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <rect data-shape x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1.5" transform="rotate(15 200 160)"/>
-              <g class="u"><rect data-shape x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(30 200 160)"/></g>
-              <rect data-shape x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1" transform="rotate(45 200 160)"/>
-              <circle data-shape cx="200" cy="160" r="6" fill="currentColor"/>
+              <rect class="sq" style="--r: 0deg" x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect class="sq" style="--r: 15deg" x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1"/>
+              <rect class="sq" style="--r: 30deg; stroke: var(--tile-accent)" x="130" y="90" width="140" height="140" fill="none" stroke-width="2"/>
+              <rect class="sq" style="--r: 45deg" x="130" y="90" width="140" height="140" fill="none" stroke="currentColor" stroke-width="1"/>
+              <circle cx="200" cy="160" r="6" fill="currentColor"/>
             </svg>
           </div>
         </div>
@@ -230,18 +231,17 @@
       <!-- Case 5: Geberit -->
       <article class="case" id="geberit">
         <div class="case__visual" data-reveal>
-          <div class="standin" role="img" aria-label="Wireframe-Skizze — Abstraktion für Geberit Markenarchitektur">
+          <div class="standin t-black" role="img" aria-label="Wireframe-Skizze auf Schwarz — Abstraktion für Geberit Markenarchitektur">
             <svg viewBox="0 0 400 320" aria-hidden="true">
-              <rect data-shape x="64" y="56" width="272" height="208" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <line data-shape x1="64" y1="104" x2="336" y2="104" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="154" y1="104" x2="154" y2="264" stroke="currentColor" stroke-width="1"/>
-              <rect data-shape x="80" y="120" width="58" height="44" fill="currentColor"/>
-              <g class="u"><rect data-shape x="170" y="120" width="100" height="13" fill="currentColor"/></g>
-              <line data-shape x1="170" y1="156" x2="320" y2="156" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="170" y1="178" x2="296" y2="178" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="170" y1="200" x2="320" y2="200" stroke="currentColor" stroke-width="1"/>
-              <line data-shape x1="170" y1="222" x2="272" y2="222" stroke="currentColor" stroke-width="1"/>
-              <circle data-shape cx="103" cy="236" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="64" y="56" width="272" height="208" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="64" y1="104" x2="336" y2="104" stroke="currentColor" stroke-width="1"/>
+              <line x1="154" y1="104" x2="154" y2="264" stroke="currentColor" stroke-width="1"/>
+              <rect x="80" y="120" width="58" height="44" fill="currentColor" opacity="0.9"/>
+              <rect class="build" x="170" y="120" width="100" height="13" style="fill: var(--tile-accent)"/>
+              <line class="build b2" x1="170" y1="156" x2="320" y2="156" stroke="currentColor" stroke-width="1.5"/>
+              <line class="build b3" x1="170" y1="178" x2="296" y2="178" stroke="currentColor" stroke-width="1.5"/>
+              <line class="build b4" x1="170" y1="200" x2="320" y2="200" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="103" cy="236" r="9" fill="none" stroke="currentColor" stroke-width="1.5"/>
             </svg>
           </div>
         </div>
@@ -268,14 +268,14 @@
       <!-- Case 6: Brand Architects -->
       <article class="case" id="brand-architects">
         <div class="case__visual" data-reveal>
-          <div class="standin" role="img" aria-label="Kreis, Quadrat und Dreieck im Gleichgewicht — Abstraktion für Brand Architects">
+          <div class="standin t-ultra" role="img" aria-label="Kreis, Quadrat und Dreieck auf Ultramarin — Abstraktion für Brand Architects">
             <svg viewBox="0 0 400 320" aria-hidden="true">
-              <line data-shape x1="48" y1="230" x2="352" y2="230" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="124" cy="186" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <g class="u"><rect data-shape x="180" y="142" width="88" height="88" fill="currentColor"/></g>
-              <polygon data-shape points="288,230 326,154 364,230" fill="none" stroke="currentColor" stroke-width="1.5"/>
-              <circle data-shape cx="124" cy="186" r="5" fill="currentColor"/>
-              <line data-shape x1="200" y1="278" x2="260" y2="278" stroke="currentColor" stroke-width="1"/>
+              <line x1="48" y1="230" x2="352" y2="230" stroke="currentColor" stroke-width="1.5"/>
+              <circle class="set" cx="124" cy="186" r="44" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <g class="idle-b"><rect class="set s2" x="180" y="142" width="88" height="88" style="fill: var(--tile-accent)"/></g>
+              <polygon class="set s3" points="288,230 326,154 364,230" fill="none" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="124" cy="186" r="5" fill="currentColor"/>
+              <line x1="200" y1="278" x2="260" y2="278" stroke="currentColor" stroke-width="1"/>
             </svg>
           </div>
         </div>
