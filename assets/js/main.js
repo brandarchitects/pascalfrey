@@ -122,6 +122,181 @@
     }
   });
 
+  /* ---------- Gallery: the ambient field takes the image's colours ----------
+     Samples two zones of the current image (canvas, 32px), boosts them
+     to deep ambient tones and feeds them into the blob gradients via
+     registered custom properties (--ga/--gb), which transition smoothly.
+     Works without GSAP: crossfade and scale are plain CSS transitions. */
+
+  var galleryStage = document.getElementById("galleryStage");
+  if (galleryStage) {
+    var gSection = document.getElementById("galerie");
+    var gFrame = document.getElementById("galleryFrame");
+    var gImgs = gFrame.querySelectorAll(".g-img");
+    var gCap = document.getElementById("galleryCaption");
+    var gCount = document.getElementById("galleryCount");
+    var gItems = [];
+    document.querySelectorAll("#galleryData li").forEach(function (li) {
+      gItems.push({
+        src: li.getAttribute("data-src"),
+        cap: li.getAttribute("data-caption") || "",
+        alt: li.getAttribute("data-alt") || "",
+        pal: null
+      });
+    });
+
+    var gCur = 0, gActive = 0, gBusy = false;
+
+    function gPad(n) { return (n < 10 ? "0" : "") + n; }
+
+    function rgbToAmbient(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var l = (max + min) / 2, h = 0, s = 0;
+      if (max !== min) {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+        else if (max === g) h = ((b - r) / d + 2) / 6;
+        else h = ((r - g) / d + 4) / 6;
+      }
+      /* push towards a deep, saturated ambient tone */
+      s = Math.min(0.82, Math.max(0.3, s * 1.6));
+      l = Math.min(0.46, Math.max(0.28, l));
+      return "hsl(" + Math.round(h * 360) + ", " + Math.round(s * 100) + "%, " + Math.round(l * 100) + "%)";
+    }
+
+    function gSample(imgEl, item) {
+      try {
+        var S = 32;
+        var c = document.createElement("canvas");
+        c.width = S; c.height = S;
+        var x = c.getContext("2d", { willReadFrequently: true });
+        x.drawImage(imgEl, 0, 0, S, S);
+        var d = x.getImageData(0, 0, S, S).data;
+
+        /* Saturation-weighted hue histogram over the whole image: the
+           palette becomes the two strongest hues that sit clearly apart
+           on the colour wheel (e.g. blue + orange) — complementary
+           image colours don't cancel out into grey. */
+        var BINS = 12;
+        var bins = [];
+        for (var bi = 0; bi < BINS; bi++) bins.push({ r: 0, g: 0, b: 0, w: 0 });
+        var flat = { r: 0, g: 0, b: 0, n: 0 };
+
+        for (var i = 0; i < S * S; i++) {
+          var r = d[i * 4], g = d[i * 4 + 1], b = d[i * 4 + 2];
+          flat.r += r; flat.g += g; flat.b += b; flat.n++;
+          var max = Math.max(r, g, b), min = Math.min(r, g, b);
+          var sat = max === 0 ? 0 : (max - min) / max;
+          if (sat < 0.12 || max < 30) continue; /* skip grey + near-black */
+          var dlt = max - min, h;
+          if (max === r) h = ((g - b) / dlt + (g < b ? 6 : 0)) / 6;
+          else if (max === g) h = ((b - r) / dlt + 2) / 6;
+          else h = ((r - g) / dlt + 4) / 6;
+          var bin = bins[Math.min(BINS - 1, (h * BINS) | 0)];
+          bin.r += r * sat; bin.g += g * sat; bin.b += b * sat; bin.w += sat;
+        }
+
+        var first = bins[0], fi = 0;
+        for (var k = 1; k < BINS; k++) {
+          if (bins[k].w > first.w) { first = bins[k]; fi = k; }
+        }
+        var second = null;
+        for (var m = 0; m < BINS; m++) {
+          var dist = Math.min(Math.abs(m - fi), BINS - Math.abs(m - fi));
+          if (dist < 2) continue; /* must sit clearly apart on the wheel */
+          if (!second || bins[m].w > second.w) second = bins[m];
+        }
+
+        if (first.w > 6) {
+          var c1 = rgbToAmbient(first.r / first.w, first.g / first.w, first.b / first.w);
+          var c2;
+          if (second && second.w > first.w * 0.12) {
+            c2 = rgbToAmbient(second.r / second.w, second.g / second.w, second.b / second.w);
+          } else {
+            /* single-hue image: second blob = same hue, deeper */
+            c2 = c1.replace(/(\d+)%\)$/, function (_, l) {
+              return Math.max(18, Math.round(l * 0.6)) + "%)";
+            });
+          }
+          item.pal = [c1, c2];
+        } else {
+          /* mostly grey image: ambient from the average tone */
+          var fc = rgbToAmbient(flat.r / flat.n, flat.g / flat.n, flat.b / flat.n);
+          item.pal = [fc, fc];
+        }
+      } catch (e) {
+        item.pal = null;
+      }
+    }
+
+    function gApplyPalette(item) {
+      if (!item.pal || !gSection) return;
+      gSection.style.setProperty("--ga", item.pal[0]);
+      gSection.style.setProperty("--gb", item.pal[1]);
+    }
+
+    function gShow(i, instant) {
+      if (gBusy) return;
+      i = (i + gItems.length) % gItems.length;
+      var item = gItems[i];
+      var next = gImgs[1 - gActive];
+      var prev = gImgs[gActive];
+      gBusy = true;
+
+      var swap = function () {
+        if (item.pal === null) gSample(next, item);
+        gApplyPalette(item);
+        next.classList.add("is-active");
+        next.removeAttribute("aria-hidden");
+        prev.classList.remove("is-active");
+        prev.setAttribute("aria-hidden", "true");
+        if (gCap) gCap.textContent = item.cap;
+        if (gCount) gCount.textContent = gPad(i + 1) + " / " + gPad(gItems.length);
+        gActive = 1 - gActive;
+        gCur = i;
+        /* preload the neighbour */
+        var pre = new Image();
+        pre.src = gItems[(i + 1) % gItems.length].src;
+        setTimeout(function () { gBusy = false; }, instant ? 0 : 500);
+      };
+
+      next.alt = item.alt;
+      if (next.getAttribute("src") === item.src && next.complete) {
+        swap();
+      } else {
+        next.onload = swap;
+        next.onerror = function () { gBusy = false; };
+        next.src = item.src;
+      }
+    }
+
+    var gPrev = document.getElementById("galleryPrev");
+    var gNext = document.getElementById("galleryNext");
+    if (gPrev) gPrev.addEventListener("click", function () { gShow(gCur - 1); });
+    if (gNext) gNext.addEventListener("click", function () { gShow(gCur + 1); });
+
+    /* swipe */
+    var gDownX = null;
+    gFrame.addEventListener("pointerdown", function (e) { gDownX = e.clientX; }, { passive: true });
+    gFrame.addEventListener("pointerup", function (e) {
+      if (gDownX === null) return;
+      var dx = e.clientX - gDownX;
+      gDownX = null;
+      if (Math.abs(dx) > 40) gShow(gCur + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    /* initial palette once the first image is ready */
+    var first = gImgs[0];
+    var gInit0 = function () {
+      gSample(first, gItems[0]);
+      gApplyPalette(gItems[0]);
+    };
+    if (first.complete && first.naturalWidth) gInit0();
+    else first.addEventListener("load", gInit0);
+  }
+
   /* ---------- Static fallback ---------- */
 
   if (reduceMotion || typeof gsap === "undefined") {

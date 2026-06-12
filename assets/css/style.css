@@ -1699,6 +1699,159 @@ body.menu-open .site-header .burger span {
   }
 }
 
+/* ---------- Gallery: ambient band, colours sampled from the image ---------- */
+
+@property --ga {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2b2be0;
+}
+@property --gb {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #14148c;
+}
+
+.gallery {
+  position: relative;
+  margin-top: var(--section-gap);
+  padding-block: calc(var(--section-gap) / 1.6);
+  background: var(--deep);
+  color: var(--on-ink);
+  overflow: hidden;
+  --ga: #2b2be0;
+  --gb: #14148c;
+  transition: --ga 1.4s ease, --gb 1.4s ease;
+}
+.gallery .register {
+  position: relative;
+  z-index: 1;
+  border-bottom-color: var(--line-on-ink);
+}
+.gallery .register .idx {
+  color: var(--on-ink-muted);
+}
+
+.gallery-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.g-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  will-change: transform;
+  transform: translateZ(0);
+}
+.g-blob--a {
+  width: 48vmax;
+  height: 48vmax;
+  left: -10%;
+  top: -28%;
+  background: radial-gradient(circle at 40% 40%, var(--ga), transparent 68%);
+  opacity: 0.52;
+  animation: drift-a 26s ease-in-out infinite alternate;
+}
+.g-blob--b {
+  width: 42vmax;
+  height: 42vmax;
+  right: -12%;
+  bottom: -32%;
+  background: radial-gradient(circle at 55% 45%, var(--gb), transparent 70%);
+  opacity: 0.46;
+  animation: drift-b 32s ease-in-out infinite alternate;
+}
+
+.gallery-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+}
+
+.gallery-frame {
+  position: relative;
+  width: min(54rem, 100%);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line-on-ink);
+  background: rgba(241, 241, 238, 0.03);
+  touch-action: pan-y;
+}
+.gallery-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.85s ease, transform 1.3s var(--ease-out);
+}
+.gallery-frame img.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+/* analog grain over the image, like the hero */
+.gallery-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.85'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.gallery-meta {
+  width: min(54rem, 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  color: var(--on-ink-muted);
+}
+.gallery-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.gallery-nav .g-count {
+  font-variant-numeric: tabular-nums;
+}
+.g-btn {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--line-on-ink);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-ink);
+  font-size: 1rem;
+  line-height: 1;
+  transition: background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+.g-btn:hover,
+.g-btn:focus-visible {
+  background: var(--ultra);
+  border-color: var(--ultra);
+}
+
+@media (max-width: 56rem) {
+  .gallery-frame {
+    aspect-ratio: 4 / 3;
+  }
+  .gallery-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
 /* ---------- Contact ---------- */
 
 .contact {
