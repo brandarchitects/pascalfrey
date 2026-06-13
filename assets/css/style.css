@@ -1456,11 +1456,13 @@ body.menu-open .site-header .burger span {
 .standin .build,
 .standin .rise,
 .standin .set,
+.standin .ripple,
 .pv .eq,
 .pv .sq,
 .pv .build,
 .pv .rise,
 .pv .set,
+.pv .ripple,
 .idle-a,
 .idle-b {
   transform-box: fill-box;
@@ -1478,6 +1480,19 @@ body.menu-open .site-header .burger span {
 @keyframes tile-eq {
   from { transform: scaleY(0.45); }
   to   { transform: scaleY(1.35); }
+}
+
+/* Wüest Partner: impact ripples outward */
+.standin:hover .ripple,
+.pv.show .ripple {
+  animation: tile-ripple 2.6s ease-out infinite;
+}
+.ripple.r2 { animation-delay: 0.28s; }
+.ripple.r3 { animation-delay: 0.56s; }
+@keyframes tile-ripple {
+  0% { transform: scale(0.5); opacity: 0; }
+  35% { opacity: 0.95; }
+  100% { transform: scale(1.14); opacity: 0; }
 }
 
 /* NEO: the system fans out */
