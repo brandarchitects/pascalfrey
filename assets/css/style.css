@@ -53,6 +53,8 @@
   --gutter: clamp(1.25rem, 4vw, 4rem);
   --section-gap: clamp(6rem, 13vh, 11rem);
 
+  --radius: 5px;
+
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -953,6 +955,7 @@ body.menu-open .site-header .burger span {
   position: relative;
   max-width: 21rem;
   overflow: hidden;
+  border-radius: var(--radius);
 }
 
 .portrait img {
@@ -1215,6 +1218,7 @@ body.menu-open .site-header .burger span {
   overflow: hidden;
   background: var(--paper-raised);
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   box-shadow: 0 24px 64px -16px rgba(20, 20, 21, 0.35);
   will-change: transform;
 }
@@ -1361,6 +1365,7 @@ body.menu-open .site-header .burger span {
   background: var(--paper-raised);
   border: 1px solid var(--line-soft);
   overflow: hidden;
+  border-radius: var(--radius);
   color: var(--ink);
   --tile-accent: var(--ultra);
 }
