@@ -1638,7 +1638,7 @@ body.menu-open .site-header .burger span {
 }
 
 /* collapsed by default (JS only): the current-year block stays visible */
-html.js .awards.is-collapsed li:nth-child(n + 6) {
+html.js .awards.is-collapsed li:nth-child(n + 8) {
   display: none;
 }
 
